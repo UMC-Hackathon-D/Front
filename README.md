@@ -178,3 +178,4 @@
 https://www.figma.com/design/uk9cNi1saPpTxzehCxKY2g/Untitled?node-id=0-1&p=f&t=Gvoy5LOXBLsceFNZ-0
 
 ## ⭐️ 파트 분배
+<img width="707" alt="스크린샷 2024-12-17 오후 4 49 20" src="https://github.com/user-attachments/assets/6656ef08-cb28-4c2d-8ff6-b032b5abb3e9" />
