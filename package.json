@@ -13,12 +13,14 @@
     "@hookform/resolvers": "^3.9.1",
     "@tanstack/react-query": "^5.62.7",
     "axios": "^1.7.9",
+    "pixel-borders": "^1.1.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-hook-form": "^7.54.1",
     "react-router-dom": "^7.0.2",
     "styled-components": "^6.1.13",
     "styled-reset": "^4.5.2",
+    "vite-plugin-svgr": "^4.3.0",
     "zod": "^3.24.1"
   },
   "devDependencies": {

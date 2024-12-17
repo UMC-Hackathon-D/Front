@@ -1,5 +1,6 @@
 import { createGlobalStyle } from "styled-components";
 import { reset } from "styled-reset";
+import "@app/styles/pixelBorder.scss";
 
 const GlobalStyles = createGlobalStyle`
     ${reset}
