@@ -172,3 +172,9 @@
 -   `widgets` : 독립적으로 사용할 수 있는 컴포넌트
 
 이 중 , **해당 서비스에는 비즈니스적 가치를 가지는 기능 단위 (like ,review , product rating 등)이 포함되지 않고 , 특정 도메인 데이터의 상태를 관리할 필요가 없다고 판단**하여 entities 및 features 폴더 구조는 사용하지 않기로 결정했습니다.
+
+## ⭐️ 화면 분석
+
+https://www.figma.com/design/uk9cNi1saPpTxzehCxKY2g/Untitled?node-id=0-1&p=f&t=Gvoy5LOXBLsceFNZ-0
+
+## ⭐️ 파트 분배
