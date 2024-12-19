@@ -7,3 +7,11 @@
         $border-color: #000000
     );
 }
+
+.pixel-timer {
+    @include pixel-borders(
+        $corner-size: 2,
+        $border-size: 2px,
+        $border-color: #000000
+    );
+}
