@@ -12,7 +12,7 @@ const cartItems = [
         title: "Empty Island",
         singer: "greenblue",
         price: "18000",
-        // img: "https://f4.bcbits.com/img/a1472100223_10.jpg",
+        img: undefined,
         amount: 1,
     },
     {

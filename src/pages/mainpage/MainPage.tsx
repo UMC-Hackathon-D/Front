@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import BackgroundImage from "@shared/assets/background_test.svg";
 import { cvh, cvw } from "@shared/utils/unit";
-
 import Logo from "@pages/mainpage/ui/Logo";
 import TextBlock from "@pages/mainpage/ui/TextBlock";
 import Buttons from "@pages/mainpage/ui/Buttons";

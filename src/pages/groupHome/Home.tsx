@@ -1,20 +1,13 @@
-import React from "react";
-import LeftLogo from "@assets/icon/LeftLogo.svg?react";
 import styled from "styled-components";
-import Delete from "@assets/icon/Delete.svg?react";
 import CloseButton from "@assets/icon/CloseButton.svg?react";
-import TextLogo from "@assets/icon/textLogo.svg?react";
-import TopLogo from "@assets/icon/topLogo.svg?react";
-import Update from "@assets/icon/Update.svg?react";
-import RightLogo from "@assets/icon/rightLogo.svg?react";
 import { cvh, cvw } from "@shared/utils/unit";
-import cartItems from "../app/providers/mockData";
 import { useState, useEffect } from "react";
-import Flower1 from "../app/styles/flower1.png";
-import Modal from "../widgets/Modal";
-import { example } from "./groupMember";
+import Modal from "../../widgets/Modal";
+import { example } from "@pages/groupMember/groupMember";
 import { useNavigate } from "react-router-dom";
+
 const mission = [{ id: 1 }, { id: 2 }, { id: 3 }];
+
 export type ChoosenDivProps = {
     width: number;
     height: number;

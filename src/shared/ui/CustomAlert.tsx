@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import theme from "@app/styles/theme";
 
@@ -8,7 +8,11 @@ interface CustomAlertProps {
     onClose?: () => void;
 }
 
-const CustomAlert = ({ message, duration = 3000, onClose }: CustomAlertProps) => {
+const CustomAlert = ({
+    message,
+    duration = 3000,
+    onClose,
+}: CustomAlertProps) => {
     const [visible, setVisible] = useState(true);
 
     useEffect(() => {

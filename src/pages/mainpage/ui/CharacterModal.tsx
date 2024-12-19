@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Modal from "@shared/ui/Modal";
 import Button from "@shared/ui/Button";
 import theme from "@app/styles/theme";
 import styled from "styled-components";
 import CustomAlert from "@shared/ui/CustomAlert";
+import { useNavigate } from "react-router-dom";
+import { cvh, cvw } from "@shared/utils/unit";
 
 interface CharacterModalProps {
     open: boolean;
@@ -17,15 +19,18 @@ const characters = Array.from({ length: 9 }, (_, i) => ({
 }));
 
 const CharacterModal = ({ open, onClose }: CharacterModalProps) => {
-    const [selectedCharacter, setSelectedCharacter] = useState<number | null>(null);
+    const [selectedCharacter, setSelectedCharacter] = useState<number | null>(
+        null
+    );
     const [alertMessage, setAlertMessage] = useState<string>("");
+    const navigate = useNavigate();
 
     const handleSelectCharacter = () => {
         if (selectedCharacter !== null) {
             console.log(`선택한 캐릭터 ID: ${selectedCharacter}`);
             setAlertMessage(`캐릭터 ${selectedCharacter} 선택 완료!`);
             setTimeout(() => setAlertMessage(""), 3000); // 3초 후 Alert 제거
-            onClose();
+            navigate("/groupHome");
         } else {
             setAlertMessage(`캐릭터 선택하셈`);
             setTimeout(() => setAlertMessage(""), 3000);
@@ -35,7 +40,12 @@ const CharacterModal = ({ open, onClose }: CharacterModalProps) => {
     return (
         <>
             {alertMessage && <CustomAlert message={alertMessage} />}
-            <Modal open={open} onClose={onClose}>
+            <Modal
+                open={open}
+                onClose={onClose}
+                width={cvw(370)}
+                height={cvh(277)}
+            >
                 <Content>
                     <Title>캐릭터 선택하기</Title>
 
@@ -44,9 +54,14 @@ const CharacterModal = ({ open, onClose }: CharacterModalProps) => {
                             <CharacterCard
                                 key={character.id}
                                 selected={selectedCharacter === character.id}
-                                onClick={() => setSelectedCharacter(character.id)}
+                                onClick={() =>
+                                    setSelectedCharacter(character.id)
+                                }
                             >
-                                <img src={character.imgUrl} alt={`캐릭터 ${character.id}`} />
+                                <img
+                                    src={character.imgUrl}
+                                    alt={`캐릭터 ${character.id}`}
+                                />
                             </CharacterCard>
                         ))}
                     </CharactersContainer>
@@ -55,7 +70,10 @@ const CharacterModal = ({ open, onClose }: CharacterModalProps) => {
                         <Button bgColor={theme.yellow.y500} onClick={onClose}>
                             취소
                         </Button>
-                        <Button bgColor={theme.red.r500} onClick={handleSelectCharacter}>
+                        <Button
+                            bgColor={theme.red.r500}
+                            onClick={handleSelectCharacter}
+                        >
                             선택
                         </Button>
                     </ButtonContainer>
@@ -72,7 +90,7 @@ const Content = styled.div`
 `;
 
 const Title = styled.h2`
-    font-family: 'NeoDunggeunmo', sans-serif;
+    font-family: "NeoDunggeunmo", sans-serif;
     font-size: 28px;
     text-align: center;
     margin-bottom: 20px;
@@ -90,7 +108,8 @@ const CharacterCard = styled.div<{ selected: boolean }>`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: ${({ selected }) => (selected ? "3px solid #ff0" : "1px solid #ccc")};
+    border: ${({ selected }) =>
+        selected ? "3px solid #ff0" : "1px solid #ccc"};
     border-radius: 12px;
     cursor: pointer;
 
