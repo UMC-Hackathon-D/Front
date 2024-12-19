@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { cvw, cvh } from "@shared/utils/unit";
 import { useRef } from "react";
+import DeleteComponet from "@widgets/DeleteComponent/DeleteComponet";
 const ImgComponent = ({
     img,
     width,
@@ -22,11 +23,13 @@ const ImgComponent = ({
             onMouseOut={() => setIsMouseOn(false)} // 마우스가 벗어날 때 상태 업데이트
         >
             {isMouseOn ? (
-                <ImgContainerDiv
-                    key="hovered"
-                    width={width}
-                    height={height}
-                ></ImgContainerDiv>
+                <div>
+                    <ImgContainerDiv
+                        key="hovered"
+                        width={width}
+                        height={height}
+                    ></ImgContainerDiv>
+                </div>
             ) : (
                 <ImgStyle
                     key="default"
