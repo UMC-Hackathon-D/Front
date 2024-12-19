@@ -1,16 +1,24 @@
 import React from "react";
 import styled from "styled-components";
 import { cvw, cvh } from "@shared/utils/unit";
-const ImgComponent = ({ img }: { img: string }) => {
+const ImgComponent = ({
+    img,
+    width,
+    height,
+}: {
+    img: string;
+    width: number;
+    height: number;
+}) => {
     return (
         <div>
-            <ImgStyle src={img}></ImgStyle>
+            <ImgStyle src={img} width={width} height={height}></ImgStyle>
         </div>
     );
 };
 export default ImgComponent;
 
 const ImgStyle = styled.img`
-    width: ${cvw(206)};
-    height: ${cvh(206)};
+    width: ${(props) => cvw(props.width as number)};
+    height: ${(props) => cvh(props.width as number)};
 `;
