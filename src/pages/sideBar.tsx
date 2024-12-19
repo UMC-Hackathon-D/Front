@@ -1,76 +1,51 @@
-import React from "react";
 import theme from "../app/styles/theme";
 import styled from "styled-components";
 import { cvw, cvh } from "../shared/utils/unit";
-import Bar from "./bar";
-import { Navigate, useNavigate } from "react-router-dom";
+import SideTag from "../widgets/SideTag/SideTag";
+
+const tagArr = [
+    { color: theme.yellow.y500, text: "홈", path: "/groupHome" },
+    {
+        color: theme.red.r500,
+        text: "낭만 모음집",
+        path: "/groupHome/collection",
+    },
+    {
+        color: theme.blue.b500,
+        text: "그룹 멤버 보기",
+        path: "/groupHome/groupMember",
+    },
+];
+
 export default function sideBar() {
-    const navigate = useNavigate();
     return (
         <SideBarDiv>
-            <HomeSideBarDiv
-                onClick={() => {
-                    navigate("/home");
-                }}
-            >
-                홈
-            </HomeSideBarDiv>
-            <NangManCollectionSideBarDiv
-                onClick={() => {
-                    navigate("Collection");
-                }}
-            >
-                낭만 모음집
-            </NangManCollectionSideBarDiv>
-            <MemberSideBarDiv
-                onClick={() => {
-                    navigate("GroupMember");
-                }}
-                style={{}}
-            >
-                그룹 멤버 보기
-            </MemberSideBarDiv>
+            <SideTagBox>
+                {tagArr.map((tag, idx) => (
+                    <SideTag
+                        color={tag.color}
+                        text={tag.text}
+                        path={tag.path}
+                        key={idx}
+                    />
+                ))}
+            </SideTagBox>
         </SideBarDiv>
     );
 }
 
 const SideBarDiv = styled.div`
     background-color: ${({ theme }) => theme.black.b100};
-    width: 280px;
-    height: 874px;
+    width: ${cvw(270)};
+    height: ${cvh(890)};
+    padding-top: ${cvh(91)};
+    flex-shrink: 0; /* 부모 flex 스타일 무시 */
 `;
 
-const HomeSideBarDiv = styled.div.attrs(() => ({ className: "pixel" }))`
-    background-color: ${({ theme }) => theme.yellow.y500};
+const SideTagBox = styled.div`
+    width: 100%;
+    height: ${cvh(250)};
     display: flex;
-    width: 190px;
-    height: 60px;
-    margin-bottom: 5px;
-    justify-content: flex-end;
-    align-items: center;
-    margin-top: 80px;
-    cursor: pointer;
-`;
-
-const NangManCollectionSideBarDiv = styled.div.attrs(() => ({
-    className: "pixel",
-}))`
-    background-color: ${({ theme }) => theme.red.r500};
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    width: 190px;
-    height: 60px;
-    margin-top: 20px;
-    cursor: pointer;
-`;
-const MemberSideBarDiv = styled.div.attrs(() => ({ className: "pixel" }))`
-    background-color: ${({ theme }) => theme.blue.b500};
-    width: 190px;
-    height: 60px;
-    margin-top: 20px;
-    cursor: pointer;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
+    flex-direction: column;
+    gap: ${cvh(34)};
 `;

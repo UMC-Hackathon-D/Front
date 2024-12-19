@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Button from "@shared/ui/Button";
 import theme from "@app/styles/theme";
 import styled from "styled-components";
-import Modal from "@/shared/ui/Modal";
 import GroupModal from "@pages/mainpage/ui/GroupModal";
 import InviteModal from "@pages/mainpage/ui/InviteModal";
 import { cvh, cvw } from "@shared/utils/unit";
@@ -37,8 +36,14 @@ const Buttons = () => {
                 </Example2>
             </ButtonWrapper>
 
-            <GroupModal open={isGroupModalOpen} onClose={() => setIsGroupModalOpen(false)} />
-            <InviteModal open={isInviteModalOpen} onClose={() => setIsInviteModalOpen(false)} />
+            <GroupModal
+                open={isGroupModalOpen}
+                onClose={() => setIsGroupModalOpen(false)}
+            />
+            <InviteModal
+                open={isInviteModalOpen}
+                onClose={() => setIsInviteModalOpen(false)}
+            />
         </>
     );
 };

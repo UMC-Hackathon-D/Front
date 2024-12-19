@@ -1,28 +1,30 @@
 import { Outlet } from "react-router-dom";
-import NavBar from "../../../pages/navBar";
-import SideBar from "../../../pages/sideBar";
+import Header from "../../../pages/Header";
+import SideBar from "../../../pages/SideBar";
+import styled from "styled-components";
+import { cvw, cvh } from "../../../shared/utils/unit";
 const RootLayout = () => {
     return (
-        <div style={{ width: "1440px", height: "1024px" }}>
-            <NavBar />
-            <div style={{ display: "flex" }}>
+        <div>
+            <Header />
+            <FlexBox>
                 <SideBar />
-
-                <div
-                    style={{
-                        display: "flex",
-                        // flexDirection: "column",
-                        // flexWrap: "wrap",
-                        width: "1160px",
-                        justifyContent: "center",
-                        alignItems: "center",
-                    }}
-                >
+                <MainContainer>
                     <Outlet />
-                </div>
-            </div>
+                </MainContainer>
+            </FlexBox>
         </div>
     );
 };
+
+const FlexBox = styled.div`
+    display: flex;
+`;
+
+const MainContainer = styled.main`
+    display: flex;
+    align-items: center;
+    padding: ${cvh(50)} ${cvw(120)};
+`;
 
 export default RootLayout;

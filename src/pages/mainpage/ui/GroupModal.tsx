@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Modal from "@shared/ui/Modal";
 import Button from "@shared/ui/Button";
 import Input from "@shared/ui/Input";
@@ -15,11 +15,10 @@ const GroupModal = ({ open, onClose }: GroupModalProps) => {
     const [nickname, setNickname] = useState("");
     const [groupSize, setGroupSize] = useState(0);
     const [groupCode, setGroupCode] = useState("");
-    console.log(groupSize);
     const handleConfirm = () => {
         // 그룹 모달 닫기
         onClose();
-    };    
+    };
 
     return (
         <Modal open={open} onClose={onClose}>
@@ -91,7 +90,7 @@ const Content = styled.div`
 `;
 
 const Title = styled.h2`
-    font-family: 'NeoDunggeunmo', sans-serif;
+    font-family: "NeoDunggeunmo", sans-serif;
     font-size: 32px;
     text-align: center;
     margin-bottom: 40px;
@@ -119,7 +118,7 @@ const SpanLabel = styled.span`
 `;
 
 const StyledSelect = styled.select`
-    font-family: 'NeoDunggeunmo', sans-serif;
+    font-family: "NeoDunggeunmo", sans-serif;
     font-size: 20px;
     padding: 12px 15px;
     width: 80px;

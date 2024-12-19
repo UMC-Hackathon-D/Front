@@ -1,7 +1,7 @@
-import cartItems from "../app/providers/mockData";
+import cartItems from "../../app/providers/mockData";
 import styled from "styled-components";
 import { useState } from "react";
-import Modal from "../widgets/Modal";
+import Modal from "../../widgets/Modal";
 import CloseButton from "@assets/icon/CloseButton.svg?react";
 type data = {
     id: string;
