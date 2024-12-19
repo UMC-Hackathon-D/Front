@@ -50,19 +50,19 @@ const black = {
 
 // font - size
 const headingFontSize = {
-    h1: "130pt",
-    h2: "120pt",
-    h3: "110pt",
+    h1: "32px",
+    h2: "28px",
+    h3: "24px",
 };
 
 const bodyFontSize = {
-    b1: "100pt",
-    b2: "90pt",
+    b1: "18px",
+    b2: "16px",
 };
 
 const captionFontSize = {
-    c1: "80pt",
-    c2: "70pt",
+    c1: "14px",
+    c2: "12px",
 };
 // --------------------------------------------
 const theme = {
