@@ -21,13 +21,10 @@ const Input = ({ value, onChange, type = "text", min, width = "100%" }: InputPro
 
 export default Input;
 
-const StyledInput = styled.input<{ width?: string }>`
+const StyledInput = styled.input.attrs(() => ({ className: "pixel" }))`
     font-family: 'NeoDunggeunmo', sans-serif;
     font-size: 20px;
-    padding: 12px 15px;
+    padding: 20px 15px;
     width: ${({ width }) => width || "100%"};
-    border: 1px solid #ccc;
-    border-radius: 8px;
     box-sizing: border-box;
-    font-weight: 500;
 `;

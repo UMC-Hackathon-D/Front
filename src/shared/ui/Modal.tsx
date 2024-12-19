@@ -23,5 +23,4 @@ const Modal = ({ id, open, onClose, children }: ModalProps) => {
 export default Modal;
 
 const StyledDialog = styled.dialog.attrs(() => ({ className: "pixel" }))<{ open: boolean }>`
-    margin-top: 200px;
 `;

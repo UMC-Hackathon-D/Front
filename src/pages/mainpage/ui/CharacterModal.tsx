@@ -4,6 +4,7 @@ import Button from "@shared/ui/Button";
 import theme from "@app/styles/theme";
 import styled from "styled-components";
 import CustomAlert from "@shared/ui/CustomAlert";
+import { cvh, cvw } from "@shared/utils/unit";
 
 interface CharacterModalProps {
     open: boolean;
@@ -69,6 +70,8 @@ export default CharacterModal;
 
 const Content = styled.div`
     padding: 20px;
+    width: ${cvh(1000)};
+    height: ${cvw(600)};
 `;
 
 const Title = styled.h2`
@@ -84,19 +87,15 @@ const CharactersContainer = styled.div`
     gap: 15px;
 `;
 
-const CharacterCard = styled.div<{ selected: boolean }>`
+const CharacterCard = styled.div.attrs(() => ({ className: "pixel" }))<{ selected: boolean }>`
     padding: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: ${({ selected }) => (selected ? "3px solid #ff0" : "1px solid #ccc")};
-    border-radius: 12px;
     cursor: pointer;
 
     img {
-        width: 80px;
-        height: 80px;
         object-fit: cover;
         margin-bottom: 10px;
         border-radius: 50%;

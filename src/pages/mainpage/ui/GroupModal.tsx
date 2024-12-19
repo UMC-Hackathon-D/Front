@@ -118,14 +118,12 @@ const SpanLabel = styled.span`
     width: 150px; /* 고정 너비 유지 */
 `;
 
-const StyledSelect = styled.select`
+const StyledSelect = styled.select.attrs(() => ({ className: "pixel" }))`
     font-family: 'NeoDunggeunmo', sans-serif;
     font-size: 20px;
-    padding: 12px 15px;
+    padding: 15px 15px;
     width: 80px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
     box-sizing: border-box;
     background-color: #fff;
-    margin-right: 10px;
+    margin-right: 15px;
 `;
