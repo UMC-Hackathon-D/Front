@@ -2,9 +2,10 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import tsconfigPaths from "vite-tsconfig-paths";
+import svgr from "vite-plugin-svgr";
 
 export default defineConfig({
-    plugins: [react(), tsconfigPaths()],
+    plugins: [react(), tsconfigPaths(), svgr()],
     // 이후 서버와 연동 때 사용
     // server:{
     //     port:3000,
@@ -30,6 +31,10 @@ export default defineConfig({
             {
                 find: "@widgets",
                 replacement: path.resolve(__dirname, "src/widgets"),
+            },
+            {
+                find: "@assets",
+                replacement: path.resolve(__dirname, "src/shared/assets"),
             },
         ],
     },

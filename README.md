@@ -37,7 +37,7 @@
 1. **main** : 최종 배포를 위한 branch. Pull Request를 이용해 develope branch를 최종 merge
 2. **develop** : 배포하기 전 개발 중일 때 각자의 브랜치에서 merge하는 브랜치
 3. **feat / #이슈 번호 / 기능명** : feature 브랜치. 새로운 기능 개발. 개발이 완료되면 develop 브랜치로 병합
-4. **fix / #이슈 번호 / 기능명** : feature 브랜치. 생성 후 버그가 생겼을 때 수정하는 브랜치
+4. **fix / #이슈 번호 / 기능명** : fix 브랜치. 생성 후 버그가 생겼을 때 수정하는 브랜치
 
 -   **git-flow 방식**  
      \* 내가 만들고가 하는 기능이나 문제들을 먼저 issue로 올리고 올린 이슈 넘버를 활용해서 feature/#1-signup 이런식으로 새로운 브런치를 만들어서 기능을 구현하거나 리펙토링 한 다음에 이 브런치 들을 develop 브랜치에 merge 하는 구조
