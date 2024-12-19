@@ -21,6 +21,7 @@ const PersonalDivComonent = ({
     return (
         <div>
             <ImgComponent
+                key={img}
                 img={img}
                 width={width}
                 height={height}
