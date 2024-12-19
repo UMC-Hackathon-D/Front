@@ -18,7 +18,7 @@ const ImgComponent = ({
 };
 export default ImgComponent;
 
-const ImgStyle = styled.img`
+const ImgStyle = styled.img.attrs(() => ({ className: "pixel" }))`
     width: ${(props) => cvw(props.width as number)};
     height: ${(props) => cvh(props.width as number)};
 `;
