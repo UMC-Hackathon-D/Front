@@ -4,14 +4,18 @@ import { cvw, cvh } from "@shared/utils/unit";
 import Close from "@assets/icon/Close.svg?react";
 
 const Modal3 = ({
-    title,
     isOpened,
     children,
+    setIsModalOpened,
 }: {
-    title: string;
     isOpened: boolean;
+    setIsModalOpened: (prev: boolean) => void;
     children: React.ReactNode;
 }) => {
+    if (!isOpened) return null;
+
+    console.log(children);
+
     const dialogRef = useRef<HTMLDialogElement>(null);
 
     useEffect(() => {
@@ -30,8 +34,8 @@ const Modal3 = ({
 
     return (
         <Container ref={dialogRef}>
-            <StyledClose onClick={() => !isOpened} />
-            <Title>{title}</Title>
+            <StyledClose onClick={() => setIsModalOpened((prev) => !prev)} />
+            <Title></Title>
             {children}
         </Container>
     );
@@ -39,7 +43,7 @@ const Modal3 = ({
 
 const Container = styled.dialog.attrs(() => ({ className: "pixel" }))`
     width: ${cvw(996)};
-    height: ${cvh(750)};
+    height: ${cvh(800)};
     padding: ${cvw(34)} ${cvh(34)};
     gap: ${cvh(36)};
     display: flex;

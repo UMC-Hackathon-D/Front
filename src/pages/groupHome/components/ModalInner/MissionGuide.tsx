@@ -1,6 +1,15 @@
 import styled from "styled-components";
 import { cvw, cvh } from "@shared/utils/unit";
-const MissionGuide = ({ mission }: { mission: string }) => {
+import { set } from "react-hook-form";
+const MissionGuide = ({
+    mission,
+    setIsModalOpened,
+    setModalIdx,
+}: {
+    mission: string;
+    setIsModalOpened: (prev: boolean) => void;
+    setIsModaIdx: (prev: number) => void;
+}) => {
     return (
         <Container>
             <Text>
@@ -17,7 +26,15 @@ const MissionGuide = ({ mission }: { mission: string }) => {
                     그럼 파이팅입니다 :)
                 </span>
             </Text>
-            <Button>확인</Button>
+            <Button
+                type={"submit"}
+                onClick={() => {
+                    setIsModalOpened((prev) => !prev);
+                    setModalIdx((prev) => (prev = 0));
+                }}
+            >
+                확인
+            </Button>
         </Container>
     );
 };

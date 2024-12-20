@@ -2,7 +2,15 @@ import styled from "styled-components";
 import { cvh } from "@shared/utils/unit";
 import { useState, useEffect } from "react";
 import MissionCard from "./MissionCard";
-const Mission = () => {
+const Mission = ({
+    name,
+    missionData,
+    setModalIdx,
+}: {
+    name: string;
+    missionData: unknown[];
+    setModalIdx: (prev: number) => void;
+}) => {
     const [time, setTime] = useState<number>(3);
 
     useEffect(() => {
@@ -16,11 +24,11 @@ const Mission = () => {
     }, [time]);
 
     return time === 0 ? (
-        <MissionCard />
+        <MissionCard missionData={missionData} setModalIdx={setModalIdx} />
     ) : (
         <>
             <Text>
-                <span>000 카드를 뽑으셨네요 !</span>
+                <span>{name} 카드를 뽑으셨네요 !</span>
                 <br />
                 <span>이번에는 미션 카드를 뽑아볼까요 ?</span>
             </Text>
