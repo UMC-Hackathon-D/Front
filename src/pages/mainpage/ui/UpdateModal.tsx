@@ -10,21 +10,19 @@ interface UpdateModalProps {
 }
 const UpdateModal = ({ id, open, onClose, name }: UpdateModalProps) => {
     return (
-        <div>
-            <Modal id={id} open={open} onClose={onClose}>
+        <Modal id={id} open={open} onClose={onClose}>
+            <div>
+                <DeleteModalTitle>닉네임 수정하기</DeleteModalTitle>
                 <div>
-                    <DeleteModalTitle>닉네임 수정하기</DeleteModalTitle>
-                    <div>
-                        <NickNameDiv>닉네임</NickNameDiv>
-                        <NickNameInput
-                            type="text"
-                            defaultValue={name}
-                        ></NickNameInput>
-                    </div>
-                    <UpdateButton>수정하기</UpdateButton>
+                    <NickNameDiv>닉네임</NickNameDiv>
+                    <NickNameInput
+                        type="text"
+                        defaultValue={name}
+                    ></NickNameInput>
                 </div>
-            </Modal>
-        </div>
+                <UpdateButton>수정하기</UpdateButton>
+            </div>
+        </Modal>
     );
 };
 export default UpdateModal;

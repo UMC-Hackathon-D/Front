@@ -1,16 +1,29 @@
 import { cvh, cvw } from "@shared/utils/unit";
 import React from "react";
+import ImgComponent from "@widgets/ImgComponent/ImgComponent";
 import styled from "styled-components";
 const GroupMemberComponent = ({
     characterImg,
     name,
+    width,
+    height,
+    review,
 }: {
     characterImg: string;
     name: string;
+    width: number;
+    height: number;
+    review: string;
 }) => {
     return (
         <div>
-            <CharacterImg src={characterImg}></CharacterImg>
+            <ImgComponent
+                key={characterImg}
+                img={characterImg}
+                width={width}
+                height={height}
+                review={review}
+            ></ImgComponent>
             <div>{name}</div>
         </div>
     );

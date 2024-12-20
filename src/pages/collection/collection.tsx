@@ -71,16 +71,6 @@ const EachCharacterDiv = styled.div.attrs(() => ({ className: "pixel" }))`
     column-gap: 10px;
     background-color: ${({ theme }) => theme.black.b100};
 `;
-const DeleteDiv = styled.div`
-    width: 24px;
-    height: 23.99px;
-    cursor: pointer;
-`;
-const UpdateDiv = styled.div`
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-`;
 
 const EachUserNameDiv = styled.div`
     width: 96px;

@@ -4,6 +4,7 @@ import { cvw, cvh } from "@shared/utils/unit";
 import { useRef } from "react";
 import DeleteComponet from "@widgets/DeleteComponent/DeleteComponet";
 import DeleteButton from "@assets/icon/Delete.svg?react";
+import Update from "@assets/icon/Update.svg?react";
 const ImgComponent = ({
     img,
     width,
@@ -29,6 +30,14 @@ const ImgComponent = ({
                     <div>{review}</div>
                     <div>하이</div>
                     {/* 여기에 deletebutton 컴포넌트만 만들면 되는데 거기서 오류남 */}
+                    <ButtonDiv>
+                        <DeleteDiv>
+                            <DeleteButtonDiv />
+                        </DeleteDiv>
+                        <UpdateDiv>
+                            <UpdateButtonDiv />
+                        </UpdateDiv>
+                    </ButtonDiv>
                 </ImgContainerDiv>
             ) : (
                 <ImgStyle
@@ -56,10 +65,32 @@ const ImgContainerDiv = styled.div.attrs(() => ({ className: "pixel" }))<{
     pointer-events: auto;
     cursor: pointer;
 `;
-
 const ImgStyle = styled.img.attrs(() => ({ className: "pixel" }))`
     width: ${(props) => cvw(props.width as number)};
     height: ${(props) => cvh(props.width as number)};
 
+    cursor: pointer;
+`;
+const DeleteButtonDiv = styled(DeleteButton)`
+    width: ${cvw(24)};
+    height: ${cvh(24)};
+`;
+
+const UpdateButtonDiv = styled(Update)`
+    width: ${cvw(24)};
+    height: ${cvh(24)};
+`;
+const ButtonDiv = styled.div`
+    display: flex;
+`;
+const DeleteDiv = styled.div`
+    width: 24px;
+    height: 23.99px;
+    cursor: pointer;
+`;
+
+const UpdateDiv = styled.div`
+    width: ${cvw(24)};
+    height: ${cvh(24)};
     cursor: pointer;
 `;
