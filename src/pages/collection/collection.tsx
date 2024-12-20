@@ -53,7 +53,7 @@ const CharacterDiv = styled.div`
 `;
 const GroupCharacterDiv = styled.div`
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 25px;
 `;
 const EachCharacterDiv = styled.div.attrs(() => ({ className: "pixel" }))`

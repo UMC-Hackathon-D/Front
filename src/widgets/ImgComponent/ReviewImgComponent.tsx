@@ -4,7 +4,7 @@ import { cvw, cvh } from "@shared/utils/unit";
 import DeleteComponet from "@widgets/DeleteComponent/DeleteComponet";
 import DeleteButton from "@assets/icon/Delete.svg?react";
 import Update from "@assets/icon/Update.svg?react";
-const ImgComponent = ({
+const ReviewImgComponent = ({
     img,
     width,
     height,
@@ -49,7 +49,7 @@ const ImgComponent = ({
         </PersonalReviewDiv>
     );
 };
-export default ImgComponent;
+export default ReviewImgComponent;
 
 const PersonalReviewDiv = styled.div`
     pointer-events: auto;
@@ -68,7 +68,7 @@ const PersonalReviewImgDiv = styled.div.attrs(() => ({
 `;
 
 const MissionReviewTitle = styled.div`
-    width: ${cvw(78)};
+    width: ${cvw(150)};
     height: ${cvh(20)};
     font-size: ${({ theme }) => theme.bodyFontSize.b1};
     margin-top: ${cvh(24)};

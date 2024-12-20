@@ -1,6 +1,6 @@
 import React from "react";
 import ContentComponent from "@widgets/ContentComponent/ContentComponent";
-import ImgComponent from "@widgets/ImgComponent/ReviewImgComponent";
+import ReviewImgComponent from "@widgets/ImgComponent/ReviewImgComponent";
 // import DeleteLogo from "@assets/icon/Delete.svg?react";
 // import Update from "@assets/icon/Update.svg?react";
 const PersonalDivComponent = ({
@@ -22,13 +22,13 @@ const PersonalDivComponent = ({
 }) => {
     return (
         <div>
-            <ImgComponent
+            <ReviewImgComponent
                 key={img}
                 img={img}
                 width={width}
                 height={height}
                 review={review}
-            ></ImgComponent>
+            ></ReviewImgComponent>
             <ContentComponent
                 img={img}
                 date={date}
