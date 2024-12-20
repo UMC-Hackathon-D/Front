@@ -1,30 +1,42 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import styled from "styled-components";
 
 interface InputProps {
-    value: string | number;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    value?: string | number;
     type?: string;
-    min?: number;
-    width?: string;  // 너비를 커스터마이징할 수 있도록 추가
+    width?: string;
+    fontSize?: string;
+    height?: string;
 }
 
-const Input = ({ value, onChange, type = "text", min, width = "100%" }: InputProps) => (
-    <StyledInput
-        value={value}
-        onChange={onChange}
-        type={type}
-        min={min}
-        width={width}
-    />
+const Input = forwardRef<HTMLInputElement, InputProps>(
+    ({ value, type = "text", width = "100%", fontSize = "20px", height = "40px" }, ref) => {
+        return (
+            <StyledInput
+                ref={ref}  // ref 전달
+                value={value}  // value 전달
+                type={type}
+                width={width}
+                fontSize={fontSize}
+                height={height}
+            />
+        );
+    }
 );
+
+Input.displayName = "Input"; // forwardRef 사용 시 displayName 설정
 
 export default Input;
 
-const StyledInput = styled.input.attrs(() => ({ className: "pixel" }))`
+const StyledInput = styled.input.attrs(() => ({ className: "pixel" }))<{
+    width: string;
+    fontSize: string;
+    height: string;
+}>`
     font-family: 'NeoDunggeunmo', sans-serif;
-    font-size: 20px;
+    font-size: ${({ fontSize }) => fontSize};
     padding: 20px 15px;
-    width: ${({ width }) => width || "100%"};
+    width: ${({ width }) => width};
+    height: ${({ height }) => height};
     box-sizing: border-box;
 `;

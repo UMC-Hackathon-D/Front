@@ -1,12 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import LeftLogo from "@assets/icon/LeftLogo.svg?react";
-import styled from "styled-components";
-import { cvh, cvw } from "@shared/utils/unit";
 import MainPage from "@pages/mainpage/MainPage";
-
-
-// 예시로 만든 컴포넌트
-// pixel border 적용 예시 및 theme 적용 방법 참고하세요
+import RootLayout from "@app/providers/layout/RootLayout";
+import Home from "@pages/groupHome/Home";
+import Collection from "@pages/collection/collection";
+import GroupMember from "@pages/groupMember/groupMember";
+import PersonalNangMan from "@pages/personalNangMan";
 
 const router = createBrowserRouter([
     {
@@ -16,6 +14,16 @@ const router = createBrowserRouter([
                 index: true,
                 element: <MainPage />,
             },
+        ],
+    },
+    {
+        path: "/groupHome",
+        element: <RootLayout />,
+        children: [
+            { index: true, element: <Home /> },
+            { path: "collection", element: <Collection /> },
+            { path: "collection/:id", element: <PersonalNangMan /> },
+            { path: "groupMember", element: <GroupMember /> },
         ],
     },
 ]);

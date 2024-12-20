@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
+import { cvw, cvh } from "../shared/utils/unit";
 type ModalProps = {
     isOpen: boolean;
     onClose: () => void;
@@ -7,7 +8,7 @@ type ModalProps = {
     width: number;
     height: number;
 };
-import { ChoosenDivProps } from "../pages/Home";
+
 const Modal: React.FC<ModalProps> = ({
     isOpen,
     onClose,
@@ -16,7 +17,6 @@ const Modal: React.FC<ModalProps> = ({
     height,
 }) => {
     const dialogRef = useRef<HTMLDialogElement>(null);
-    console.log(width, height);
 
     React.useEffect(() => {
         const dialog = dialogRef.current;
@@ -34,12 +34,7 @@ const Modal: React.FC<ModalProps> = ({
     };
 
     return (
-        <ModalStyleDialog
-            ref={dialogRef}
-            onCancel={handleClose}
-            width={width}
-            height={height}
-        >
+        <ModalStyleDialog ref={dialogRef} onCancel={handleClose}>
             <ModalDiv>{children}</ModalDiv>
         </ModalStyleDialog>
     );
@@ -48,9 +43,10 @@ const Modal: React.FC<ModalProps> = ({
 export default Modal;
 
 const ModalStyleDialog = styled.dialog.attrs(() => ({ className: "pixel" }))`
-    width: ${(props) => props.width}px;
-    height: ${(props) => props.height}px;
+    width: ${cvw(370)};
+    height: ${cvh(277)};
     position: fixed;
+    flex-shrink: 0;
 `;
 
 const ModalDiv = styled.div`

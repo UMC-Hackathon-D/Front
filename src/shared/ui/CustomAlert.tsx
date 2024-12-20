@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import theme from "@app/styles/theme";
 
@@ -8,7 +8,11 @@ interface CustomAlertProps {
     onClose?: () => void;
 }
 
-const CustomAlert = ({ message, duration = 3000, onClose }: CustomAlertProps) => {
+const CustomAlert = ({
+    message,
+    duration = 3000,
+    onClose,
+}: CustomAlertProps) => {
     const [visible, setVisible] = useState(true);
 
     useEffect(() => {
@@ -27,12 +31,10 @@ const CustomAlert = ({ message, duration = 3000, onClose }: CustomAlertProps) =>
 
 export default CustomAlert;
 
-const AlertBox = styled.div`
+const AlertBox = styled.div.attrs(() => ({ className: "pixel" }))`
     position: fixed;
     background: ${theme.red.r100};
     padding: 12px 24px;
-    border: 2px solid;
-    border-radius: 8px;
     z-index: 1000;
     animation: fadeIn 0.5s ease-in-out;
 
