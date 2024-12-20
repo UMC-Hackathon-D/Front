@@ -1,10 +1,18 @@
 import styled from "styled-components";
 import { cvw, cvh } from "@shared/utils/unit";
 
-const MissionCard = () => {
+const MissionCard = ({
+    missionData,
+    setModalIdx,
+}: {
+    missionData: unknown[];
+    setModalIdx: (prev: number) => void;
+}) => {
+    // 클릭하면 또 돌아가고
+    // 몇 초 뒤에 동작
     return (
         <Container>
-            <Card>1</Card>
+            <Card onClick={() => setModalIdx((prev) => ++prev)}></Card>
             <Card>1</Card>
             <Card>1</Card>
         </Container>

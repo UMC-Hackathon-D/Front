@@ -5,27 +5,68 @@ import Modal3 from "@widgets/Modal/Modal3";
 import PersonCard from "./ModalInner/PersonCard";
 import Mission from "./ModalInner/Mission";
 import MissionGuide from "./ModalInner/MissionGuide";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { missionRegistercSchema } from "@shared/schemas";
+import { useState } from "react";
 
-const componentArr = [
-    { title: "인물 선택하기", comp: <PersonCard /> },
-    { title: "미션 선택하기", comp: <Mission /> },
-    { title: "미션 선택 완료", comp: <MissionGuide /> },
-];
+const textArr = ["인물 선택하기", "미션 선택하기", "미션 선택 완료"];
 
-// useForm 이용해서 제출할 수 있게 만들어야 됨
-// 클릭시 카드 뒤집히게
-
+type MissionRegisterType = z.infer<typeof missionRegistercSchema>;
 const NotTakenMission = () => {
-    // modal 총 4개
+    // targetUserID
+    // missionID 두 api 다 여기서 받아오기
+    const [isModalOpen, setIsModalOpened] = useState<boolean>(false);
+    const [modalIdx, setModalIdx] = useState<number>(0);
+
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, isValid },
+    } = useForm<MissionRegisterType>({
+        resolver: zodResolver(missionRegistercSchema),
+        mode: "onChange",
+    });
     return (
         <>
             <Container>
                 <span>오늘의 미션을 달성해봐요 !</span>
-                <button className="pixel-timer">미션 하기</button>
+                <button
+                    className="pixel-timer"
+                    onClick={() => setIsModalOpened((prev) => !prev)}
+                >
+                    미션 하기
+                </button>
             </Container>
-            <Modal3 title={"인물 선택하기"} isOpened={false}>
-                <Mission></Mission>
-            </Modal3>
+            <form action="">
+                <Modal3
+                    isOpened={isModalOpen}
+                    setIsModalOpened={setIsModalOpened}
+                >
+                    {modalIdx === 0 && (
+                        <>
+                            {textArr[modalIdx]}
+                            <PersonCard setModalIdx={setModalIdx} />
+                        </>
+                    )}
+                    {modalIdx === 1 && (
+                        <>
+                            {textArr[modalIdx]}
+                            <Mission setModalIdx={setModalIdx} />
+                        </>
+                    )}
+                    {modalIdx === 2 && (
+                        <>
+                            {textArr[modalIdx]}
+                            <MissionGuide
+                                setIsModalOpened={setIsModalOpened}
+                                setModalIdx={setModalIdx}
+                            />
+                        </>
+                    )}
+                </Modal3>
+            </form>
         </>
     );
 };
