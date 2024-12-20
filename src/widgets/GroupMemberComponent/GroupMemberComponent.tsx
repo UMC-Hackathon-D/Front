@@ -1,8 +1,4 @@
-import { cvh, cvw } from "@shared/utils/unit";
-import React from "react";
-import ImgComponent from "@widgets/ImgComponent/ReviewImgComponent";
-import styled from "styled-components";
-import CharacterImgComponent from "@widgets/ImgComponent/CharacterImgComponent";
+import CharacterImgComponent from "@widgets/ImgComponent/CharacterImg";
 const GroupMemberComponent = ({
     characterImg,
     name,
@@ -15,16 +11,10 @@ const GroupMemberComponent = ({
             <CharacterImgComponent
                 key={characterImg}
                 img={characterImg}
+                name={name}
             ></CharacterImgComponent>
             <div>{name}</div>
         </div>
     );
 };
 export default GroupMemberComponent;
-
-const GroupMemberComponentDiv = styled.div.attrs(() => ({
-    className: "pixel",
-}))`
-    width: ${cvw(273)};
-    height: ${cvh(270)};
-`;

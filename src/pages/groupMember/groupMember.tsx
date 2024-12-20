@@ -1,11 +1,4 @@
-import React from "react";
 import styled from "styled-components";
-import DeleteLogo from "@assets/icon/Delete.svg?react";
-import Update from "@assets/icon/Update.svg?react";
-import Modal from "@widgets/Modal";
-import ImgComponent from "@widgets/ImgComponent/ReviewImgComponent";
-import ContentComponent from "@widgets/ContentComponent/ContentComponent";
-import { date } from "zod";
 import GroupMemberComponent from "@widgets/GroupMemberComponent/GroupMemberComponent";
 export const example = [
     {
@@ -13,6 +6,8 @@ export const example = [
         name: "셰이나",
         id: 1,
         review: "자고 싶다",
+        date: "2024.12.20",
+        content: "친구에게 사랑한다 말하기",
     },
     {
         img: "https://image.bugsm.co.kr/album/images/200/193874/19387484.jpg?version=20230503022513.0",
@@ -28,6 +23,7 @@ export const example = [
         id: 3,
         date: "2024.12.20",
         review: "자고 싶다",
+        content: "친구에게 사랑한다 말하기",
     },
     {
         img: "https://image.bugsm.co.kr/album/images/200/7222/722272.jpg?version=20220514022202.0",
@@ -35,9 +31,8 @@ export const example = [
         id: 4,
         date: "2024.12.20",
         review: "자고 싶다",
+        content: "친구에게 사랑한다 말하기",
     },
-    // { img: "", name: "나나", id: 5 },
-    // { img: "", name: "강림", id: 6 },
 ];
 const GroupMember = () => {
     // const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
@@ -47,10 +42,6 @@ const GroupMember = () => {
             <GroupCharacterTitleDiv>그룹 멤버 보기</GroupCharacterTitleDiv>
             <GroupCharacterDiv>
                 {example.map((data) => {
-                    // const [isDeleteModalOpen, setDeleteModalOpen] =
-                    //     React.useState(false);
-                    // const [isUpdateModalOpen, setUpdateModalOpen] =
-                    //     React.useState(false);
                     return (
                         <GroupMemberComponent
                             characterImg={data.img}
@@ -75,93 +66,3 @@ const GroupCharacterDiv = styled.div`
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
 `;
-
-const EachCharacterDiv = styled.div.attrs(() => ({ className: "pixel" }))`
-    width: 273px;
-    height: 270px;
-    display: flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    padding: 10px;
-    column-gap: 10px;
-    background-color: ${({ theme }) => theme.black.b100};
-`;
-const DeleteDiv = styled.div`
-    width: 24px;
-    height: 23.99px;
-    cursor: pointer;
-`;
-const UpdateDiv = styled.div`
-    width: 24px;
-    height: 24px;
-    cursor: pointer;
-`;
-
-const EachUserNameDiv = styled.div`
-    width: 96px;
-    height: 40px;
-    margin-top: 5px;
-    font-size: ${({ theme }) => theme.headingFontSize.h3};
-`;
-
-const DetailModalDiv = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-`;
-const ModalTitleDiv = styled.div`
-    width: 805px;
-    height: 40px;
-    text-align: center;
-    align-content: center;
-`;
-const DeleteModalContentDiv = styled.div`
-    width: 805px;
-    height: 40px;
-    text-align: center;
-`;
-
-const DeleteModalAccessButton = styled.button.attrs(() => ({
-    className: "pixel",
-}))`
-    width: 180px;
-    height: 70px;
-    font-size: ${({ theme }) => theme.headingFontSize.h2};
-    background-color: ${({ theme }) => theme.red.r500};
-    cursor: pointer;
-`;
-
-const UpdateModalContentDiv = styled.div`
-    width: 805px;
-    height: 55px;
-    display: flex;
-    text-align: center;
-`;
-const UpdateModalNameDiv = styled.div`
-    font-size: ${({ theme }) => theme.headingFontSize.h3};
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    margin-right: 5px;
-`;
-const UpdateNameInput = styled.input.attrs(() => ({
-    className: "pixel",
-}))`
-    width: 690px;
-    height: 55px;
-`;
-// 만약 이미지를 넣을거면 이거 쓰셈
-// const EachCharacterImg = styled.img`
-//     width: 150px;
-//     height: 150px;
-// `;
-
-{
-    /* <EachCharacterImg
-                                    src={data?.img}
-                                    width="150px"
-                                    height="150px"
-                                ></EachCharacterImg> */
-}

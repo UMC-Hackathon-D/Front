@@ -1,6 +1,6 @@
 import React from "react";
 import ContentComponent from "@widgets/ContentComponent/ContentComponent";
-import ReviewImgComponent from "@widgets/ImgComponent/ReviewImgComponent";
+import ReviewImgComponent from "@widgets/ImgComponent/ReviewImg";
 // import DeleteLogo from "@assets/icon/Delete.svg?react";
 // import Update from "@assets/icon/Update.svg?react";
 const PersonalDivComponent = ({

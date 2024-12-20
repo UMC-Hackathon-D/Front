@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "styled-components";
 import { cvw, cvh } from "@shared/utils/unit";
-import DeleteComponet from "@widgets/DeleteComponent/DeleteComponet";
 import DeleteButton from "@assets/icon/Delete.svg?react";
 import Update from "@assets/icon/Update.svg?react";
+
 const ReviewImgComponent = ({
     img,
     width,
@@ -15,8 +15,7 @@ const ReviewImgComponent = ({
     height: number;
     review: string;
 }) => {
-    const [isMouseOn, setIsMouseOn] = useState(false);
-    console.log(width, height);
+    const [isMouseOn, setIsMouseOn] = useState<boolean>(false);
 
     return (
         <PersonalReviewDiv
@@ -25,7 +24,7 @@ const ReviewImgComponent = ({
             }}
             onMouseOut={() => setIsMouseOn(false)}
         >
-            {!isMouseOn ? (
+            {isMouseOn ? (
                 <PersonalReviewImgDiv
                     key="hovered"
                     width={width}
@@ -102,17 +101,4 @@ const UpdateButtonDiv = styled(Update)`
     height: ${cvh(24)};
     margin-left: ${cvw(112)};
     margin-top: ${cvh(76)};
-`;
-
-const DeleteDiv = styled.div`
-    width: 24px;
-    height: 23.99px;
-    cursor: pointer;
-    margin-top: ${cvh(161)};
-`;
-
-const UpdateDiv = styled.div`
-    width: ${cvw(24)};
-    height: ${cvh(24)};
-    cursor: pointer;
 `;
