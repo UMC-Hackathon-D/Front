@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Modal from "@shared/ui/Modal";
 import Button from "@shared/ui/Button";
 import Input from "@shared/ui/Input";
@@ -70,14 +70,20 @@ const InviteModal = ({ open, onClose }: GroupModalProps) => {
                     </CustomInput>
 
                     <ButtonContainer>
-                        <Button bgColor={theme.blue.b500} onClick={handleConfirm}>
+                        <Button
+                            bgColor={theme.blue.b500}
+                            onClick={handleConfirm}
+                        >
                             들어가기
                         </Button>
                     </ButtonContainer>
                 </Content>
             </Modal>
 
-            <CharacterModal open={isCharacterModalOpen} onClose={handleCloseCharacterModal} />
+            <CharacterModal
+                open={isCharacterModalOpen}
+                onClose={handleCloseCharacterModal}
+            />
         </>
     );
 };
@@ -89,7 +95,7 @@ const Content = styled.div`
 `;
 
 const Title = styled.h2`
-    font-family: 'NeoDunggeunmo', sans-serif;
+    font-family: "NeoDunggeunmo", sans-serif;
     font-size: 32px;
     text-align: center;
     margin-bottom: 40px;

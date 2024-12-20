@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
-import { cvw, cvh } from "../shared/utils/unit";
+import { cvw, cvh } from "../../shared/utils/unit";
 type ModalProps = {
     isOpen: boolean;
     onClose: () => void;

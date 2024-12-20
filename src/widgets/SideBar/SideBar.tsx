@@ -1,7 +1,7 @@
-import theme from "../app/styles/theme";
+import theme from "../../app/styles/theme";
 import styled from "styled-components";
-import { cvw, cvh } from "../shared/utils/unit";
-import SideTag from "../widgets/SideTag/SideTag";
+import { cvw, cvh } from "../../shared/utils/unit";
+import SideTag from "../SideTag/SideTag";
 
 const tagArr = [
     { color: theme.yellow.y500, text: "홈", path: "/groupHome" },

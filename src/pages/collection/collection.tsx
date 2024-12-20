@@ -1,8 +1,8 @@
-import cartItems from "../../app/providers/mockData";
+import cartItems from "@shared/data/mockData";
 import styled from "styled-components";
 import { useState } from "react";
-import Modal from "../../widgets/Modal";
-import CloseButton from "@assets/icon/CloseButton.svg?react";
+import Modal from "../../widgets/Modal/Modal1";
+import CloseButton from "@assets/icon/Close.svg?react";
 type data = {
     id: string;
     title: string;
@@ -16,7 +16,7 @@ const Collection = () => {
     const mockDataLength = mockData.length;
     console.log(mockData);
     console.log(mockData);
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(true);
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [selectedData, setSelectedData] = useState<data>();
     return (
         <div>
