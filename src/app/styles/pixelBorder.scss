@@ -3,7 +3,7 @@
 .pixel {
     @include pixel-borders(
         $corner-size: 2,
-        $border-size: 10px,
+        $border-size: 5px,
         $border-color: #000000
     );
 }

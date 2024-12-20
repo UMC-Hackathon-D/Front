@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import React, { useState } from "react";
-import Modal from "../widgets/Modal";
+import Modal from "@widgets/Modal/Modal1";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
 

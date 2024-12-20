@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import DeleteLogo from "@assets/icon/Delete.svg?react";
 import Update from "@assets/icon/Update.svg?react";
-import Modal from "@widgets/Modal";
+import Modal from "@widgets/Modal/Modal1";
 export const example = [
     { img: "", name: "셰이나", id: 1 },
     { img: "", name: "미니", id: 2 },
