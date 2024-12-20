@@ -4,7 +4,7 @@ import RootLayout from "@app/providers/layout/RootLayout";
 import Home from "@pages/groupHome/Home";
 import Collection from "@pages/collection/Collection";
 import GroupMember from "@pages/groupMember/groupMember";
-import PersonalNangMan from "@pages/collection/:id/personalNangMan";
+import PersonalNangMan from "@pages/collection/id/personalNangMan";
 
 const router = createBrowserRouter([
     {
