@@ -3,33 +3,33 @@ import styled from "styled-components";
 import { cvw, cvh } from "@shared/utils/unit";
 import { useRef } from "react";
 import DeleteComponet from "@widgets/DeleteComponent/DeleteComponet";
+import DeleteButton from "@assets/icon/Delete.svg?react";
 const ImgComponent = ({
     img,
     width,
     height,
+    review,
 }: {
     img: string;
     width: number;
     height: number;
+    review: string;
 }) => {
     const [isMouseOn, setIsMouseOn] = useState(false);
-    const a = () => {
-        setIsMouseOn(true);
-        console.log("호버됨");
-    };
+
     return (
         <A
-            onMouseOver={a} // 마우스가 위에 있을 때 상태 업데이트
+            onMouseOver={() => {
+                setIsMouseOn(true);
+            }} // 마우스가 위에 있을 때 상태 업데이트
             onMouseOut={() => setIsMouseOn(false)} // 마우스가 벗어날 때 상태 업데이트
         >
             {isMouseOn ? (
-                <div>
-                    <ImgContainerDiv
-                        key="hovered"
-                        width={width}
-                        height={height}
-                    ></ImgContainerDiv>
-                </div>
+                <ImgContainerDiv key="hovered" width={width} height={height}>
+                    <div>{review}</div>
+                    <div>하이</div>
+                    {/* 여기에 deletebutton 컴포넌트만 만들면 되는데 거기서 오류남 */}
+                </ImgContainerDiv>
             ) : (
                 <ImgStyle
                     key="default"

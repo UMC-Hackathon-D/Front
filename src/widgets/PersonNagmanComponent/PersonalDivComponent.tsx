@@ -3,13 +3,14 @@ import ContentComponent from "@widgets/ContentComponent/ContentComponent";
 import ImgComponent from "@widgets/ImgComponent/ImgComponent";
 // import DeleteLogo from "@assets/icon/Delete.svg?react";
 // import Update from "@assets/icon/Update.svg?react";
-const PersonalDivComonent = ({
+const PersonalDivComponent = ({
     img,
     date,
     name,
     content,
     width,
     height,
+    review,
 }: {
     img: string;
     date: string | undefined;
@@ -17,6 +18,7 @@ const PersonalDivComonent = ({
     content: string | undefined;
     width: number;
     height: number;
+    review: string;
 }) => {
     return (
         <div>
@@ -25,6 +27,7 @@ const PersonalDivComonent = ({
                 img={img}
                 width={width}
                 height={height}
+                review={review}
             ></ImgComponent>
             <ContentComponent
                 img={img}
@@ -35,4 +38,4 @@ const PersonalDivComonent = ({
         </div>
     );
 };
-export default PersonalDivComonent;
+export default PersonalDivComponent;
