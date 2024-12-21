@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { cvw, cvh } from "@shared/utils/unit";
 import Timer from "./Timer";
+import Bunny from "@assets/image/character/bunny.svg?react";
+import { useState } from "react";
 
 interface DataState {
     targetUserID: number | undefined;
@@ -26,13 +28,42 @@ const ModalInner = ({
     onClick,
     setModalIdx,
 }: ModalInnerProps) => {
+    const [flippedCardId, setFlippedCardId] = useState<{
+        [key: string]: number | null;
+    }>({});
+
+    const handleCardClick = (container: string, data: unknown) => {
+        setFlippedCardId((prev) => ({
+            ...prev,
+            [container]: data.id, // 해당 컨테이너의 카드 ID만 업데이트
+        }));
+        setTimeout(() => {
+            onClick(data); // 1초 뒤에 onClick 호출
+        }, 1000);
+    };
+    // todo : PersonCardContainer, MissionCardContainer 하나의 컴포넌트로 묶기
     if (modalIdx === 0) {
         return (
             <PersonCardContainer>
                 {personData.map((data) => (
-                    <Card key={data.id} onClick={() => onClick(data)}>
-                        {data.id}
-                    </Card>
+                    <CardWrapper
+                        key={data.id}
+                        onClick={() => handleCardClick("person", data)}
+                    >
+                        <div
+                            className={`card ${
+                                flippedCardId.person === data.id
+                                    ? "flipped"
+                                    : ""
+                            }`}
+                        >
+                            <Card>{data.id}</Card>
+                            <FlippedCard>
+                                <Bunny className="icon"></Bunny>
+                                <span>{data.name}</span>
+                            </FlippedCard>
+                        </div>
+                    </CardWrapper>
                 ))}
             </PersonCardContainer>
         );
@@ -42,9 +73,23 @@ const ModalInner = ({
         return (
             <MissionCardContainer>
                 {missionData.map((data) => (
-                    <Card key={data.id} onClick={() => onClick(data)}>
-                        {data.id}
-                    </Card>
+                    <CardWrapper
+                        key={data.id}
+                        onClick={() => handleCardClick("mission", data)}
+                    >
+                        <div
+                            className={`card ${
+                                flippedCardId.mission === data.id
+                                    ? "flipped"
+                                    : ""
+                            }`}
+                        >
+                            <Card>{data.id}</Card>
+                            <FlippedCard>
+                                <span>{data.mission}</span>
+                            </FlippedCard>
+                        </div>
+                    </CardWrapper>
                 ))}
             </MissionCardContainer>
         );
@@ -109,15 +154,55 @@ const MissionText = styled.div`
     }
 `;
 
-const Card = styled.div.attrs(() => ({ className: "pixel" }))`
+const CardWrapper = styled.div`
     width: ${cvw(150)};
     height: ${cvh(237)};
+    perspective: 1000px;
+    cursor: pointer;
+
+    & > .card {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transition: all 0.5s;
+        perspective-origin: center;
+        transform-style: preserve-3d;
+    }
+
+    .flipped {
+        transform: rotateY(180deg);
+    }
+`;
+
+const Card = styled.div.attrs(() => ({ className: "pixel" }))`
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #d9d9d9;
     font-size: ${({ theme }) => theme.headingFontSize.h1};
-    cursor: pointer;
+    z-index: 2;
+    position: absolute;
+    backface-visibility: hidden;
+`;
+
+const FlippedCard = styled.div.attrs(() => ({ className: "pixel" }))`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: ${cvh(30)};
+    font-size: ${({ theme }) => theme.bodyFontSize.b1};
+    z-index: 1;
+    transform: rotateY(180deg);
+
+    & > .icon {
+        width: ${cvw(120)};
+        height: ${cvh(120)};
+    }
 `;
 
 const Button = styled.button.attrs(() => ({ className: "pixel" }))`

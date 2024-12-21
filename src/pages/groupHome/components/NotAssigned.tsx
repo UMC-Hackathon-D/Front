@@ -28,7 +28,11 @@ const missionData = [
     { mission: "미션 3", id: 3 },
 ];
 
-const NotTakenMission = () => {
+const NotAssigned = ({
+    setIsAssigned,
+}: {
+    setIsAssigned: React.Dispatch<React.SetStateAction<boolean>>;
+}) => {
     // targetUserID
     // missionID 두 api 다 여기서 받아오기
     const [data, setData] = useState<DataState>({
@@ -48,9 +52,9 @@ const NotTakenMission = () => {
 
     // 카드 클릭했을 때
     const onClick = (data: unknown) => {
-        if (modalIdx === 1 || modalIdx === 2) {
+        if (modalIdx === 0 || modalIdx === 2) {
             setData((prev) =>
-                modalIdx === 1
+                modalIdx === 0
                     ? {
                           ...prev,
                           targetUserID: data.id,
@@ -64,8 +68,8 @@ const NotTakenMission = () => {
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setIsAssigned(true);
         onClose();
-        alert(data);
     };
     return (
         <>
@@ -119,4 +123,4 @@ const Container = styled.div`
     }
 `;
 
-export default NotTakenMission;
+export default NotAssigned;

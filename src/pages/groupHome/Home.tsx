@@ -5,10 +5,14 @@ import CharacterCard from "@pages/groupHome/components/CharacterCard";
 import { useState } from "react";
 
 const Home = () => {
-    const [isAssigned, setIsAssigned] = useState<boolean>(true);
+    const [isAssigned, setIsAssigned] = useState<boolean>(false);
     return (
         <HomeContainer>
-            {isAssigned ? <Assigned /> : <NotAssigned />}
+            {isAssigned ? (
+                <Assigned />
+            ) : (
+                <NotAssigned setIsAssigned={setIsAssigned} />
+            )}
             <CharacterCard />
         </HomeContainer>
     );
