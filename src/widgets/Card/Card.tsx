@@ -3,11 +3,12 @@ import { cvw, cvh } from "@shared/utils/unit";
 
 const Card = ({
     number,
-    data,
+
     onClick,
 }: {
     number: number;
-    data: unknown[];
+    // data: unknown[];
+    onClick: () => void;
 }) => {
     return <Container onClick={onClick}>{number}</Container>;
 };

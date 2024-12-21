@@ -1,4 +1,3 @@
-// @pages/mainpage/ui/InviteModal.tsx
 import { useState } from "react";
 import Modal from "@shared/ui/Modal";
 import styled from "styled-components";
@@ -38,6 +37,7 @@ const InviteModal = ({ open, onClose }: GroupModalProps) => {
       <CharacterModal open={isCharacterModalOpen} onClose={handleCloseCharacterModal} />
     </>
   );
+
 };
 
 export default InviteModal;
@@ -50,4 +50,5 @@ const Title = styled.h2`
   font-size: ${({ theme }) => theme.headingFontSize.h1};
   text-align: center;
   margin-bottom: ${cvw(60)};
+
 `;
