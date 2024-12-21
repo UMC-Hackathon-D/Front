@@ -10,7 +10,18 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-    ({ value, type = "text", width = "100%", fontSize = "20px", height = "40px", onChange, ...props }, ref) => {
+    (
+        {
+            value,
+            type = "text",
+            width = "100%",
+            fontSize = "20px",
+            height = "40px",
+            onChange,
+            ...props
+        },
+        ref
+    ) => {
         return (
             <StyledInput
                 ref={ref}
@@ -35,10 +46,11 @@ const StyledInput = styled.input.attrs(() => ({ className: "pixel" }))<{
     fontSize: string;
     height: string;
 }>`
-    font-family: 'NeoDunggeunmo', sans-serif;
+    font-family: "NeoDunggeunmo", sans-serif;
     font-size: ${({ fontSize }) => fontSize};
     padding: 20px 15px;
     width: ${({ width }) => width};
     height: ${({ height }) => height};
     box-sizing: border-box;
+    outline: none;
 `;
