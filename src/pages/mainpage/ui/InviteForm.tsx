@@ -100,38 +100,33 @@ const GroupForm = ({ onSubmit }: GroupFormProps) => {
 export default GroupForm;
 
 const CustomInput = styled.div`
-    display: flex;
-    align-items: center;
-    margin: ${cvw(30)} 0;
-    margin-bottom: ${cvh(11)};
+  display: flex;
+  align-items: center;
+  margin-bottom: ${cvh(35)};
 `;
 
 const SpanLabel = styled.span`
-    font-size: ${({ theme }) => theme.headingFontSize.h3};
-    width: 150px;
+  font-size: ${({ theme }) => theme.headingFontSize.h3};
+  width: 150px;
 `;
 
 const ErrorText = styled.span`
-    color: red;
-    margin-left: ${cvw(140)};
+  color: red;
+  margin-left: ${cvw(140)};
 `;
 
 const ButtonContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    gap: ${cvw(23)};
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: ${cvh(60)};
+  display: flex;
+  justify-content: center;
+  margin-top: ${cvh(50)};
+  margin-bottom: ${cvh(36)};
 `;
 
 const CustomAlertWrapper = styled.div`
-    position: fixed;
-    margin-left: ${cvw(340)};
-    bottom: ${cvh(190)};
-    z-index: 1000;
-    justify-content: center;
-    text-align: center;
+  position: fixed;
+  margin-left: ${cvw(340)};
+  bottom: ${cvh(190)};
+  z-index: 1000;
+  justify-content: center;
+  text-align: center;
 `;
