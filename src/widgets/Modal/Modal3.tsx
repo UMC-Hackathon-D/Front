@@ -6,6 +6,7 @@ import Close from "@assets/icon/Close.svg?react";
 const Modal3 = ({
     isOpened,
     children,
+
     text,
     onClose,
 }: {
@@ -15,6 +16,7 @@ const Modal3 = ({
     children: React.ReactNode;
 }) => {
     if (!isOpened) return null;
+
 
     const dialogRef = useRef<HTMLDialogElement>(null);
 
@@ -34,6 +36,7 @@ const Modal3 = ({
 
     return (
         <Container ref={dialogRef}>
+
             <StyledClose onClick={onClose} />
             <Title>{text && text}</Title>
             {children}

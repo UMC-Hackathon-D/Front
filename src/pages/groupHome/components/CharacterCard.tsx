@@ -3,6 +3,7 @@ import { cvw, cvh } from "@shared/utils/unit";
 import Bunny from "@assets/image/character/bunny.svg?react";
 const CharacterCard = () => {
     return (
+
         <Card>
             <Bunny />
             <Name>셰이나</Name>

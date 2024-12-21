@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 import NotAssigned from "@pages/groupHome/components/NotAssigned";
 import Assigned from "@pages/groupHome/components/Assigned";
 import CharacterCard from "@pages/groupHome/components/CharacterCard";
@@ -24,6 +25,7 @@ const HomeContainer = styled.main`
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+
     position: relative;
 `;
 

@@ -3,6 +3,7 @@ import { cvw, cvh } from "@shared/utils/unit";
 
 const Card = ({
     number,
+
     onClick,
 }: {
     number: number;
