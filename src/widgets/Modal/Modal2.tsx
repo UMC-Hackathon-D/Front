@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { cvw, cvh } from "@shared/utils/unit";
 import Close from "@assets/icon/Close.svg?react";
 
-const Modal3 = ({
+const Modal2 = ({
     isOpened,
     children,
     text,
@@ -42,8 +42,8 @@ const Modal3 = ({
 };
 
 const Container = styled.dialog.attrs(() => ({ className: "pixel" }))`
-    width: ${cvw(996)};
-    height: ${cvh(800)};
+    width: ${cvw(790)};
+    height: ${cvh(816)};
     padding: ${cvw(34)} ${cvh(34)};
     gap: ${cvh(36)};
     display: flex;
@@ -64,4 +64,4 @@ const StyledClose = styled(Close)`
     cursor: pointer;
 `;
 
-export default Modal3;
+export default Modal2;

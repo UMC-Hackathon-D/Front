@@ -1,20 +1,21 @@
 import styled from "styled-components";
-import { cvh } from "@shared/utils/unit";
+import { cvw, cvh } from "@shared/utils/unit";
 import { useState, useEffect } from "react";
-import MissionCard from "./MissionCard";
+
 const Mission = ({
     name,
-    missionData,
     setModalIdx,
 }: {
     name: string;
-    missionData: unknown[];
-    setModalIdx: (prev: number) => void;
+    setModalIdx: React.Dispatch<React.SetStateAction<number>>;
 }) => {
     const [time, setTime] = useState<number>(3);
 
     useEffect(() => {
-        if (time === 0) return;
+        if (time === 0) {
+            setModalIdx((prev) => prev + 1);
+            return;
+        }
 
         const interval = setInterval(() => {
             setTime((prev) => prev - 1);
@@ -23,9 +24,7 @@ const Mission = ({
         return () => clearInterval(interval);
     }, [time]);
 
-    return time === 0 ? (
-        <MissionCard missionData={missionData} setModalIdx={setModalIdx} />
-    ) : (
+    return (
         <>
             <Text>
                 <span>{name} 카드를 뽑으셨네요 !</span>
@@ -49,6 +48,23 @@ const Text = styled.div`
 const Timer = styled.span`
     margin-top: ${cvh(75)};
     font-size: 50px;
+`;
+
+const Container = styled.div`
+    margin-top: ${cvh(147)};
+    display: flex;
+    gap: ${cvw(40)};
+`;
+
+const Card = styled.div.attrs(() => ({ className: "pixel" }))`
+    width: ${cvw(180)};
+    height: ${cvh(237)};
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #d9d9d9;
+    font-size: ${({ theme }) => theme.headingFontSize.h1};
+    cursor: pointer;
 `;
 
 export default Mission;
