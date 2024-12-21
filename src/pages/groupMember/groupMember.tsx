@@ -38,7 +38,7 @@ const GroupMember = () => {
     // const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     return (
-        <>
+        <GroupMemeberDiv>
             <GroupCharacterTitleDiv>그룹 멤버 보기</GroupCharacterTitleDiv>
             <GroupCharacterDiv>
                 {example.map((data) => {
@@ -50,7 +50,7 @@ const GroupMember = () => {
                     );
                 })}
             </GroupCharacterDiv>
-        </>
+        </GroupMemeberDiv>
     );
 };
 export default GroupMember;
@@ -67,4 +67,11 @@ const GroupCharacterDiv = styled.div`
     gap: 25px;
     place-items: center;
     margin: auto;
+`;
+
+const GroupMemeberDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
 `;

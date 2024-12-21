@@ -17,7 +17,6 @@ const CharacterImgComponent = ({
     const [modalType, setModalType] = useState<"delete" | "update" | null>(
         null
     );
-    console.log(name);
 
     const handleOpenModal = (type: "delete" | "update") => {
         setModalType(type);
@@ -34,9 +33,11 @@ const CharacterImgComponent = ({
                 }}
                 onMouseOut={() => setIsMouseOn(false)}
             >
-                {isMouseOn ? (
+                {!isMouseOn ? (
                     <PersonalReviewImgDiv key="hovered">
-                        <ImgStyleImg key="default" src={img}></ImgStyleImg>
+                        <ImgDiv>
+                            <ImgStyleImg key="default" src={img}></ImgStyleImg>
+                        </ImgDiv>
                         <ButtonDiv>
                             <DeleteButtonDiv
                                 onClick={() => handleOpenModal("delete")}
@@ -77,14 +78,13 @@ const PersonalCharacter = styled.div`
     pointer-events: auto;
     width: ${cvw(273)};
     height: ${cvh(270)};
-    display: flex;
-    justify-content: center;
-    align-items: center;
 `;
 const ImgStyleImg = styled.img`
     width: ${cvw(172)};
     height: ${cvh(172)};
     display: flex;
+    border: 1px solid black;
+    margin: 0;
 `;
 const PersonalReviewImgDiv = styled.div.attrs(() => ({
     className: "pixel",
@@ -98,6 +98,7 @@ const PersonalReviewImgDiv = styled.div.attrs(() => ({
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border: 1px solid black;
 `;
 const PersonalCharacterImg = styled.div.attrs(() => ({
     className: "pixel",
@@ -125,12 +126,18 @@ const UpdateButtonDiv = styled(Update)`
     width: ${cvw(24)};
     height: ${cvh(23.99)};
 `;
-const ButtonDiv = styled.div`
-    padding: 0px ${cvw(24)};
-    width: 100%;
+const ButtonDiv = styled.span`
     display: flex;
-    align-items: center;
     justify-content: flex-end;
-    gap: ${cvw(16)};
-    margin-top: ${cvh(23.99)};
+    align-content: flex-end;
+    align-items: center;
+    width: 100%;
+    margin-right: ${cvw(30)};
+`;
+
+const ImgDiv = styled.div`
+    border: 1px solid red;
+    display: flex;
+    align-items: flex-end;
+    margin-top: 20px;
 `;
