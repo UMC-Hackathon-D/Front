@@ -8,6 +8,7 @@ const Assigned = () => {
     const onClose = () => {
         setIsOpened(false);
     };
+
     return (
         <>
             <Container>
