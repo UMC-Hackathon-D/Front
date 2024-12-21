@@ -1,9 +1,14 @@
 import styled, { css } from "styled-components";
 import { cvw, cvh } from "@shared/utils/unit";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import Close from "@assets/icon/Close.svg?react";
 
 const MissionCertificate = () => {
     const [isDragging, setIsDragging] = useState<boolean>(false);
+    const [imgFile, setImgFile] = useState<string | null>(null);
+
+    const textAreaRef = useRef<HTMLTextAreaElement>(null);
+    const imgRef = useRef<HTMLInputElement>(null);
 
     const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
@@ -14,13 +19,30 @@ const MissionCertificate = () => {
         e.preventDefault();
         setIsDragging(false);
     };
+
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const textAreaValue = textAreaRef.current?.value || "";
+        console.log(textAreaValue);
+        console.log(imgFile);
+    };
+
+    const saveImgFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0]; // 선택된 파일
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                setImgFile(reader.result as string); // 미리보기 URL 설정
+            };
+            reader.readAsDataURL(file); // 파일 읽기
+        }
+    };
     return (
-        <Container>
+        <Container onSubmit={handleSubmit}>
             <Box>
                 <span>후기를 작성해주세요.</span>
                 <textarea
-                    name=""
-                    id=""
+                    ref={textAreaRef}
                     className="content text pixel"
                 ></textarea>
             </Box>
@@ -28,15 +50,33 @@ const MissionCertificate = () => {
             <Box>
                 <span>사진을 등록하여 미션을 인증해주세요.</span>
                 <FileInputContainer className="pixel">
-                    <HiddenInput type="file" id="file-upload" />
-                    <CustomLabel
-                        isDragging={isDragging}
-                        onDragOver={handleDragEnter} // Allow drop
-                        onDragLeave={handleDragLeave}
-                        htmlFor="file-upload"
-                    >
-                        +
-                    </CustomLabel>
+                    {imgFile ? (
+                        <div className="img-container">
+                            <img src={imgFile} />
+                            <Close
+                                className="icon"
+                                onClick={() => setImgFile(null)}
+                            />
+                        </div>
+                    ) : (
+                        <>
+                            <HiddenInput
+                                type="file"
+                                id="file-upload"
+                                accept="image/*"
+                                ref={imgRef}
+                                onChange={saveImgFile}
+                            />
+                            <CustomLabel
+                                isDragging={isDragging}
+                                onDragOver={handleDragEnter} // Allow drop
+                                onDragLeave={handleDragLeave}
+                                htmlFor="file-upload"
+                            >
+                                +
+                            </CustomLabel>
+                        </>
+                    )}
                 </FileInputContainer>
             </Box>
 
@@ -88,6 +128,26 @@ const FileInputContainer = styled.div`
     justify-content: center;
     align-items: center;
     cursor: pointer;
+
+    & > .img-container {
+        width: 100%;
+        height: 100%;
+        position: relative;
+
+        & > img {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        & > .icon {
+            width: ${cvw(35)};
+            height: ${cvh(35)};
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+    }
 `;
 
 const HiddenInput = styled.input`
