@@ -11,141 +11,127 @@ import { useState } from "react";
 import CustomAlert from "@shared/ui/CustomAlert";
 import { useRecoilState } from "recoil"; // useRecoilState 추가
 import { loginState } from "@shared/recoil/recoil"; // loginState import
+import { on } from "events";
 
 interface FormData {
-  groupName: string;
-  nickname: string;
-  groupCode: string;
+    partyName: string;
+    name: string;
+    password: string;
 }
 
 interface GroupFormProps {
-  onSubmit: (data: FormData) => void;
+    onSubmit: (data: FormData) => void;
 }
 
 const GroupForm = ({ onSubmit }: GroupFormProps) => {
-  const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
-    mode: "onSubmit",
-    resolver: zodResolver(groupFormSchema),
-  });
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<FormData>({
+        mode: "onSubmit",
+        resolver: zodResolver(groupFormSchema),
+    });
 
-  const [alertMessage, setAlertMessage] = useState<string | null>(null);
-  const [login, setLogin] = useRecoilState(loginState); // 로그인 상태를 Recoil로 관리
+    const [alertMessage, setAlertMessage] = useState<string | null>(null);
+    const [login, setLogin] = useRecoilState(loginState); // 로그인 상태를 Recoil로 관리
 
-  const handleFormSubmit = async (data: FormData) => {
-    const requestBody = {
-      partyName: data.groupName,
-      name: data.nickname,
-      password: data.groupCode,
+    const handleFormSubmit = async (data: FormData) => {
+        onSubmit(data);
     };
 
-    try {
-      const response = await serverInstance.post("/api/v1/parties/users/signup", requestBody);
-      console.log("API Response:", response.data.success);
-      onSubmit(data); // 부모 컴포넌트로 전달
+    return (
+        <form onSubmit={handleSubmit(handleFormSubmit)}>
+            {alertMessage && (
+                <CustomAlertWrapper>
+                    <CustomAlert message={alertMessage} duration={3000} />
+                </CustomAlertWrapper>
+            )}
 
-      // 로그인 상태 업데이트 (예: 회원가입 후 로그인 처리)
-      setLogin({
-        ...login,
-        success: response.data.success,
-        isLoggedIn: true,
-      });
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.error?.reason || "회원가입 중 오류가 발생했습니다.";
-      console.error("API Error:", errorMessage);
-      setAlertMessage(errorMessage);
+            <CustomInput>
+                <SpanLabel>그룹 이름</SpanLabel>
+                <Input
+                    {...register("partyName")}
+                    width={cvw(690)}
+                    height={cvh(55)}
+                />
+            </CustomInput>
+            {errors.partyName && (
+                <ErrorText>{errors.partyName.message}</ErrorText>
+            )}
 
-      setTimeout(() => {
-        setAlertMessage(null);
-      }, 3000);
-    }
-  };
+            <CustomInput>
+                <SpanLabel>닉네임</SpanLabel>
+                <Input
+                    {...register("name")}
+                    width={cvw(690)}
+                    height={cvh(55)}
+                />
+            </CustomInput>
+            {errors.name && <ErrorText>{errors.name.message}</ErrorText>}
 
-  return (
-    <form onSubmit={handleSubmit(handleFormSubmit)}>
-      {alertMessage && <CustomAlertWrapper>
-        <CustomAlert message={alertMessage} duration={3000} />
-      </CustomAlertWrapper>}
+            <CustomInput>
+                <SpanLabel>그룹 코드</SpanLabel>
+                <Input
+                    {...register("password")}
+                    width={cvw(690)}
+                    height={cvh(55)}
+                />
+            </CustomInput>
+            {errors.password && (
+                <ErrorText>{errors.password.message}</ErrorText>
+            )}
 
-      <CustomInput>
-        <SpanLabel>그룹 이름</SpanLabel>
-        <Input
-          {...register("groupName")}
-          width={cvw(690)}
-          height={cvh(55)}
-        />
-      </CustomInput>
-      {errors.groupName && <ErrorText>{errors.groupName.message}</ErrorText>}
-
-      <CustomInput>
-        <SpanLabel>닉네임</SpanLabel>
-        <Input
-          {...register("nickname")}
-          width={cvw(690)}
-          height={cvh(55)}
-        />
-      </CustomInput>
-      {errors.nickname && <ErrorText>{errors.nickname.message}</ErrorText>}
-
-      <CustomInput>
-        <SpanLabel>그룹 코드</SpanLabel>
-        <Input
-          {...register("groupCode")}
-          width={cvw(690)}
-          height={cvh(55)}
-        />
-      </CustomInput>
-      {errors.groupCode && <ErrorText>{errors.groupCode.message}</ErrorText>}
-
-      <ButtonContainer>
-        <Button
-          bgColor={theme.blue.b500}
-          fontSize={theme.headingFontSize.h2}
-          width={cvw(180)}
-          height={cvh(90)}
-          type="submit"
-        >
-          들어가기
-        </Button>
-      </ButtonContainer>
-    </form>
-  );
+            <ButtonContainer>
+                <Button
+                    bgColor={theme.blue.b500}
+                    fontSize={theme.headingFontSize.h2}
+                    width={cvw(180)}
+                    height={cvh(90)}
+                    type="submit"
+                >
+                    들어가기
+                </Button>
+            </ButtonContainer>
+        </form>
+    );
 };
 
 export default GroupForm;
 
 const CustomInput = styled.div`
-  display: flex;
-  align-items: center;
-  margin: ${cvw(30)} 0;
-  margin-bottom: ${cvh(11)};
+    display: flex;
+    align-items: center;
+    margin: ${cvw(30)} 0;
+    margin-bottom: ${cvh(11)};
 `;
 
 const SpanLabel = styled.span`
-  font-size: ${({ theme }) => theme.headingFontSize.h3};
-  width: 150px;
+    font-size: ${({ theme }) => theme.headingFontSize.h3};
+    width: 150px;
 `;
 
 const ErrorText = styled.span`
-  color: red;
-  margin-left: ${cvw(140)};
+    color: red;
+    margin-left: ${cvw(140)};
 `;
 
 const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: ${cvw(23)};
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: ${cvh(60)};
+    display: flex;
+    justify-content: center;
+    gap: ${cvw(23)};
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: ${cvh(60)};
 `;
 
 const CustomAlertWrapper = styled.div`
-  position: fixed;
-  margin-left: ${cvw(340)};
-  bottom: ${cvh(190)};
-  z-index: 1000;
-  justify-content: center;
-  text-align: center;
+    position: fixed;
+    margin-left: ${cvw(340)};
+    bottom: ${cvh(190)};
+    z-index: 1000;
+    justify-content: center;
+    text-align: center;
 `;

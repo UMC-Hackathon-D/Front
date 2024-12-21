@@ -10,15 +10,19 @@ interface GroupModalProps {
     onClose: () => void;
 }
 
+interface FormData {
+    partyName: string;
+    name: string;
+    password: string;
+}
+
 const InviteModal = ({ open, onClose }: GroupModalProps) => {
     const [isCharacterModalOpen, setIsCharacterModalOpen] = useState(false);
+    const [data, setData] = useState<FormData | undefined>();
 
-    const handleConfirm = (data: {
-        groupName: string;
-        nickname: string;
-        groupCode: string;
-    }) => {
+    const handleConfirm = (data: FormData) => {
         onClose();
+        setData(data);
         setIsCharacterModalOpen(true);
     };
 
@@ -43,6 +47,7 @@ const InviteModal = ({ open, onClose }: GroupModalProps) => {
 
             <CharacterModal
                 open={isCharacterModalOpen}
+                inputData={data}
                 onClose={handleCloseCharacterModal}
             />
         </>
