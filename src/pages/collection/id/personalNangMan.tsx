@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Modal from "@widgets/Modal/Modal1";
 import styled from "styled-components";
 import { useLocation } from "react-router-dom";
-
+import { cvh, cvw } from "@shared/utils/unit";
 const PersonalNangMan = () => {
     const location = useLocation();
     const data = location.state;
@@ -23,7 +23,7 @@ const PersonalNangMan = () => {
             }}
         >
             {data?.img ? (
-                <Modal
+                <ModalStyle
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}
                     width={790}
@@ -38,9 +38,9 @@ const PersonalNangMan = () => {
                         <div>미션후기</div>
                         <PriceStyle>{data?.price}</PriceStyle>
                     </div>
-                </Modal>
+                </ModalStyle>
             ) : (
-                <Modal
+                <ModalStyle
                     isOpen={isModalOpen}
                     onClose={() => setIsModalOpen(false)}
                     width={790}
@@ -51,13 +51,20 @@ const PersonalNangMan = () => {
                         <div>미션후기</div>
                         <PriceStyle>{data?.price}</PriceStyle>
                     </div>
-                </Modal>
+                </ModalStyle>
             )}
         </div>
     );
 };
 export default PersonalNangMan;
 
+const ModalStyle = styled(Modal)`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: ${cvw(996)};
+    height: ${cvh(441)};
+`;
 const ImgStyle = styled.img.attrs(() => ({ className: "pixel" }))`
     text-align: center;
     margin-top: 50px;

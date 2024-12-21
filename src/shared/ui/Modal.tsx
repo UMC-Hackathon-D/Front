@@ -12,12 +12,8 @@ interface ModalProps {
 const Modal = ({open, onClose, children, width, height }: ModalProps) => {
     return (
         <>
-            <StyledDialog
-                open={open}
-                onClick={onClose}
-                width={width}
-                height={height}
-            >
+            <StyledDialog id={id} open={open} onClick={onClose}>
+
                 <div onClick={(e) => e.stopPropagation()}>{children}</div>
             </StyledDialog>
         </>
@@ -27,9 +23,7 @@ const Modal = ({open, onClose, children, width, height }: ModalProps) => {
 export default Modal;
 
 const StyledDialog = styled.dialog.attrs(() => ({ className: "pixel" }))<{
-    width: string;
-    height: string;
+    open: boolean;
 }>`
-    width: ${({ width }) => width};
-    height: ${({ height }) => height};
+
 `;

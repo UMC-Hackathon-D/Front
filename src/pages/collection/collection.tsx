@@ -1,167 +1,85 @@
-import cartItems from "@shared/data/mockData";
 import styled from "styled-components";
 import { useState } from "react";
-import Modal from "../../widgets/Modal/Modal1";
-import CloseButton from "@assets/icon/Close.svg?react";
+import { example } from "@pages/groupMember/groupMember";
+import PersonalDivComonent from "@widgets/PersonNagmanComponent/PersonalDiv";
+import MissionReviewModal from "@widgets/Modal/MissionReviewModal";
 type data = {
-    id: string;
-    title: string;
-    price: string;
+    id: number;
+    name: string;
+    review: string;
+    date: string;
     img?: undefined | string;
-    singer: string;
-    amout?: number;
+    content: string;
 };
+
 const Collection = () => {
-    const mockData = cartItems;
-    const mockDataLength = mockData.length;
-    console.log(mockData);
-    console.log(mockData);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-    const [selectedData, setSelectedData] = useState<data>();
+    const [selectedData, setSelectedData] = useState<any>(null);
+
+    const handleOpenModal = (data: data) => {
+        setSelectedData(data);
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setSelectedData(null);
+        setIsModalOpen(false);
+    };
     return (
-        <div>
-            <div>낭만 모음집</div>
-            {mockDataLength === 0 ? (
-                <div>낭만이 부족한 누구누구 입니다.</div>
-            ) : (
-                <NagManDataDiv>
-                    {mockData.map((data) => {
-                        return (
-                            <div>
-                                <span
-                                    style={{
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        height: "278px",
-                                        width: "215px",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        alignContent: "center",
-                                        marginRight: "30px",
-                                    }}
-                                    onClick={(e) => {
-                                        console.log("클릭됨");
-                                        setIsModalOpen(true);
-                                        setSelectedData(data);
-                                        e.stopPropagation();
-                                    }}
-                                    key={data.id}
-                                >
-                                    <img
-                                        src={data.img}
-                                        width="200px"
-                                        height="200px"
-                                    ></img>
-                                    <div>{data.title}</div>
-                                    <div>{data.price}</div>
-                                </span>
-                                {data?.img ? (
-                                    <Modal
-                                        isOpen={isModalOpen}
-                                        onClose={() => setIsModalOpen(false)}
-                                        width={790}
-                                        height={817.17}
-                                    >
-                                        <CloseButtonDiv
-                                            onClick={(e) => {
-                                                setIsModalOpen(false);
-                                                e.stopPropagation();
-                                            }}
-                                        >
-                                            <CloseButton />
-                                        </CloseButtonDiv>
-                                        <div>
-                                            <ImgStyle
-                                                src={data?.img}
-                                                style={{
-                                                    width: "580px",
-                                                    height: "279px",
-                                                }}
-                                            ></ImgStyle>
-                                            <TitleStyle>
-                                                {data?.title}
-                                            </TitleStyle>
-                                            <div
-                                                style={{
-                                                    width: "580px",
-                                                    height: "194px",
-                                                }}
-                                            >
-                                                <div>미션후기</div>
-                                                <PriceStyle>
-                                                    {data?.price}
-                                                </PriceStyle>
-                                            </div>
-                                        </div>
-                                    </Modal>
-                                ) : (
-                                    <Modal
-                                        isOpen={isModalOpen}
-                                        onClose={() => setIsModalOpen(false)}
-                                        width={790}
-                                        height={528.21}
-                                    >
-                                        <CloseButtonDiv>
-                                            <CloseButton />
-                                        </CloseButtonDiv>
-                                        <div>
-                                            <TitleStyle>
-                                                {data?.title}
-                                            </TitleStyle>
-                                            <div
-                                                style={{
-                                                    width: "580px",
-                                                    height: "194px",
-                                                }}
-                                            >
-                                                <div>미션후기</div>
-                                                <PriceStyle>
-                                                    {data?.price}
-                                                </PriceStyle>
-                                            </div>
-                                        </div>
-                                    </Modal>
-                                )}
-                            </div>
-                        );
-                    })}
-                </NagManDataDiv>
+        <CollectionDiv>
+            {isModalOpen && selectedData && (
+                <MissionReviewModal
+                    id={selectedData.id}
+                    open={isModalOpen}
+                    onClose={handleCloseModal}
+                    reviewImg={selectedData.img}
+                    characterImg={selectedData.img}
+                    name={selectedData.name}
+                    content={selectedData.content}
+                    date={selectedData.date}
+                    review={selectedData.review}
+                />
             )}
-        </div>
+            <GroupCharacterTitleDiv>낭만 모음집</GroupCharacterTitleDiv>
+
+            <GroupCharacterDiv>
+                {example.map((data) => {
+                    return (
+                        <div
+                            key={data.id}
+                            onClick={() => handleOpenModal(data)}
+                        >
+                            <PersonalDivComonent
+                                img={data.img}
+                                width={206}
+                                height={206}
+                                date={data.date}
+                                name={data.name}
+                                content={data.content}
+                                review={data.review}
+                            ></PersonalDivComonent>
+                        </div>
+                    );
+                })}
+            </GroupCharacterDiv>
+        </CollectionDiv>
     );
 };
 export default Collection;
 
-const NagManDataDiv = styled.div`
+const GroupCharacterTitleDiv = styled.div`
+    margin-bottom: 20px;
+    font-size: ${({ theme }) => theme.headingFontSize.h1};
+`;
+
+const GroupCharacterDiv = styled.div`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
 `;
-
-const ImgStyle = styled.img.attrs(() => ({ className: "pixel" }))`
-    text-align: center;
-    margin-top: 50px;
-    justify-content: center;
-`;
-const TitleStyle = styled.div.attrs(() => ({ className: "pixel" }))`
-    text-align: center;
-    margin-top: 50px;
-    width: 580px;
-    height: 104px;
-    align-content: center;
-`;
-
-const PriceStyle = styled.div.attrs(() => ({ className: "pixel" }))`
-    text-align: center;
-    margin-top: 50px;
-    width: 580px;
-    height: 155px;
-    align-content: center;
-`;
-
-const CloseButtonDiv = styled.div`
-    width: 750px;
-    height: 44px;
+const CollectionDiv = styled.div`
     display: flex;
-    justify-content: flex-end;
-    cursor: pointer;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
 `;
