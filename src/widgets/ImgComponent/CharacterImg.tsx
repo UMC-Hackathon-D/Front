@@ -37,34 +37,37 @@ const CharacterImgComponent = ({
                 {isMouseOn ? (
                     <PersonalReviewImgDiv key="hovered">
                         <ImgStyleImg key="default" src={img}></ImgStyleImg>
-                        <DeleteButtonDiv
-                            onClick={() => handleOpenModal("delete")}
-                        />
-                        <UpdateButtonDiv
-                            onClick={() => handleOpenModal("update")}
-                        />
+                        <ButtonDiv>
+                            <DeleteButtonDiv
+                                onClick={() => handleOpenModal("delete")}
+                            />
+                            <UpdateButtonDiv
+                                onClick={() => handleOpenModal("update")}
+                            />
+                        </ButtonDiv>
                     </PersonalReviewImgDiv>
                 ) : (
                     <PersonalCharacterImg key="default">
                         <ImgStyle key="default" src={img}></ImgStyle>
                     </PersonalCharacterImg>
                 )}
+                {modalType === "delete" && (
+                    <DeleteModal
+                        id={img}
+                        open={modalType === "delete"}
+                        onClose={handleCloseModal}
+                        name={name}
+                    />
+                )}
+                {modalType === "update" && (
+                    <UpdateModal
+                        id={img}
+                        open={modalType === "update"}
+                        onClose={handleCloseModal}
+                        name={name}
+                    />
+                )}
             </PersonalCharacter>
-            {modalType === "delete" && (
-                <DeleteModal
-                    id={img}
-                    open={modalType === "delete"}
-                    onClose={handleCloseModal}
-                />
-            )}
-            {modalType === "update" && (
-                <UpdateModal
-                    id={img}
-                    open={modalType === "update"}
-                    onClose={handleCloseModal}
-                    name={name}
-                />
-            )}
         </>
     );
 };
@@ -74,10 +77,14 @@ const PersonalCharacter = styled.div`
     pointer-events: auto;
     width: ${cvw(273)};
     height: ${cvh(270)};
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 const ImgStyleImg = styled.img`
     width: ${cvw(172)};
     height: ${cvh(172)};
+    display: flex;
 `;
 const PersonalReviewImgDiv = styled.div.attrs(() => ({
     className: "pixel",
@@ -87,6 +94,10 @@ const PersonalReviewImgDiv = styled.div.attrs(() => ({
     background-color: ${({ theme }) => theme.yellow.y100};
     pointer-events: auto;
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `;
 const PersonalCharacterImg = styled.div.attrs(() => ({
     className: "pixel",
@@ -95,22 +106,31 @@ const PersonalCharacterImg = styled.div.attrs(() => ({
     height: ${cvh(270)};
     pointer-events: auto;
     cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 const ImgStyle = styled.img`
     width: ${cvw(172)};
     height: ${cvh(172)};
-
     cursor: pointer;
 `;
 
 const DeleteButtonDiv = styled(DeleteButton)`
     width: ${cvw(24)};
     height: ${cvh(23.99)};
-    margin-left: ${cvw(34)};
-    margin-top: ${cvh(230)};
 `;
 
 const UpdateButtonDiv = styled(Update)`
     width: ${cvw(24)};
     height: ${cvh(23.99)};
+`;
+const ButtonDiv = styled.div`
+    padding: 0px ${cvw(24)};
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: ${cvw(16)};
+    margin-top: ${cvh(23.99)};
 `;

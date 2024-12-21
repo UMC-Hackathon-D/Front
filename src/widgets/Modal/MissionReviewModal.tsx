@@ -25,40 +25,52 @@ const MissionReviewModal = ({
     review,
 }: CharacterModalProps) => {
     return (
-        <>
-            <Modal id={id} open={open} onClose={onClose}>
-                <div style={{ display: "flex", flexDirection: "column" }}>
-                    <CloseButton onClick={onClose} />
-                    <ReviewImg src={reviewImg}></ReviewImg>
-                    <div>
-                        <div>
-                            <CharacterImg src={characterImg}></CharacterImg>
-                            <div>
-                                <DateDiv>{date}</DateDiv>
-                                <NameDiv>{name}</NameDiv>
-                                <ContentDiv>{content}</ContentDiv>
-                            </div>
-                        </div>
-                        <div>
-                            <ReviewTitle>미션 후기</ReviewTitle>
-                            <ReviewCommentDiv>{review}</ReviewCommentDiv>
-                        </div>
-                    </div>
+        <ModalStyle id={id} open={open} onClose={onClose}>
+            <CLoseButton>
+                <CloseButton onClick={onClose} />
+            </CLoseButton>
+
+            <ReviewImg src={reviewImg}></ReviewImg>
+
+            <PersonReview>
+                <CharacterImg src={characterImg}></CharacterImg>
+                <div>
+                    <DateDiv>{date}</DateDiv>
+                    <NameDiv>{name}</NameDiv>
+                    <ContentDiv>{content}</ContentDiv>
                 </div>
-            </Modal>
-        </>
+            </PersonReview>
+            <PersonReviewContent>
+                <ReviewTitle>미션 후기</ReviewTitle>
+                <ReviewCommentDiv>{review}</ReviewCommentDiv>
+            </PersonReviewContent>
+        </ModalStyle>
     );
 };
 export default MissionReviewModal;
+const CLoseButton = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
+    margin-bottom: ${cvh(15)};
+`;
 
 const ReviewImg = styled.img.attrs(() => ({ className: "pixel" }))`
     width: ${cvw(580)};
     height: ${cvh(279)};
+    margin-bottom: ${cvh(15)};
+`;
+const PersonReview = styled.div`
+    display: flex;
+`;
+const PersonReviewContent = styled.div`
+    margin-top: 20px;
 `;
 const CharacterImg = styled.img`
     border-radius: 50px;
     width: ${cvw(104)};
     height: ${cvh(104)};
+    margin-right: ${cvw(15)};
 `;
 const DateDiv = styled.div`
     font-size: ${({ theme }) => theme.captionFontSize.c1};
@@ -71,14 +83,19 @@ const ContentDiv = styled.div`
 `;
 const ReviewTitle = styled.div`
     font-size: ${({ theme }) => theme.headingFontSize.h3};
+    margin-bottom: ${cvh(20)};
 `;
 const ReviewCommentDiv = styled.div.attrs(() => ({ className: "pixel" }))`
     width: ${cvw(588)};
     height: ${cvh(155)};
+    padding: ${cvh(15)} ${cvw(15)};
 `;
-const AS3 = styled.div.attrs(() => ({ className: "pixel" }))`
-    color: ${({ theme }) => theme.black.b900};
-    font-size: ${({ theme }) => theme.headingFontSize.h3};
-    width: ${cvw(620)};
-    height: ${cvh(40)};
+
+const ModalStyle = styled(Modal)`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
 `;

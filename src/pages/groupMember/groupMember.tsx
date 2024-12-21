@@ -65,4 +65,6 @@ const GroupCharacterDiv = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
+    place-items: center;
+    margin: auto;
 `;

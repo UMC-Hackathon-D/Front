@@ -32,10 +32,6 @@ const ReviewImgComponent = ({
                 >
                     <MissionReviewTitle>미션 후기</MissionReviewTitle>
                     <MissionReviewContent>{review}</MissionReviewContent>
-                    <ButtonDiv>
-                        <UpdateButtonDiv />
-                        <DeleteButtonDiv />
-                    </ButtonDiv>
                 </PersonalReviewImgDiv>
             ) : (
                 <ImgStyle
@@ -85,20 +81,4 @@ const ImgStyle = styled.img.attrs(() => ({ className: "pixel" }))`
     height: ${(props) => cvh(props.width as number)};
 
     cursor: pointer;
-`;
-const ButtonDiv = styled.div`
-    display: flex;
-`;
-const DeleteButtonDiv = styled(DeleteButton)`
-    width: ${cvw(24)};
-    height: ${cvh(24)};
-    margin-left: ${cvw(23)};
-    margin-top: ${cvh(76)};
-`;
-
-const UpdateButtonDiv = styled(Update)`
-    width: ${cvw(24)};
-    height: ${cvh(24)};
-    margin-left: ${cvw(112)};
-    margin-top: ${cvh(76)};
 `;

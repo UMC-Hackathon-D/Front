@@ -16,9 +16,9 @@ const ContentComponent = ({
         <AllContentDiv>
             <ImgStyle src={img}></ImgStyle>
             <ContentDiv>
-                <div>{date}</div>
-                <div>{name}</div>
-                <div>{content}</div>
+                <Date>{date}</Date>
+                <Name>{name}</Name>
+                <Content>{content}</Content>
             </ContentDiv>
         </AllContentDiv>
     );
@@ -27,14 +27,33 @@ const ContentComponent = ({
 export default ContentComponent;
 
 const ImgStyle = styled.img`
-    width: ${cvw(47)};
-    height: ${cvh(47)};
+    width: ${cvw(30)};
+    height: ${cvh(32)};
 `;
 const AllContentDiv = styled.div`
     display: flex;
+    width: ${cvw(215)};
+    height: ${cvh(55)};
 `;
 const ContentDiv = styled.div`
     display: flex;
     flex-direction: column;
     justidfy-content: flex-start;
+`;
+
+const Date = styled.div`
+    height: ${cvh(16)};
+    font-size: ${({ theme }) => theme.captionFontSize.c2};
+    margin-bottom: ${cvh(11)};
+`;
+
+const Name = styled.div`
+    height: ${cvh(20)};
+    font-size: ${({ theme }) => theme.bodyFontSize.b1};
+    margin-bottom: ${cvh(25)};
+`;
+
+const Content = styled.div`
+    height: ${cvh(14)};
+    font-size: ${({ theme }) => theme.captionFontSize.c1};
 `;

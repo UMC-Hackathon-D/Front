@@ -11,6 +11,7 @@ type data = {
     img?: undefined | string;
     content: string;
 };
+
 const Collection = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [selectedData, setSelectedData] = useState<any>(null);
@@ -25,8 +26,22 @@ const Collection = () => {
         setIsModalOpen(false);
     };
     return (
-        <>
+        <CollectionDiv>
+            {isModalOpen && selectedData && (
+                <MissionReviewModal
+                    id={selectedData.id}
+                    open={isModalOpen}
+                    onClose={handleCloseModal}
+                    reviewImg={selectedData.img}
+                    characterImg={selectedData.img}
+                    name={selectedData.name}
+                    content={selectedData.content}
+                    date={selectedData.date}
+                    review={selectedData.review}
+                />
+            )}
             <GroupCharacterTitleDiv>낭만 모음집</GroupCharacterTitleDiv>
+
             <GroupCharacterDiv>
                 {example.map((data) => {
                     return (
@@ -47,20 +62,7 @@ const Collection = () => {
                     );
                 })}
             </GroupCharacterDiv>
-            {isModalOpen && selectedData && (
-                <MissionReviewModal
-                    id={selectedData.id}
-                    open={isModalOpen}
-                    onClose={handleCloseModal}
-                    reviewImg={selectedData.img}
-                    characterImg={selectedData.img}
-                    name={selectedData.name}
-                    content={selectedData.content}
-                    date={selectedData.date}
-                    review={selectedData.review}
-                />
-            )}
-        </>
+        </CollectionDiv>
     );
 };
 export default Collection;
@@ -74,4 +76,10 @@ const GroupCharacterDiv = styled.div`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 25px;
+`;
+const CollectionDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
 `;
