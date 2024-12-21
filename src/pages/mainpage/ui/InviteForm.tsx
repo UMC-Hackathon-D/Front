@@ -116,8 +116,7 @@ export default GroupForm;
 const CustomInput = styled.div`
   display: flex;
   align-items: center;
-  margin: ${cvw(30)} 0;
-  margin-bottom: ${cvh(11)};
+  margin-bottom: ${cvh(35)};
 `;
 
 const SpanLabel = styled.span`
@@ -133,12 +132,8 @@ const ErrorText = styled.span`
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
-  gap: ${cvw(23)};
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: ${cvh(60)};
+  margin-top: ${cvh(50)};
+  margin-bottom: ${cvh(36)};
 `;
 
 const CustomAlertWrapper = styled.div`

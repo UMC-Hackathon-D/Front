@@ -19,7 +19,7 @@ const GroupModal = ({ open, onClose }: GroupModalProps) => {
     };
 
     return (
-        <Modal open={open} onClose={onClose} width={cvw(996)} height={cvh(770)}>
+        <Modal open={open} onClose={onClose} width={cvw(996)} height={cvh(571)}>
             <Content>
                 <Title>그룹 만들기</Title>
                 <GroupForm onSubmit={onSubmit} onClose={onClose} />
@@ -31,11 +31,13 @@ const GroupModal = ({ open, onClose }: GroupModalProps) => {
 export default GroupModal;
 
 const Content = styled.div`
-    padding: ${cvw(32)} ${cvh(90)};
+    padding-right: ${cvw(90)};
+    padding-left: ${cvw(90)};
 `;
 
 const Title = styled.h2`
     font-size: ${theme.headingFontSize.h1};
     text-align: center;
-    margin-bottom: ${cvw(27)};
+    margin-top: ${cvh(45)};
+    margin-bottom: ${cvh(27)};
 `;

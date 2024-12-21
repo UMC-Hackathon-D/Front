@@ -57,8 +57,8 @@ const CharacterModal = ({ open, onClose }: CharacterModalProps) => {
             <Modal
                 open={open}
                 onClose={onClose}
-                width={cvw(650)}
-                height={cvh(940)}
+                width={cvw(700)}
+                height={cvh(700)}
             >
                 <Content>
                     <Title>캐릭터 선택하기</Title>
@@ -85,11 +85,11 @@ const CharacterModal = ({ open, onClose }: CharacterModalProps) => {
                     </CharactersContainer>
 
                     <ButtonContainer>
-                        <Button bgColor={theme.yellow.y500} onClick={handleModalClose} fontSize={theme.headingFontSize.h2} width={cvw(180)} height={cvh(90)}>
+                        <Button bgColor={theme.yellow.y500} onClick={handleModalClose} fontSize={theme.headingFontSize.h2} width={cvw(180)} height={cvh(70)}>
                             취소
                         </Button>
                         <Button
-                            bgColor={theme.red.r500} onClick={handleConfirmSelection} fontSize={theme.headingFontSize.h2} width={cvw(180)} height={cvh(90)}
+                            bgColor={theme.red.r500} onClick={handleConfirmSelection} fontSize={theme.headingFontSize.h2} width={cvw(180)} height={cvh(70)}
                         >
                             선택
                         </Button>
@@ -117,7 +117,7 @@ const Title = styled.h2`
 const CharactersContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 0fr);
-    gap: ${cvw(60)};
+    gap: ${cvw(10)};
 `;
 
 const CharacterCard = styled.div<{ selected: boolean }>`
