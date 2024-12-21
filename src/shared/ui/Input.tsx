@@ -1,33 +1,56 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import styled from "styled-components";
 
-interface InputProps {
-    value: string | number;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    type?: string;
-    min?: number;
-    width?: string;  // 너비를 커스터마이징할 수 있도록 추가
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+    value?: string | number;
+    width?: string;
+    fontSize?: string;
+    height?: string;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-const Input = ({ value, onChange, type = "text", min, width = "100%" }: InputProps) => (
-    <StyledInput
-        value={value}
-        onChange={onChange}
-        type={type}
-        min={min}
-        width={width}
-    />
+const Input = forwardRef<HTMLInputElement, InputProps>(
+    (
+        {
+            value,
+            type = "text",
+            width = "100%",
+            fontSize = "20px",
+            height = "40px",
+            onChange,
+            ...props
+        },
+        ref
+    ) => {
+        return (
+            <StyledInput
+                ref={ref}
+                value={value}
+                type={type}
+                width={width}
+                fontSize={fontSize}
+                height={height}
+                onChange={onChange}
+                {...props}
+            />
+        );
+    }
 );
+
+Input.displayName = "Input";
 
 export default Input;
 
-const StyledInput = styled.input<{ width?: string }>`
-    font-family: 'NeoDunggeunmo', sans-serif;
-    font-size: 20px;
-    padding: 12px 15px;
-    width: ${({ width }) => width || "100%"};
-    border: 1px solid #ccc;
-    border-radius: 8px;
+const StyledInput = styled.input.attrs(() => ({ className: "pixel" }))<{
+    width: string;
+    fontSize: string;
+    height: string;
+}>`
+    font-family: "NeoDunggeunmo", sans-serif;
+    font-size: ${({ fontSize }) => fontSize};
+    padding: 20px 15px;
+    width: ${({ width }) => width};
+    height: ${({ height }) => height};
     box-sizing: border-box;
-    font-weight: 500;
+    outline: none;
 `;

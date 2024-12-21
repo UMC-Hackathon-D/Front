@@ -2,16 +2,18 @@ import React from "react";
 import styled from "styled-components";
 
 interface ModalProps {
-    id: string;
     open: boolean;
     onClose: () => void;
     children: React.ReactNode;
+    width: string;
+    height: string;
 }
 
-const Modal = ({ id, open, onClose, children }: ModalProps) => {
+const Modal = ({open, onClose, children, width, height }: ModalProps) => {
     return (
         <>
             <StyledDialog id={id} open={open} onClick={onClose}>
+
                 <div onClick={(e) => e.stopPropagation()}>{children}</div>
             </StyledDialog>
         </>
@@ -23,5 +25,5 @@ export default Modal;
 const StyledDialog = styled.dialog.attrs(() => ({ className: "pixel" }))<{
     open: boolean;
 }>`
-    // margin-top: 200px;
+
 `;

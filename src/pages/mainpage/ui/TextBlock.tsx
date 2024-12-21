@@ -16,10 +16,10 @@ const TextWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: ${cvh(60)};
+    gap: ${cvh(40)};
 `;
 
 const Text = styled.p`
-    font-size: 32px;
+    font-size: ${({theme}) => theme.headingFontSize.h2};
     text-align: center;
 `;

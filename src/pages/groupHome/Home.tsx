@@ -1,20 +1,19 @@
 import styled from "styled-components";
-import NotTakenMission from "@pages/groupHome/components/NotTakenMission";
+
+import NotAssigned from "@pages/groupHome/components/NotAssigned";
+import Assigned from "@pages/groupHome/components/Assigned";
 import CharacterCard from "@pages/groupHome/components/CharacterCard";
+import { useState } from "react";
+
 const Home = () => {
-    // const getMission = async () => {
-    //     const res = await serverInstance.post("/api/v1/parties/create", {
-    //         partyName: "zz",
-    //         name: "깡태",
-    //         numMember: 3,
-    //         password: "asdf",
-    //     });
-    //     console.log(res.data);
-    // };
-    // getMission();
+    const [isAssigned, setIsAssigned] = useState<boolean>(false);
     return (
         <HomeContainer>
-            <NotTakenMission />
+            {isAssigned ? (
+                <Assigned />
+            ) : (
+                <NotAssigned setIsAssigned={setIsAssigned} />
+            )}
             <CharacterCard />
         </HomeContainer>
     );
@@ -26,6 +25,8 @@ const HomeContainer = styled.main`
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+
+    position: relative;
 `;
 
 export default Home;
