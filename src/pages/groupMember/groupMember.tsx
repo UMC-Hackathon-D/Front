@@ -38,7 +38,7 @@ const GroupMember = () => {
     // const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
     return (
-        <div>
+        <>
             <GroupCharacterTitleDiv>그룹 멤버 보기</GroupCharacterTitleDiv>
             <GroupCharacterDiv>
                 {example.map((data) => {
@@ -50,7 +50,7 @@ const GroupMember = () => {
                     );
                 })}
             </GroupCharacterDiv>
-        </div>
+        </>
     );
 };
 export default GroupMember;
