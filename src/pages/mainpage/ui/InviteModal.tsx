@@ -36,7 +36,7 @@ const InviteModal = ({ open, onClose }: GroupModalProps) => {
                 open={open}
                 onClose={onClose}
                 width={cvw(996)}
-                height={cvh(720)}
+                height={cvh(571)}
             >
                 <Content>
                     <Title>초대 코드로 들어가기</Title>
@@ -57,11 +57,13 @@ const InviteModal = ({ open, onClose }: GroupModalProps) => {
 export default InviteModal;
 
 const Content = styled.div`
-    padding: ${cvw(32)} ${cvh(90)};
+    padding-right: ${cvw(90)};
+    padding-left: ${cvw(90)};
 `;
 
 const Title = styled.h2`
     font-size: ${({ theme }) => theme.headingFontSize.h1};
     text-align: center;
-    margin-bottom: ${cvw(60)};
+    margin-bottom: ${cvh(95)};
+    margin-top: ${cvh(45)};
 `;

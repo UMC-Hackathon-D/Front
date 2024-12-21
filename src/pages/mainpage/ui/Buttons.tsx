@@ -67,6 +67,6 @@ export default Buttons;
 // 컨테이너 스타일
 const ButtonWrapper = styled.div`
     display: flex;
-    gap: ${cvw(80)};
+    gap: ${cvw(58)};
     position: relative;
 `;
