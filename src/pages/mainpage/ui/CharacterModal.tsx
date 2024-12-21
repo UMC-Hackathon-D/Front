@@ -92,8 +92,8 @@ const CharacterModal = ({ open, onClose, inputData }: CharacterModalProps) => {
             <Modal
                 open={open}
                 onClose={onClose}
-                width={cvw(650)}
-                height={cvh(940)}
+                width={cvw(700)}
+                height={cvh(700)}
             >
                 <Content onSubmit={handleSubmit}>
                     <Title>캐릭터 선택하기</Title>
@@ -121,7 +121,7 @@ const CharacterModal = ({ open, onClose, inputData }: CharacterModalProps) => {
                             onClick={handleModalClose}
                             fontSize={theme.headingFontSize.h2}
                             width={cvw(180)}
-                            height={cvh(90)}
+                            height={cvh(70)}
                         >
                             취소
                         </Button>
@@ -131,7 +131,7 @@ const CharacterModal = ({ open, onClose, inputData }: CharacterModalProps) => {
                             type="submit"
                             fontSize={theme.headingFontSize.h2}
                             width={cvw(180)}
-                            height={cvh(90)}
+                            height={cvh(70)}
                         >
                             선택
                         </Button>
@@ -159,7 +159,7 @@ const Title = styled.h2`
 const CharactersContainer = styled.div`
     display: grid;
     grid-template-columns: repeat(3, 0fr);
-    gap: ${cvw(60)};
+    gap: ${cvw(10)};
 `;
 
 const CharacterCard = styled.div<{ selected: boolean }>`
