@@ -38,6 +38,7 @@ const GroupForm = ({ onSubmit, onClose }: GroupFormProps) => {
             numMember: data.groupSize,
             password: data.groupCode,
         };
+        console.log(requestBody);
     
         try {
             const response = await serverInstance.post("/api/v1/parties/create", requestBody);

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Modal from "@shared/ui/Modal";
+import Modal from "@widgets/Modal/Modal";
 import Button from "@shared/ui/Button";
 import theme from "@app/styles/theme";
 import styled from "styled-components";

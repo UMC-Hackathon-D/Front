@@ -9,6 +9,8 @@ import theme from "@app/styles/theme";
 import { serverInstance } from "@shared/apiInstance/index";
 import { useState } from "react";
 import CustomAlert from "@shared/ui/CustomAlert";
+import { useRecoilState } from "recoil"; // useRecoilState 추가
+import { loginState } from "@shared/recoil/recoil"; // loginState import
 
 interface FormData {
   groupName: string;
@@ -27,6 +29,7 @@ const GroupForm = ({ onSubmit }: GroupFormProps) => {
   });
 
   const [alertMessage, setAlertMessage] = useState<string | null>(null);
+  const [login, setLogin] = useRecoilState(loginState); // 로그인 상태를 Recoil로 관리
 
   const handleFormSubmit = async (data: FormData) => {
     const requestBody = {
@@ -37,8 +40,15 @@ const GroupForm = ({ onSubmit }: GroupFormProps) => {
 
     try {
       const response = await serverInstance.post("/api/v1/parties/users/signup", requestBody);
-      console.log("API Response:", response.data);
+      console.log("API Response:", response.data.success);
       onSubmit(data); // 부모 컴포넌트로 전달
+
+      // 로그인 상태 업데이트 (예: 회원가입 후 로그인 처리)
+      setLogin({
+        ...login,
+        success: response.data.success,
+        isLoggedIn: true,
+      });
     } catch (error: any) {
       const errorMessage = error.response?.data?.error?.reason || "회원가입 중 오류가 발생했습니다.";
       console.error("API Error:", errorMessage);
@@ -132,10 +142,10 @@ const ButtonContainer = styled.div`
 `;
 
 const CustomAlertWrapper = styled.div`
-    position: fixed;
-    margin-left: ${cvw(340)};
-    bottom: ${cvh(190)};  // 화면 상단에 배치 (하단은 bottom: 20px로 변경 가능)
-    z-index: 1000;
-    justify-content: center;
-    text-align: center;
+  position: fixed;
+  margin-left: ${cvw(340)};
+  bottom: ${cvh(190)};
+  z-index: 1000;
+  justify-content: center;
+  text-align: center;
 `;

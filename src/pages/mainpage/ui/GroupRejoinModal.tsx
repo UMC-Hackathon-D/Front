@@ -1,4 +1,4 @@
-import Modal from "@shared/ui/Modal";
+import Modal from "@widgets/Modal/Modal";
 import GroupRejoinForm from "./GroupRejoinForm";
 import { cvh, cvw } from "@shared/utils/unit";
 import styled from "styled-components";

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Modal from "@shared/ui/Modal";
+import Modal from "@widgets/Modal/Modal";
 import styled from "styled-components";
 import { cvh, cvw } from "@shared/utils/unit";
 import CharacterModal from "@pages/mainpage/ui/CharacterModal";

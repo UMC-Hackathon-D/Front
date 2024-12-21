@@ -1,4 +1,4 @@
-import Modal from "@shared/ui/Modal";
+import Modal from "@widgets/Modal/Modal";
 import GroupForm from "./GroupForm"; // GroupForm 컴포넌트 임포트
 import { cvh, cvw } from "@shared/utils/unit";
 import styled from "styled-components";
