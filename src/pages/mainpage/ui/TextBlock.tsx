@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { cvh, cvw } from "@shared/utils/unit";
-import theme from "@app/styles/theme";
 
 const TextBlock = () => {
     return (

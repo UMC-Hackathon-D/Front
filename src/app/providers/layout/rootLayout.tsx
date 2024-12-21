@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
-import Header from "../../../pages/Header";
-import SideBar from "../../../pages/SideBar";
+import Header from "@widgets/Header/Header";
+import SideBar from "@widgets/SideBar/SideBar";
 import styled from "styled-components";
 import { cvw, cvh } from "../../../shared/utils/unit";
 const RootLayout = () => {
     return (
-        <div>
+        <>
             <Header />
             <FlexBox>
                 <SideBar />
@@ -13,7 +13,7 @@ const RootLayout = () => {
                     <Outlet />
                 </MainContainer>
             </FlexBox>
-        </div>
+        </>
     );
 };
 
@@ -22,6 +22,8 @@ const FlexBox = styled.div`
 `;
 
 const MainContainer = styled.main`
+    width: 100%;
+    height: ${cvh(874)};
     display: flex;
     align-items: center;
     padding: ${cvh(50)} ${cvw(120)};

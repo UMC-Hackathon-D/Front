@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import BackgroundImage from "@shared/assets/background_test.svg";
+import BackgroundImage from "@shared/assets/image/background_test.svg";
 
 interface BackgroundProps {
     children: React.ReactNode; // 배경 위에 올릴 자식 요소

@@ -1,9 +1,14 @@
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import Input from "@shared/ui/Input";
 import Button from "@shared/ui/Button";
 import styled from "styled-components";
 import { cvh, cvw } from "@shared/utils/unit";
 import theme from "@app/styles/theme";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { groupFormSchema } from "@shared/schemas/GroupSchema";
+import { serverInstance } from "@shared/apiInstance/index";
+import CustomAlert from "@shared/ui/CustomAlert";
 
 interface FormData {
     groupName: string;
@@ -18,38 +23,71 @@ interface GroupFormProps {
 }
 
 const GroupForm = ({ onSubmit, onClose }: GroupFormProps) => {
-    const { register, handleSubmit, watch } = useForm<FormData>({
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<FormData>({
+        resolver: zodResolver(groupFormSchema),
         mode: "onChange"
     });
 
-    // watch를 사용하여 실시간으로 폼 데이터를 추적하고 출력합니다.
-    const formData = watch();  // 모든 입력값을 실시간으로 추적
-    console.log("Form data:", formData); // 폼 값 실시간 출력
+    const [alertMessage, setAlertMessage] = useState<string | null>(null);
 
-    const handleFormSubmit = (data: FormData) => {
-        console.log("groupform : ", data);  // 폼 데이터 출력
-        onSubmit(data); // 부모 컴포넌트로 전달
+    const handleFormSubmit = async (data: FormData) => {
+   
+        const requestBody = {
+            partyName: data.groupName,
+            name: data.nickname,
+            numMember: data.groupSize,
+            password: data.groupCode,
+        };
+    
+        try {
+            const response = await serverInstance.post("/api/v1/parties/create", requestBody);
+            console.log("API Response:", response.data);
+            onSubmit(data); // 부모 컴포넌트로 전달
+            setAlertMessage("그룹 입장하기를 통해 들어가주세요.");
+            reset();
+        } catch (error: any) {
+            const errorMessage = error.response?.data?.error?.reason || "그룹 생성 중 오류가 발생했습니다.";
+            console.log("API Error:", error.response?.data || error.reason);
+            setAlertMessage(errorMessage);
+        }
+    };
+
+    const handleClose = () => {
+        reset();
+        onClose();
     };
 
     return (
+        <>
+        {alertMessage && (
+            <CustomAlertWrapper> 
+                <CustomAlert 
+                    message={alertMessage} 
+                    duration={3000} 
+                    onClose={() => setAlertMessage(null)} 
+                />
+            </CustomAlertWrapper>
+        )}
         <form onSubmit={handleSubmit(handleFormSubmit)}>
             <CustomInput>
                 <SpanLabel>그룹 이름</SpanLabel>
                 <Input
-                    {...register("groupName", { required: true })}
+                    {...register("groupName")}
                     width={cvw(690)}
                     height={cvh(55)}
                 />
             </CustomInput>
+            {errors.groupName && <ErrorMessage>{errors.groupName.message}</ErrorMessage>}            
 
             <CustomInput>
                 <SpanLabel>닉네임</SpanLabel>
                 <Input
-                    {...register("nickname", { required: true })}
+                    {...register("nickname")}
                     width={cvw(690)}
                     height={cvh(55)}
                 />
             </CustomInput>
+            {errors.nickname && <ErrorMessage>{errors.nickname.message}</ErrorMessage>}
 
             <CustomInput>
                 <SpanLabel>그룹 인원</SpanLabel>
@@ -66,11 +104,12 @@ const GroupForm = ({ onSubmit, onClose }: GroupFormProps) => {
             <CustomInput>
                 <SpanLabel>그룹 코드</SpanLabel>
                 <Input
-                    {...register("groupCode", { required: true })}
+                    {...register("groupCode")}
                     width={cvw(690)}
                     height={cvh(55)}
                 />
             </CustomInput>
+            {errors.groupCode && <ErrorMessage>{errors.groupCode.message}</ErrorMessage>}
 
             <ButtonContainer>
                 <Button
@@ -79,7 +118,7 @@ const GroupForm = ({ onSubmit, onClose }: GroupFormProps) => {
                     width={cvw(180)}
                     height={cvh(90)}
                     type="button"
-                    onClick={onClose}
+                    onClick={handleClose}
                 >
                     취소
                 </Button>
@@ -95,6 +134,7 @@ const GroupForm = ({ onSubmit, onClose }: GroupFormProps) => {
                 </Button>
             </ButtonContainer>
         </form>
+        </>
     );
 };
 
@@ -104,6 +144,7 @@ const CustomInput = styled.div`
     display: flex;
     align-items: center;
     margin: ${cvw(30)} 0;
+    margin-bottom: ${cvh(11)};
 `;
 
 const SpanLabel = styled.span`
@@ -127,4 +168,23 @@ const ButtonContainer = styled.div`
     display: flex;
     justify-content: center;
     gap: ${cvw(23)};
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: ${cvh(60)};
+`;
+
+const ErrorMessage = styled.span`
+    color: red;
+    margin-left: ${cvw(140)};
+`;
+
+const CustomAlertWrapper = styled.div`
+    position: fixed;
+    margin-left: 21%;
+    bottom: ${cvh(160)};  // 화면 상단에 배치 (하단은 bottom: 20px로 변경 가능)
+    z-index: 1000;
+    justify-content: center;
+    text-align: center;
 `;

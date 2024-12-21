@@ -37,9 +37,8 @@ const CharacterModal = ({ open, onClose }: CharacterModalProps) => {
 
     const handleConfirmSelection = () => {
         if (selectedCharacter !== null) {
-            setAlertMessage(`캐릭터 ${selectedCharacter} 선택 완료!`);
-            setTimeout(() => setAlertMessage(""), 3000); // 3초 후 Alert 제거
             navigate("/groupHome");
+            console.log(`선택된 캐릭터 ID: ${selectedCharacter}`); // 클릭한 캐릭터의 ID 출력
         } else {
             setAlertMessage("캐릭터를 선택해주세요.");
             setTimeout(() => setAlertMessage(""), 3000);
@@ -65,28 +64,26 @@ const CharacterModal = ({ open, onClose }: CharacterModalProps) => {
                     <Title>캐릭터 선택하기</Title>
 
                     <CharactersContainer>
-    {characters
-        .filter((character) => character.id <= 9) // id가 9 이하인 캐릭터만 렌더링
-        .map((character) => (
-            <CharacterCard
-                key={character.id}
-                selected={selectedCharacter === character.id}
-                onClick={() => handleSelectCharacter(character.id)}
-            >
-                <img
-                    src={
-                        selectedCharacter === character.id
-                            ? character.clickedImgUrl // 클릭된 이미지 경로
-                            : character.imgUrl // 기본 이미지 경로
-                    }
-                    alt={`캐릭터 ${character.id}`}
-                />
-            </CharacterCard>
-        ))}
-</CharactersContainer>
+                        {characters
+                            .filter((character) => character.id <= 9) // id가 9 이하인 캐릭터만 렌더링
+                            .map((character) => (
+                                <CharacterCard
+                                    key={character.id}
+                                    selected={selectedCharacter === character.id}
+                                    onClick={() => handleSelectCharacter(character.id)}
+                                >
+                                    <img
+                                        src={
+                                            selectedCharacter === character.id
+                                                ? character.clickedImgUrl // 클릭된 이미지 경로
+                                                : character.imgUrl // 기본 이미지 경로
+                                        }
+                                        alt={`캐릭터 ${character.id}`}
+                                    />
+                                </CharacterCard>
+                            ))}
+                    </CharactersContainer>
 
-
-                    
                     <ButtonContainer>
                         <Button bgColor={theme.yellow.y500} onClick={handleModalClose} fontSize={theme.headingFontSize.h2} width={cvw(180)} height={cvh(90)}>
                             취소

@@ -1,34 +1,32 @@
 import Modal from "@shared/ui/Modal";
-import GroupForm from "./GroupForm"; // GroupForm 컴포넌트 임포트
+import GroupRejoinForm from "./GroupRejoinForm";
 import { cvh, cvw } from "@shared/utils/unit";
 import styled from "styled-components";
 import theme from "@app/styles/theme";
 
-interface GroupModalProps {
+interface GroupRejoinModalProps {
     open: boolean;
     onClose: () => void;
 }
 
-const GroupModal = ({ open, onClose }: GroupModalProps) => {
-
+const GroupRejoinModal = ({ open, onClose }: GroupRejoinModalProps) => {
     const onSubmit = () => {
-
         setTimeout(() => {
             onClose();
         }, 2000);
     };
 
     return (
-        <Modal open={open} onClose={onClose} width={cvw(996)} height={cvh(770)}>
+        <Modal open={open} onClose={onClose} width={cvw(996)} height={cvh(700)}>
             <Content>
-                <Title>그룹 만들기</Title>
-                <GroupForm onSubmit={onSubmit} onClose={onClose} />
+                <Title>그룹 다시 들어가기</Title>
+                <GroupRejoinForm onSubmit={onSubmit} onClose={onClose} />
             </Content>
         </Modal>
     );
 };
 
-export default GroupModal;
+export default GroupRejoinModal;
 
 const Content = styled.div`
     padding: ${cvw(32)} ${cvh(90)};
@@ -37,5 +35,5 @@ const Content = styled.div`
 const Title = styled.h2`
     font-size: ${theme.headingFontSize.h1};
     text-align: center;
-    margin-bottom: ${cvw(27)};
+    margin-bottom: ${cvw(87)};
 `;

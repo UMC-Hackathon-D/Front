@@ -1,30 +1,32 @@
 import React, { forwardRef } from "react";
 import styled from "styled-components";
 
-interface InputProps {
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
     value?: string | number;
-    type?: string;
     width?: string;
     fontSize?: string;
     height?: string;
+    onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
-    ({ value, type = "text", width = "100%", fontSize = "20px", height = "40px" }, ref) => {
+    ({ value, type = "text", width = "100%", fontSize = "20px", height = "40px", onChange, ...props }, ref) => {
         return (
             <StyledInput
-                ref={ref}  // ref 전달
-                value={value}  // value 전달
+                ref={ref}
+                value={value}
                 type={type}
                 width={width}
                 fontSize={fontSize}
                 height={height}
+                onChange={onChange}
+                {...props}
             />
         );
     }
 );
 
-Input.displayName = "Input"; // forwardRef 사용 시 displayName 설정
+Input.displayName = "Input";
 
 export default Input;
 
