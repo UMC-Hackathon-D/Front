@@ -66,11 +66,14 @@ const CharacterModal = ({ open, onClose, inputData }: CharacterModalProps) => {
         console.log(selectedCharacter);
 
         try {
+            console.log(inputData);
             const res1 = await serverInstance.post(
                 "/api/v1/parties/users/signup",
                 inputData
             );
             const data = res1.data.success;
+
+            console.log(data);
 
             const res2 = await serverInstance.patch(
                 `/api/v1/parties/${data.partyId}/users/${data.id}/character`,
@@ -81,7 +84,7 @@ const CharacterModal = ({ open, onClose, inputData }: CharacterModalProps) => {
             navigate("/groupHome");
         } catch (err) {
             console.log(err);
-            alert("중복 닉네임 또는 중복 아이콘입니다.");
+            // alert("중복 닉네임 또는 중복 아이콘입니다.");
         }
     };
 
