@@ -37,7 +37,6 @@ const CharacterModal = ({ open, onClose, inputData }: CharacterModalProps) => {
     const navigate = useNavigate();
     const [login, setLogin] = useRecoilState(loginState);
 
-
     useEffect(() => {
         const getCharacters = async () => {
             try {
@@ -101,6 +100,7 @@ const CharacterModal = ({ open, onClose, inputData }: CharacterModalProps) => {
                             <CharacterCard
                                 key={character.id}
                                 selected={selectedCharacter === character.id}
+                                className="pixel"
                                 onClick={() =>
                                     handleSelectCharacter(character.id)
                                 }
@@ -143,24 +143,25 @@ const CharacterModal = ({ open, onClose, inputData }: CharacterModalProps) => {
 export default CharacterModal;
 
 const Content = styled.form`
-    justify-items: center; /* 가로 방향으로 카드 중앙 정렬 */
-    align-items: center; /* 세로 방향으로 카드 중앙 정렬 */
+    display: flex;
+    flex-direction: column;
+    gap: ${cvh(16)};
+    width: ${cvw(700)};
+    height: ${cvh(700)};
+    padding: ${cvh(40)} ${cvw(115)};
 `;
 
 const Title = styled.h2`
     font-size: ${theme.headingFontSize.h1};
     text-align: center;
-    margin-top: ${cvh(40)};
-    margin-bottom: ${cvh(40)};
 `;
 
 const CharactersContainer = styled.div`
-    display: grid; /* 그리드 레이아웃으로 변경 */
-    grid-template-columns: repeat(3, 1fr); /* 3열로 설정 */
-    gap: ${cvw(15)}; /* 카드 간의 간격 설정 */
-    margin-left: ${cvw(113)};
-    margin-right: ${cvw(117)};
-    width: ${cvw(380)}; /* 컨테이너의 최대 너비 설정 */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    place-items: center;
+    margin-top: ${cvh(40)};
 `;
 
 const CharacterCard = styled.div<{ selected: boolean }>`
@@ -169,12 +170,18 @@ const CharacterCard = styled.div<{ selected: boolean }>`
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    width: ${cvw(150)};
+    height: ${cvh(150)};
+    background-color: ${({ selected }) => selected && theme.blue.b500};
+    & > img {
+        width: 100%;
+        height: 100%;
+    }
 `;
 
 const ButtonContainer = styled.div`
+    margin-top: ${cvh(20)};
     display: flex;
     justify-content: center;
     gap: ${cvw(23)};
-    margin-top: ${cvh(30)};
-    margin-bottom: ${cvh(30)};
 `;
