@@ -29,8 +29,8 @@ interface Mission {
 interface ModalInnerProps {
     data: DataState;
     modalIdx: number;
-    personData: { id: number; name: string }[];
-    missionData: { id: number; mission: string }[];
+    personData: PersonData[];
+    missionData: Mission[];
     onClick: (data: unknown) => void;
     setModalIdx: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -95,7 +95,8 @@ const ModalInner = ({
                             <FlippedCard>
                                 <img
                                     className="icon"
-                                    src={data.character.photo}
+                                    src={data.character?.photo}
+                                    alt={data.id.toString()}
                                 ></img>
                                 <span>{data.name}</span>
                             </FlippedCard>
@@ -123,7 +124,7 @@ const ModalInner = ({
                         >
                             <Card>{data.id}</Card>
                             <FlippedCard>
-                                <span>{data.mission}</span>
+                                <span>{data.missionContent}</span>
                             </FlippedCard>
                         </div>
                     </CardWrapper>
