@@ -1,15 +1,38 @@
 import React from "react";
 import styled from "styled-components";
 import { cvw, cvh } from "@shared/utils/unit";
-import CloseButton from "@assets/icon/Close.svg?react";
 import Modal from "@shared/ui/Modal";
+import { useMutation } from "@tanstack/react-query";
+import { deleteData } from "@shared/Apis/Apis";
+import { queryClient } from "@app/main";
+import { useRecoilValue } from "recoil";
+import { loginState } from "@shared/recoil/recoil";
 interface DeleteModalProps {
-    id: string;
+    id: number;
     open: boolean;
     onClose: () => void;
     name: string;
 }
 const DeleteModal = ({ id, open, onClose, name }: DeleteModalProps) => {
+    const loginData = useRecoilValue(loginState);
+    const partyId = loginData?.partyId;
+    console.log(partyId);
+
+    const { mutate } = useMutation({
+        mutationFn: deleteData,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["getData"] });
+        },
+        onError: () => {
+            console.error("에러 발생");
+        },
+    });
+    const conFirmButton = () => {
+        onClose;
+        mutate({ partyId: partyId, id: id });
+    };
+    console.log(id);
+
     return (
         <>
             <ModalStyle id={id} open={open} onClose={onClose}>
@@ -22,7 +45,7 @@ const DeleteModal = ({ id, open, onClose, name }: DeleteModalProps) => {
                     {name} 님을 삭제하시겠습니까?
                 </DeleteModalContent>
                 <UpdateButtonDiv>
-                    <UpdateButton onClick={onClose}>확인</UpdateButton>
+                    <UpdateButton onClick={conFirmButton}>확인</UpdateButton>
                 </UpdateButtonDiv>
             </ModalStyle>
         </>

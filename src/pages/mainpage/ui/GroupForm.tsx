@@ -172,7 +172,6 @@ const ButtonContainer = styled.div`
     gap: ${cvw(23)};
     margin-top: ${cvh(35)};
     margin-bottom: ${cvh(44)};
-    margin: ${cvh(60)};
 `;
 
 const ErrorMessage = styled.span`

@@ -17,7 +17,7 @@ const GroupRejoinModal = ({ open, onClose }: GroupRejoinModalProps) => {
     };
 
     return (
-        <Modal open={open} onClose={onClose} width={cvw(996)} height={cvh(700)}>
+        <Modal open={open} onClose={onClose} width={cvw(996)} height={cvh(497)}>
             <Content>
                 <Title>그룹 다시 들어가기</Title>
                 <GroupRejoinForm onSubmit={onSubmit} onClose={onClose} />
@@ -29,11 +29,13 @@ const GroupRejoinModal = ({ open, onClose }: GroupRejoinModalProps) => {
 export default GroupRejoinModal;
 
 const Content = styled.div`
-    padding: ${cvw(32)} ${cvh(90)};
+    padding-right: ${cvw(90)};
+    padding-left: ${cvw(90)};
 `;
 
 const Title = styled.h2`
     font-size: ${theme.headingFontSize.h1};
     text-align: center;
-    margin-bottom: ${cvw(87)};
+    margin-top: ${cvh(45)};
+    margin-bottom: ${cvh(95)};
 `;

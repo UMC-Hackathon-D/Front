@@ -1,16 +1,21 @@
 import CharacterImgComponent from "@widgets/ImgComponent/CharacterImg";
 const GroupMemberComponent = ({
-    characterImg,
+    id,
+    characterId,
     name,
 }: {
-    characterImg: string;
+    id: number;
+    characterId: number;
     name: string;
 }) => {
+    console.log(id);
+
     return (
         <div>
             <CharacterImgComponent
-                key={characterImg}
-                img={characterImg}
+                id={id}
+                key={characterId}
+                characterId={characterId}
                 name={name}
             ></CharacterImgComponent>
             <div>{name}</div>

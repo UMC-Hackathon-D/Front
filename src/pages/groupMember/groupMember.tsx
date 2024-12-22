@@ -1,5 +1,18 @@
 import styled from "styled-components";
 import GroupMemberComponent from "@widgets/GroupMemberComponent/GroupMemberComponent";
+import { useRecoilValue, useRecoilState } from "recoil";
+import { loginState } from "@shared/recoil/recoil";
+import { useLocation } from "react-router-dom";
+import { getData } from "@shared/Apis/Apis";
+import { useQuery } from "@tanstack/react-query";
+export type PersonalData = {
+    characterId: number;
+    createAt: string;
+    id: number;
+    name: string;
+    partyId: number;
+    updateAt: string;
+};
 export const example = [
     {
         img: "https://image.bugsm.co.kr/album/images/500/40752/4075248.jpg",
@@ -34,17 +47,32 @@ export const example = [
         content: "친구에게 사랑한다 말하기",
     },
 ];
+
 const GroupMember = () => {
     // const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const loginData = useRecoilValue(loginState);
+    const partyId = loginData?.partyId;
+    console.log(partyId);
+
+    const location = useLocation();
+    const pagePath = location.state?.path;
+    console.log(pagePath);
+
+    const { data } = useQuery({
+        queryKey: ["getData"],
+        queryFn: () => getData({ partyId: partyId, pathType: "users" }),
+    });
+    console.log(data);
 
     return (
         <GroupMemeberDiv>
             <GroupCharacterTitleDiv>그룹 멤버 보기</GroupCharacterTitleDiv>
             <GroupCharacterDiv>
-                {example.map((data) => {
+                {data?.map((data: PersonalData) => {
                     return (
                         <GroupMemberComponent
-                            characterImg={data.img}
+                            id={data.id}
+                            characterId={data.characterId}
                             name={data.name}
                         ></GroupMemberComponent>
                     );
