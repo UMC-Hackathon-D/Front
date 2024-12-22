@@ -10,6 +10,22 @@ interface DataState {
     missionName: string;
 }
 
+interface PersonData {
+    character: {
+        id: number | null; // character가 null일 수도 있으므로 | null 추가
+        photo?: string; // photo가 없는 경우도 있으므로 optional로 설정
+    } | null; // character가 null일 수도 있음
+    characterId: number | null; // null 가능
+    id: number; // 항상 존재
+    name: string; // 항상 존재
+}
+
+interface Mission {
+    id: number; // 항상 존재
+    missionContent: string; // 문자열 값
+    missionName: string | null; // null 가능
+}
+
 interface ModalInnerProps {
     data: DataState;
     modalIdx: number;
@@ -49,7 +65,6 @@ const ModalInner = ({
                 const res = await serverInstance.get(
                     `/api/v1/missions/preview?missionId=${data.missionId}&targetUserId=${data.targetUserId}}`
                 );
-                console.log(res);
                 setPreviewMission(res.data.success.previewMessage[1]);
             } catch (err) {
                 console.log(err);
