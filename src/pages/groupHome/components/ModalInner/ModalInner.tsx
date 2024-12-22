@@ -1,10 +1,8 @@
 import styled from "styled-components";
 import { cvw, cvh } from "@shared/utils/unit";
 import Timer from "./Timer";
-import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useState, useEffect } from "react";
 import { serverInstance } from "@shared/apiInstance";
-import { get } from "http";
 interface DataState {
     targetUserId: number | undefined;
     targetUserName: string;
@@ -49,6 +47,8 @@ const ModalInner = ({
         [key: string]: number | null;
     }>({});
 
+    const [previewMission, setPreviewMission] = useState<Mission | null>(null);
+
     const handleCardClick = (container: string, data: unknown) => {
         setFlippedCardId((prev) => ({
             ...prev,
@@ -58,19 +58,22 @@ const ModalInner = ({
             onClick(data); // 1초 뒤에 onClick 호출
         }, 1000);
     };
-
-    console.log(data);
-
-    const getPreviesMission = async () => {
-        try {
-            const res = await serverInstance.get(
-                `/api/v1/missions/preview?missionId=${data.missionId}&targetUserId=${data.targetUserId}}`
-            );
-            console.log(res.data.success.previewMission[1]);
-        } catch (err) {
-            console.log(err);
+    useEffect(() => {
+        const getPreviewMission = async () => {
+            try {
+                const res = await serverInstance.get(
+                    `/api/v1/missions/preview?missionId=${data.missionId}&targetUserId=${data.targetUserId}}`
+                );
+                console.log(res);
+                setPreviewMission(res.data.success.previewMessage[1]);
+            } catch (err) {
+                console.log(err);
+            }
+        };
+        if (modalIdx === 3) {
+            getPreviewMission();
         }
-    };
+    }, [modalIdx]);
 
     // todo : PersonCardContainer, MissionCardContainer 하나의 컴포넌트로 묶기
     if (modalIdx === 0) {
@@ -129,14 +132,13 @@ const ModalInner = ({
             </MissionCardContainer>
         );
     } else if (modalIdx === 3) {
-        const previewMission = getPreviesMission();
         return (
             <MissionGuideContainer>
                 <MissionText>
                     <span>
                         오늘의 미션은
                         <br />
-                        <span className="highlight">{data.missionName} </span>
+                        <span className="highlight">{previewMission} </span>
                         입니다 !
                     </span>
                 </MissionText>
