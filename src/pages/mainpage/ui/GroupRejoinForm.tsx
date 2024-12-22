@@ -64,32 +64,36 @@ const GroupRejoinForm = ({ onSubmit }: GroupRejoinFormProps) => {
                 </CustomAlertWrapper>
             )}
             <form onSubmit={handleSubmit(handleFormSubmit)}>
-                <CustomInput>
-                    <SpanLabel>그룹 이름</SpanLabel>
-                    <Input
-                        {...register("groupName")}
-                        width={cvw(690)}
-                        height={cvh(55)}
-                    />
-                </CustomInput>
-                {errors.groupName && <ErrorMessage>{errors.groupName.message}</ErrorMessage>}
+                <CustomInputWrapper>
+                    <CustomInput>
+                        <SpanLabel>그룹 이름</SpanLabel>
+                        <Input
+                            {...register("groupName")}
+                            width={cvw(690)}
+                            height={cvh(55)}
+                        />
+                    </CustomInput>
+                    {errors.groupName && <ErrorMessage>{errors.groupName.message}</ErrorMessage>}
+                </CustomInputWrapper>
 
-                <CustomInput>
-                    <SpanLabel>닉네임</SpanLabel>
-                    <Input
-                        {...register("nickname")}
-                        width={cvw(690)}
-                        height={cvh(55)}
-                    />
-                </CustomInput>
-                {errors.nickname && <ErrorMessage>{errors.nickname.message}</ErrorMessage>}
+                <CustomInputWrapper>
+                    <CustomInput>
+                        <SpanLabel>닉네임</SpanLabel>
+                        <Input
+                            {...register("nickname")}
+                            width={cvw(690)}
+                            height={cvh(55)}
+                        />
+                    </CustomInput>
+                    {errors.nickname && <ErrorMessage>{errors.nickname.message}</ErrorMessage>}
+                </CustomInputWrapper>
 
                 <ButtonContainer>
                     <Button
                         bgColor={theme.blue.b500}
                         fontSize={theme.headingFontSize.h2}
-                        width={cvw(180)}
-                        height={cvh(90)}
+                        width={cvw(240)}
+                        height={cvh(70)}
                         type="submit"
                     >
                         들어가기
@@ -102,11 +106,13 @@ const GroupRejoinForm = ({ onSubmit }: GroupRejoinFormProps) => {
 
 export default GroupRejoinForm;
 
+const CustomInputWrapper = styled.div`
+    margin-bottom: ${cvh(30)};
+`;
 
 const CustomInput = styled.div`
     display: flex;
     align-items: center;
-    margin: ${cvw(50)} 0;
     margin-bottom: ${cvh(11)};
 `;
 
@@ -118,12 +124,8 @@ const SpanLabel = styled.span`
 const ButtonContainer = styled.div`
     display: flex;
     justify-content: center;
-    gap: ${cvw(23)};
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    margin: ${cvh(60)};
+    margin-top: ${cvh(50)};
+    margin-bottom: ${cvh(52)};
 `;
 
 const ErrorMessage = styled.span`

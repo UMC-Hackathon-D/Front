@@ -37,6 +37,7 @@ const CharacterModal = ({ open, onClose, inputData }: CharacterModalProps) => {
     const navigate = useNavigate();
     const [login, setLogin] = useRecoilState(loginState);
 
+
     useEffect(() => {
         const getCharacters = async () => {
             try {
@@ -118,7 +119,7 @@ const CharacterModal = ({ open, onClose, inputData }: CharacterModalProps) => {
                             onClick={handleModalClose}
                             fontSize={theme.headingFontSize.h2}
                             width={cvw(180)}
-                            height={cvh(70)}
+                            height={cvh(90)}
                         >
                             취소
                         </Button>
@@ -128,7 +129,7 @@ const CharacterModal = ({ open, onClose, inputData }: CharacterModalProps) => {
                             type="submit"
                             fontSize={theme.headingFontSize.h2}
                             width={cvw(180)}
-                            height={cvh(70)}
+                            height={cvh(90)}
                         >
                             선택
                         </Button>
@@ -150,13 +151,16 @@ const Title = styled.h2`
     font-size: ${theme.headingFontSize.h1};
     text-align: center;
     margin-top: ${cvh(40)};
-    margin-bottom: ${cvh(60)};
+    margin-bottom: ${cvh(40)};
 `;
 
 const CharactersContainer = styled.div`
-    display: grid;
-    grid-template-columns: repeat(3, 0fr);
-    gap: ${cvw(10)};
+    display: grid; /* 그리드 레이아웃으로 변경 */
+    grid-template-columns: repeat(3, 1fr); /* 3열로 설정 */
+    gap: ${cvw(15)}; /* 카드 간의 간격 설정 */
+    margin-left: ${cvw(113)};
+    margin-right: ${cvw(117)};
+    width: ${cvw(380)}; /* 컨테이너의 최대 너비 설정 */
 `;
 
 const CharacterCard = styled.div<{ selected: boolean }>`
@@ -165,13 +169,12 @@ const CharacterCard = styled.div<{ selected: boolean }>`
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    width: ${cvh(150)}; /* 카드 크기 조정 */
-    height: ${cvh(150)}; /* 카드 높이 설정 */
 `;
 
 const ButtonContainer = styled.div`
     display: flex;
     justify-content: center;
-    gap: 20px;
-    margin-top: ${cvh(71)};
+    gap: ${cvw(23)};
+    margin-top: ${cvh(30)};
+    margin-bottom: ${cvh(30)};
 `;
