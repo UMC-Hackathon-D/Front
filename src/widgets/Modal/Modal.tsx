@@ -12,7 +12,7 @@ interface ModalProps {
 const Modal = ({ open, onClose, children, width, height }: ModalProps) => {
     return (
         <>
-            <StyledDialog open={open}>
+            <StyledDialog open={open} onClick={onClose}>
                 <div onClick={(e) => e.stopPropagation()}>{children}</div>
             </StyledDialog>
         </>

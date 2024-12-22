@@ -6,17 +6,15 @@ import GlobalStyles from "@app/styles/globalStyles";
 import GlobalFonts from "@app/styles/globalFonts";
 import { RecoilRoot } from "recoil";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-const queryClient = new QueryClient();
-
+export const queryClient = new QueryClient();
 createRoot(document.getElementById("root")!).render(
-    <RecoilRoot>
-        <QueryClientProvider client={queryClient}>
+    <QueryClientProvider client={queryClient}>
+        <RecoilRoot>
             <ThemeProvider theme={theme}>
                 <GlobalStyles />
                 <GlobalFonts />
                 <Routing />
             </ThemeProvider>
-        </QueryClientProvider>
-    </RecoilRoot>
+        </RecoilRoot>
+    </QueryClientProvider>
 );

@@ -6,17 +6,24 @@ import DeleteButton from "@assets/icon/Delete.svg?react";
 import Update from "@assets/icon/Update.svg?react";
 import DeleteModal from "@widgets/Modal/DeleteModal";
 import UpdateModal from "@widgets/Modal/UpdateModal";
+import { CharacterImgData } from "@shared/data/CharacterImgData";
 const CharacterImgComponent = ({
-    img,
+    id,
+    characterId,
     name,
 }: {
-    img: string;
+    id: number;
+    characterId: number;
     name: string;
 }) => {
+    console.log(id);
+
     const [isMouseOn, setIsMouseOn] = useState(false);
     const [modalType, setModalType] = useState<"delete" | "update" | null>(
         null
     );
+
+    const img = CharacterImgData[characterId - 1]?.photo;
 
     const handleOpenModal = (type: "delete" | "update") => {
         setModalType(type);
@@ -33,19 +40,19 @@ const CharacterImgComponent = ({
                 }}
                 onMouseOut={() => setIsMouseOn(false)}
             >
-                {!isMouseOn ? (
+                {isMouseOn ? (
                     <PersonalReviewImgDiv key="hovered">
                         <ImgDiv>
                             <ImgStyleImg key="default" src={img}></ImgStyleImg>
                         </ImgDiv>
-                        <ButtonDiv>
+                        <ButtonSpan>
                             <DeleteButtonDiv
                                 onClick={() => handleOpenModal("delete")}
                             />
                             <UpdateButtonDiv
                                 onClick={() => handleOpenModal("update")}
                             />
-                        </ButtonDiv>
+                        </ButtonSpan>
                     </PersonalReviewImgDiv>
                 ) : (
                     <PersonalCharacterImg key="default">
@@ -54,7 +61,7 @@ const CharacterImgComponent = ({
                 )}
                 {modalType === "delete" && (
                     <DeleteModal
-                        id={img}
+                        id={id}
                         open={modalType === "delete"}
                         onClose={handleCloseModal}
                         name={name}
@@ -62,7 +69,7 @@ const CharacterImgComponent = ({
                 )}
                 {modalType === "update" && (
                     <UpdateModal
-                        id={img}
+                        id={id}
                         open={modalType === "update"}
                         onClose={handleCloseModal}
                         name={name}
@@ -83,7 +90,6 @@ const ImgStyleImg = styled.img`
     width: ${cvw(172)};
     height: ${cvh(172)};
     display: flex;
-    border: 1px solid black;
     margin: 0;
 `;
 const PersonalReviewImgDiv = styled.div.attrs(() => ({
@@ -98,7 +104,6 @@ const PersonalReviewImgDiv = styled.div.attrs(() => ({
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid black;
 `;
 const PersonalCharacterImg = styled.div.attrs(() => ({
     className: "pixel",
@@ -126,17 +131,17 @@ const UpdateButtonDiv = styled(Update)`
     width: ${cvw(24)};
     height: ${cvh(23.99)};
 `;
-const ButtonDiv = styled.span`
+const ButtonSpan = styled.span`
     display: flex;
     justify-content: flex-end;
     align-content: flex-end;
     align-items: center;
     width: 100%;
     margin-right: ${cvw(30)};
+    margin-top: ${cvh(30)};
 `;
 
 const ImgDiv = styled.div`
-    border: 1px solid red;
     display: flex;
     align-items: flex-end;
     margin-top: 20px;

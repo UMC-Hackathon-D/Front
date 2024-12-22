@@ -7,39 +7,52 @@ import { cvh, cvw } from "@shared/utils/unit";
 import theme from "@app/styles/theme";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { groupFormSchema } from "@shared/schemas/GroupSchema";
+import { serverInstance } from "@shared/apiInstance/index";
 import CustomAlert from "@shared/ui/CustomAlert";
 import { z } from "zod";
-import { useRecoilState } from "recoil";
-import { loginState } from "@shared/recoil/recoil";
 
 type FormData = z.infer<typeof groupFormSchema>;
-
 interface GroupFormProps {
     onSubmit: (data: FormData) => void;
+    onClose: () => void;
 }
 
 const GroupForm = ({ onSubmit, onClose }: GroupFormProps) => {
     const {
         register,
         handleSubmit,
-        formState: { errors },
         reset,
+        formState: { errors },
     } = useForm<FormData>({
         resolver: zodResolver(groupFormSchema),
-        mode: "onSubmit",
+        mode: "onChange",
     });
 
     const [alertMessage, setAlertMessage] = useState<string | null>(null);
-    const [login, setLogin] = useRecoilState(loginState); // 로그인 상태를 Recoil로 관리
 
     const handleFormSubmit = async (data: FormData) => {
-        onSubmit(data);
+        try {
+            const response = await serverInstance.post(
+                "/api/v1/parties/create",
+                data
+            );
+            console.log("API Response:", response.data);
+            onSubmit(data); // 부모 컴포넌트로 전달
+            setAlertMessage("그룹 입장하기를 통해 들어가주세요.");
+            reset();
+        } catch (error: any) {
+            const errorMessage =
+                error.response?.data?.error?.reason ||
+                "그룹 생성 중 오류가 발생했습니다.";
+            console.log("API Error:", error.response?.data || error.reason);
+            setAlertMessage(errorMessage);
+        }
     };
+
     const handleClose = () => {
-        reset(); // 폼 리셋
+        reset();
         onClose();
     };
-    
 
     return (
         <>
@@ -53,61 +66,53 @@ const GroupForm = ({ onSubmit, onClose }: GroupFormProps) => {
                 </CustomAlertWrapper>
             )}
             <form onSubmit={handleSubmit(handleFormSubmit)}>
-                <CustomInputWrapper>
-                    <CustomInput>
-                        <SpanLabel>그룹 이름</SpanLabel>
-                        <Input
-                            {...register("partyName")}
-                            width={cvw(690)}
-                            height={cvh(55)}
-                        />
-                    </CustomInput>
-                    {errors.partyName && (
-                        <ErrorMessage>{errors.partyName.message}</ErrorMessage>
-                    )}
-                </CustomInputWrapper>
+                <CustomInput>
+                    <SpanLabel>그룹 이름</SpanLabel>
+                    <Input
+                        {...register("partyName")}
+                        width={cvw(690)}
+                        height={cvh(55)}
+                    />
+                </CustomInput>
+                {errors.partyName && (
+                    <ErrorMessage>{errors.partyName.message}</ErrorMessage>
+                )}
 
-                <CustomInputWrapper>
-                    <CustomInput>
-                        <SpanLabel>닉네임</SpanLabel>
-                        <Input
-                            {...register("name")}
-                            width={cvw(690)}
-                            height={cvh(55)}
-                        />
-                    </CustomInput>
-                    {errors.name && (
-                        <ErrorMessage>{errors.name.message}</ErrorMessage>
-                    )}
-                </CustomInputWrapper>
+                <CustomInput>
+                    <SpanLabel>닉네임</SpanLabel>
+                    <Input
+                        {...register("name")}
+                        width={cvw(690)}
+                        height={cvh(55)}
+                    />
+                </CustomInput>
+                {errors.name && (
+                    <ErrorMessage>{errors.name.message}</ErrorMessage>
+                )}
 
-                <CustomInputWrapper>
-                    <CustomInput>
-                        <SpanLabel>그룹 인원</SpanLabel>
-                        <StyledSelect {...register("numMember")}>
-                            {[2, 3, 4, 5, 6].map((num) => (
-                                <option key={num} value={num}>
-                                    {num}
-                                </option>
-                            ))}
-                        </StyledSelect>
-                        <SpanLabel>명</SpanLabel>
-                    </CustomInput>
-                </CustomInputWrapper>
+                <CustomInput>
+                    <SpanLabel>그룹 인원</SpanLabel>
+                    <StyledSelect {...register("numMember")}>
+                        {[2, 3, 4, 5, 6].map((num) => (
+                            <option key={num} value={num}>
+                                {num}
+                            </option>
+                        ))}
+                    </StyledSelect>
+                    <SpanLabel>명</SpanLabel>
+                </CustomInput>
 
-                <CustomInputWrapper>
-                    <CustomInput>
-                        <SpanLabel>그룹 코드</SpanLabel>
-                        <Input
-                            {...register("password")}
-                            width={cvw(690)}
-                            height={cvh(55)}
-                        />
-                    </CustomInput>
-                    {errors.password && (
-                        <ErrorMessage>{errors.password.message}</ErrorMessage>
-                    )}
-                </CustomInputWrapper>
+                <CustomInput>
+                    <SpanLabel>그룹 코드</SpanLabel>
+                    <Input
+                        {...register("password")}
+                        width={cvw(690)}
+                        height={cvh(55)}
+                    />
+                </CustomInput>
+                {errors.password && (
+                    <ErrorMessage>{errors.password.message}</ErrorMessage>
+                )}
 
                 <ButtonContainer>
                     <Button
@@ -138,14 +143,10 @@ const GroupForm = ({ onSubmit, onClose }: GroupFormProps) => {
 
 export default GroupForm;
 
-const CustomInputWrapper = styled.div`
-    margin-bottom: ${cvh(30)};
-`;
-
 const CustomInput = styled.div`
     display: flex;
     align-items: center;
-    margin-bottom: ${cvh(11)};
+    margin-bottom: ${cvh(30)};
 `;
 
 const SpanLabel = styled.span`

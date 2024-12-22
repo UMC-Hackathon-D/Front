@@ -15,7 +15,7 @@ const SideTag = ({ color, text, path }: SideTagProps) => {
 
     return (
         <SideTagContainer
-            onClick={() => navigate(`${path}`)}
+            onClick={() => navigate(`${path}`, { state: { path } })}
             $color={color}
             $isMatch={pathName === path}
         >

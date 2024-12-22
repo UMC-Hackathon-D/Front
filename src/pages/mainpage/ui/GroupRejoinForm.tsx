@@ -64,29 +64,25 @@ const GroupRejoinForm = ({ onSubmit }: GroupRejoinFormProps) => {
                 </CustomAlertWrapper>
             )}
             <form onSubmit={handleSubmit(handleFormSubmit)}>
-                <CustomInputWrapper>
-                    <CustomInput>
-                        <SpanLabel>그룹 이름</SpanLabel>
-                        <Input
-                            {...register("groupName")}
-                            width={cvw(690)}
-                            height={cvh(55)}
-                        />
-                    </CustomInput>
-                    {errors.groupName && <ErrorMessage>{errors.groupName.message}</ErrorMessage>}
-                </CustomInputWrapper>
+                <CustomInput>
+                    <SpanLabel>그룹 이름</SpanLabel>
+                    <Input
+                        {...register("groupName")}
+                        width={cvw(690)}
+                        height={cvh(55)}
+                    />
+                </CustomInput>
+                {errors.groupName && <ErrorMessage>{errors.groupName.message}</ErrorMessage>}
 
-                <CustomInputWrapper>
-                    <CustomInput>
-                        <SpanLabel>닉네임</SpanLabel>
-                        <Input
-                            {...register("nickname")}
-                            width={cvw(690)}
-                            height={cvh(55)}
-                        />
-                    </CustomInput>
-                    {errors.nickname && <ErrorMessage>{errors.nickname.message}</ErrorMessage>}
-                </CustomInputWrapper>
+                <CustomInput>
+                    <SpanLabel>닉네임</SpanLabel>
+                    <Input
+                        {...register("nickname")}
+                        width={cvw(690)}
+                        height={cvh(55)}
+                    />
+                </CustomInput>
+                {errors.nickname && <ErrorMessage>{errors.nickname.message}</ErrorMessage>}
 
                 <ButtonContainer>
                     <Button
@@ -106,14 +102,11 @@ const GroupRejoinForm = ({ onSubmit }: GroupRejoinFormProps) => {
 
 export default GroupRejoinForm;
 
-const CustomInputWrapper = styled.div`
-    margin-bottom: ${cvh(30)};
-`;
 
 const CustomInput = styled.div`
     display: flex;
     align-items: center;
-    margin-bottom: ${cvh(11)};
+    margin-bottom: ${cvh(30)};
 `;
 
 const SpanLabel = styled.span`

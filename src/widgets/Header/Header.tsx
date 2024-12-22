@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { cvh, cvw } from "../../shared/utils/unit";
 import TimerComponent from "../TimerComponent/TimerComponent";
 import { useNavigate } from "react-router-dom";
-
 export default function Header() {
     const navigate = useNavigate();
     return (

@@ -62,6 +62,8 @@ const CharacterModal = ({ open, onClose, inputData }: CharacterModalProps) => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        console.log(inputData);
+        console.log(selectedCharacter);
 
         try {
             const res1 = await serverInstance.post(
@@ -119,7 +121,7 @@ const CharacterModal = ({ open, onClose, inputData }: CharacterModalProps) => {
                             onClick={handleModalClose}
                             fontSize={theme.headingFontSize.h2}
                             width={cvw(180)}
-                            height={cvh(90)}
+                            height={cvh(70)}
                         >
                             취소
                         </Button>
@@ -129,7 +131,7 @@ const CharacterModal = ({ open, onClose, inputData }: CharacterModalProps) => {
                             type="submit"
                             fontSize={theme.headingFontSize.h2}
                             width={cvw(180)}
-                            height={cvh(90)}
+                            height={cvh(70)}
                         >
                             선택
                         </Button>
