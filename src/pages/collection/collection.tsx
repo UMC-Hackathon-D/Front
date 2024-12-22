@@ -8,6 +8,7 @@ import { loginState } from "@shared/recoil/recoil";
 import { useQuery } from "@tanstack/react-query";
 import { getData } from "@shared/Apis/Apis";
 import { example } from "@pages/groupMember/groupMember";
+import { serverInstance } from "@shared/apiInstance";
 type data = {
     id: number;
     name: string;
@@ -30,13 +31,15 @@ const Collection = () => {
     console.log(partyId);
     const id = loginData?.id;
     console.log(id);
+    console.log(loginData);
     const { data } = useQuery({
         queryKey: ["getNangManCollection"],
-        queryFn: () =>
-            getData({
-                partyId: partyId,
-                pathType: "collection",
-            }),
+        queryFn: async () => {
+            const res = await serverInstance.get(
+                `/api/v1/parties/${loginData.partyId}/collection`
+            );
+            console.log(res);
+        },
     });
     console.log(data);
 

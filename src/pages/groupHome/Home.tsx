@@ -14,16 +14,23 @@ const Home = () => {
         queryKey: ["isAssigned"],
         queryFn: async () => {
             const res = await serverInstance.get(
-                `/api/v1/parties/${groupData.partyId}/users/${groupData.id}/mission/ongoing`
+                `/api/v1/parties/${groupData.partyId}/users/${groupData.id}/mission/status`
             );
+            console.log(res);
             return res.data.success;
         },
     });
+    console.log(groupData);
+    console.log(isAssigned);
 
     return (
         <HomeContainer>
-            {isAssigned ? (
-                <Assigned data={isAssigned} refetch={refetch} />
+            {isAssigned && isAssigned.status !== null ? (
+                <Assigned
+                    data={isAssigned}
+                    refetch={refetch}
+                    missionId={isAssigned.missionDetails.missionId}
+                />
             ) : (
                 <NotAssigned refetch={refetch} />
             )}

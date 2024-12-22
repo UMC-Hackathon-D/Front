@@ -4,17 +4,19 @@ import Modal2 from "@widgets/Modal/Modal2";
 import { useState } from "react";
 import MissionCertificate from "./ModalInner/MissionCertificate";
 
-const Assigned = ({ data, refetch }) => {
+const Assigned = ({ data, refetch, missionId }) => {
     const [isOpened, setIsOpened] = useState<boolean>(false);
     const onClose = () => {
         refetch();
     };
-
     return (
         <>
             <Container>
                 <span>오늘의 미션</span>
-                <div className="mission pixel">{data.missionContent}</div>
+                <div className="mission pixel">
+                    {data.missionDetails?.targetUserName}
+                    {data.missionDetails?.missionContent}
+                </div>
                 <button
                     className="pixel"
                     onClick={() => setIsOpened((prev) => !prev)}
@@ -28,7 +30,10 @@ const Assigned = ({ data, refetch }) => {
                 text={"미션 인증하기"}
                 onClose={onClose}
             >
-                <MissionCertificate />
+                <MissionCertificate
+                    missionId={missionId}
+                    setIsOpened={setIsOpened}
+                />
             </Modal2>
         </>
     );

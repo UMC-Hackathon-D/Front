@@ -5,6 +5,7 @@ import { loginState } from "@shared/recoil/recoil";
 
 const CharacterCard = () => {
     const groupData = useRecoilValue(loginState);
+
     return (
         <Card>
             <img src={groupData.character.photo} />

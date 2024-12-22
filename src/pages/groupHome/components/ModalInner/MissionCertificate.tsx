@@ -2,13 +2,19 @@ import styled, { css } from "styled-components";
 import { cvw, cvh } from "@shared/utils/unit";
 import { useState, useRef } from "react";
 import Close from "@assets/icon/Close.svg?react";
+import { serverInstance } from "@shared/apiInstance";
+import { useRecoilValue } from "recoil";
+import { loginState } from "@shared/recoil/recoil";
 
-const MissionCertificate = () => {
+const MissionCertificate = ({ missionId, setIsOpened }) => {
     const [isDragging, setIsDragging] = useState<boolean>(false);
     const [imgFile, setImgFile] = useState<string | null>(null);
+    const [sendImgFile, setSendImgFile] = useState(null);
 
     const textAreaRef = useRef<HTMLTextAreaElement>(null);
     const imgRef = useRef<HTMLInputElement>(null);
+
+    const groupData = useRecoilValue(loginState);
 
     const handleDragEnter = (e: React.DragEvent<HTMLDivElement>) => {
         e.preventDefault();
@@ -20,15 +26,35 @@ const MissionCertificate = () => {
         setIsDragging(false);
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const textAreaValue = textAreaRef.current?.value || "";
-        console.log(textAreaValue);
-        console.log(imgFile);
+
+        const formData = new FormData();
+
+        formData.append("review", textAreaValue);
+        formData.append("image", sendImgFile);
+
+        try {
+            const res = await serverInstance.post(
+                `/api/v1/parties/${groupData.partyId}/users/${groupData.id}/userMissions/${missionId}/complete`,
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                }
+            );
+            console.log("Response:", res.data);
+        } catch (error) {
+            console.error("Error submitting form:", error);
+        }
+        setIsOpened(false);
     };
 
-    const saveImgFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const saveImgFile = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0]; // 선택된 파일
+        setSendImgFile(file);
         if (file) {
             const reader = new FileReader();
             reader.onload = () => {
