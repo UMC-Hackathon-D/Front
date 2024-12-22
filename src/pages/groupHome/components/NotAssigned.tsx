@@ -3,30 +3,19 @@ import { cvh, cvw } from "@shared/utils/unit";
 import Modal3 from "@widgets/Modal/Modal3";
 import { useState } from "react";
 import ModalInner from "./ModalInner/ModalInner";
+import { useRecoilState } from "recoil";
+import { loginState } from "@shared/recoil/recoil";
+import { serverInstance } from "@shared/apiInstance";
+import { useQuery } from "@tanstack/react-query";
 
 interface DataState {
-    targetUserID: number | undefined;
+    targetUserId: number | undefined;
     targetUserName: string;
-    missionID: number | undefined;
+    missionId: number | undefined;
     missionName: string;
 }
 
 const textArr = ["인물 선택하기", undefined, "미션 선택하기", "미션 선택 완료"];
-
-const personData = [
-    { id: 1, name: "무랫" },
-    { id: 2, name: "미니" },
-    { id: 3, name: "미니" },
-    { id: 4, name: "미니" },
-    { id: 5, name: "미니" },
-    { id: 6, name: "미니" },
-];
-
-const missionData = [
-    { mission: "미션 1", id: 1 },
-    { mission: "미션 2", id: 2 },
-    { mission: "미션 3", id: 3 },
-];
 
 const NotAssigned = ({
     setIsAssigned,
@@ -37,12 +26,32 @@ const NotAssigned = ({
     // missionID 두 api 다 여기서 받아오기
     const [data, setData] = useState<DataState>({
         targetUserName: "",
-        targetUserID: undefined,
-        missionID: undefined,
+        targetUserId: undefined,
+        missionId: undefined,
         missionName: "",
     });
     const [isModalOpen, setIsModalOpened] = useState<boolean>(false);
     const [modalIdx, setModalIdx] = useState<number>(0);
+
+    const [login, setLogin] = useRecoilState(loginState);
+
+    const { data: personData, refetch } = useQuery({
+        queryKey: ["personData"],
+        queryFn: async () => {
+            const res = await serverInstance.get(
+                `/api/v1/parties/${login.partyId}/users/${login.id}/available-targets`
+            );
+            return res.data.success;
+        },
+    });
+
+    const { data: missionData } = useQuery({
+        queryKey: ["missionData"],
+        queryFn: async () => {
+            const res = await serverInstance.get(`/api/v1/missions/random`);
+            return res.data.success;
+        },
+    });
 
     // 중간에 X 버튼 누를 때
     const onClose = () => {
@@ -57,10 +66,10 @@ const NotAssigned = ({
                 modalIdx === 0
                     ? {
                           ...prev,
-                          targetUserID: data.id,
+                          targetUserId: data.id,
                           targetUserName: data.name,
                       }
-                    : { ...prev, missionID: data.id, missionName: data.mission }
+                    : { ...prev, missionId: data.id, missionName: data.mission }
             );
         }
         modalIdx < 3 ? setModalIdx((prev) => prev + 1) : setModalIdx(0);

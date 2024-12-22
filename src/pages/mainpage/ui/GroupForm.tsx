@@ -32,13 +32,12 @@ const GroupForm = ({ onSubmit, onClose }: GroupFormProps) => {
 
     const handleFormSubmit = async (data: FormData) => {
         try {
-            const response = await serverInstance.post(
-                "/api/v1/parties/create",
-                data
-            );
-            console.log("API Response:", response.data);
+            // const response = await serverInstance.post(
+            //     "/api/v1/parties/create",
+            //     data
+            // );
+            // console.log("API Response:", response.data);
             onSubmit(data); // 부모 컴포넌트로 전달
-            setAlertMessage("그룹 입장하기를 통해 들어가주세요.");
             reset();
         } catch (error: any) {
             const errorMessage =

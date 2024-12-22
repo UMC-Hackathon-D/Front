@@ -18,35 +18,39 @@ interface FormData {
 }
 
 const GroupModal = ({ open, onClose }: GroupModalProps) => {
-
     const [isCharacterModalOpen, setIsCharacterModalOpen] = useState(false);
-        const [data, setData] = useState<FormData | undefined>();
-    
-        const handleConfirm = (data: FormData) => {
-            onClose();
-            setData(data);
-            setIsCharacterModalOpen(true);
-        };
-    
-        const handleCloseCharacterModal = () => {
-            setIsCharacterModalOpen(false);
-        };
+    const [data, setData] = useState<FormData | undefined>();
+
+    const handleConfirm = (data: FormData) => {
+        onClose();
+        setData(data);
+        setIsCharacterModalOpen(true);
+    };
+
+    const handleCloseCharacterModal = () => {
+        setIsCharacterModalOpen(false);
+    };
 
     return (
         <>
-        <Modal open={open} onClose={onClose} width={cvw(996)} height={cvh(571)}>
-            <Content>
-                <Title>그룹 만들기</Title>
-                <GroupForm onSubmit={handleConfirm} onClose={onClose} />
-            </Content>
-        </Modal>
+            <Modal
+                open={open}
+                onClose={onClose}
+                width={cvw(996)}
+                height={cvh(571)}
+            >
+                <Content>
+                    <Title>그룹 만들기</Title>
+                    <GroupForm onSubmit={handleConfirm} onClose={onClose} />
+                </Content>
+            </Modal>
 
-        <CharacterModal
-            open={isCharacterModalOpen}
-            inputData={data}
-            onClose={handleCloseCharacterModal}
-        />
-    </>
+            <CharacterModal
+                open={isCharacterModalOpen}
+                inputData={data}
+                onClose={handleCloseCharacterModal}
+            />
+        </>
     );
 };
 

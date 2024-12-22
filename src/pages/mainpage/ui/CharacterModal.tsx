@@ -62,19 +62,13 @@ const CharacterModal = ({ open, onClose, inputData }: CharacterModalProps) => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(inputData);
-        console.log(selectedCharacter);
-
         try {
-            console.log(inputData);
             const res1 = await serverInstance.post(
                 "/api/v1/parties/create",
                 inputData
             );
             const data = res1.data.success;
-
             console.log(data);
-
             const res2 = await serverInstance.patch(
                 // `/api/v1/parties/${data.partyId}/users/${data.partyName}/character`,
                 `/api/v1/parties/${data.partyName}/users/${data.userId}/character`,

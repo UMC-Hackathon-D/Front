@@ -4,9 +4,9 @@ import Timer from "./Timer";
 import { useState, useEffect } from "react";
 import { serverInstance } from "@shared/apiInstance";
 interface DataState {
-    targetUserID: number | undefined;
+    targetUserId: number | undefined;
     targetUserName: string;
-    missionID: number | undefined;
+    missionId: number | undefined;
     missionName: string;
 }
 
@@ -42,6 +42,7 @@ const ModalInner = ({
             onClick(data); // 1초 뒤에 onClick 호출
         }, 1000);
     };
+
     useEffect(() => {
         const getPreviewMission = async () => {
             try {
@@ -77,7 +78,10 @@ const ModalInner = ({
                         >
                             <Card>{data.id}</Card>
                             <FlippedCard>
-                                <Bunny className="icon"></Bunny>
+                                <img
+                                    className="icon"
+                                    src={data.character.photo}
+                                ></img>
                                 <span>{data.name}</span>
                             </FlippedCard>
                         </div>

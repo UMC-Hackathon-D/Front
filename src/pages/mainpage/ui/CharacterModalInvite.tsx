@@ -103,6 +103,7 @@ const CharacterModal = ({ open, onClose, inputData }: CharacterModalProps) => {
                             <CharacterCard
                                 key={character.id}
                                 selected={selectedCharacter === character.id}
+                                className="pixel"
                                 onClick={() =>
                                     handleSelectCharacter(character.id)
                                 }
@@ -171,6 +172,7 @@ const CharacterCard = styled.div<{ selected: boolean }>`
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    background-color: ${({ selected }) => selected && theme.blue.b500};
 `;
 
 const ButtonContainer = styled.div`
