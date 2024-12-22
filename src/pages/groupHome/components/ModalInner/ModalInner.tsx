@@ -1,21 +1,38 @@
 import styled from "styled-components";
 import { cvw, cvh } from "@shared/utils/unit";
 import Timer from "./Timer";
-import Bunny from "@assets/image/character/bunny.svg?react";
 import { useState } from "react";
-
+import { useQuery } from "@tanstack/react-query";
+import { serverInstance } from "@shared/apiInstance";
+import { get } from "http";
 interface DataState {
-    targetUserID: number | undefined;
+    targetUserId: number | undefined;
     targetUserName: string;
-    missionID: number | undefined;
+    missionId: number | undefined;
     missionName: string;
+}
+
+interface PersonData {
+    character: {
+        id: number | null;
+        photo?: string;
+    } | null;
+    characterId: number | null;
+    id: number;
+    name: string;
+}
+
+interface Mission {
+    id: number; // 항상 존재
+    missionContent: string; // 문자열 값
+    missionName: string | null; // null 가능
 }
 
 interface ModalInnerProps {
     data: DataState;
     modalIdx: number;
-    personData: { id: number; name: string }[];
-    missionData: { id: number; mission: string }[];
+    personData: PersonData[];
+    missionData: Mission[];
     onClick: (data: unknown) => void;
     setModalIdx: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -41,6 +58,20 @@ const ModalInner = ({
             onClick(data); // 1초 뒤에 onClick 호출
         }, 1000);
     };
+
+    console.log(data);
+
+    const getPreviesMission = async () => {
+        try {
+            const res = await serverInstance.get(
+                `/api/v1/missions/preview?missionId=${data.missionId}&targetUserId=${data.targetUserId}}`
+            );
+            console.log(res.data.success.previewMission[1]);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     // todo : PersonCardContainer, MissionCardContainer 하나의 컴포넌트로 묶기
     if (modalIdx === 0) {
         return (
@@ -59,7 +90,11 @@ const ModalInner = ({
                         >
                             <Card>{data.id}</Card>
                             <FlippedCard>
-                                <Bunny className="icon"></Bunny>
+                                <img
+                                    className="icon"
+                                    src={data.character?.photo}
+                                    alt={data.id.toString()}
+                                ></img>
                                 <span>{data.name}</span>
                             </FlippedCard>
                         </div>
@@ -86,7 +121,7 @@ const ModalInner = ({
                         >
                             <Card>{data.id}</Card>
                             <FlippedCard>
-                                <span>{data.mission}</span>
+                                <span>{data.missionContent}</span>
                             </FlippedCard>
                         </div>
                     </CardWrapper>
@@ -94,6 +129,7 @@ const ModalInner = ({
             </MissionCardContainer>
         );
     } else if (modalIdx === 3) {
+        const previewMission = getPreviesMission();
         return (
             <MissionGuideContainer>
                 <MissionText>
