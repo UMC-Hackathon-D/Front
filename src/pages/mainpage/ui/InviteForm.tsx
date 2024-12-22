@@ -11,6 +11,7 @@ import { useState } from "react";
 import CustomAlert from "@shared/ui/CustomAlert";
 import { useRecoilState } from "recoil"; // useRecoilState 추가
 import { loginState } from "@shared/recoil/recoil"; // loginState import
+import { on } from "events";
 
 interface FormData {
     partyName: string;
@@ -47,45 +48,39 @@ const GroupForm = ({ onSubmit }: GroupFormProps) => {
                 </CustomAlertWrapper>
             )}
 
-            <CustomInputWrapper>
-                <CustomInput>
-                    <SpanLabel>그룹 이름</SpanLabel>
-                    <Input
-                        {...register("partyName")}
-                        width={cvw(690)}
-                        height={cvh(55)}
-                    />
-                </CustomInput>
-                {errors.partyName && (
-                    <ErrorText>{errors.partyName.message}</ErrorText>
-                )}
-            </CustomInputWrapper>
+            <CustomInput>
+                <SpanLabel>그룹 이름</SpanLabel>
+                <Input
+                    {...register("partyName")}
+                    width={cvw(690)}
+                    height={cvh(55)}
+                />
+            </CustomInput>
+            {errors.partyName && (
+                <ErrorText>{errors.partyName.message}</ErrorText>
+            )}
 
-            <CustomInputWrapper>
-                <CustomInput>
-                    <SpanLabel>닉네임</SpanLabel>
-                    <Input
-                        {...register("name")}
-                        width={cvw(690)}
-                        height={cvh(55)}
-                    />
-                </CustomInput>
-                {errors.name && <ErrorText>{errors.name.message}</ErrorText>}
-            </CustomInputWrapper>
+            <CustomInput>
+                <SpanLabel>닉네임</SpanLabel>
+                <Input
+                    {...register("name")}
+                    width={cvw(690)}
+                    height={cvh(55)}
+                />
+            </CustomInput>
+            {errors.name && <ErrorText>{errors.name.message}</ErrorText>}
 
-            <CustomInputWrapper>
-                <CustomInput>
-                    <SpanLabel>그룹 코드</SpanLabel>
-                    <Input
-                        {...register("password")}
-                        width={cvw(690)}
-                        height={cvh(55)}
-                    />
-                </CustomInput>
-                {errors.password && (
-                    <ErrorText>{errors.password.message}</ErrorText>
-                )}
-            </CustomInputWrapper>
+            <CustomInput>
+                <SpanLabel>그룹 코드</SpanLabel>
+                <Input
+                    {...register("password")}
+                    width={cvw(690)}
+                    height={cvh(55)}
+                />
+            </CustomInput>
+            {errors.password && (
+                <ErrorText>{errors.password.message}</ErrorText>
+            )}
 
             <ButtonContainer>
                 <Button
@@ -104,38 +99,34 @@ const GroupForm = ({ onSubmit }: GroupFormProps) => {
 
 export default GroupForm;
 
-const CustomInputWrapper = styled.div`
-    margin-bottom: ${cvh(30)};
-`;
-
 const CustomInput = styled.div`
-    display: flex;
-    align-items: center;
-    margin-bottom: ${cvh(11)};
+  display: flex;
+  align-items: center;
+  margin-bottom: ${cvh(35)};
 `;
 
 const SpanLabel = styled.span`
-    font-size: ${({ theme }) => theme.headingFontSize.h3};
-    width: 150px;
+  font-size: ${({ theme }) => theme.headingFontSize.h3};
+  width: 150px;
 `;
 
 const ErrorText = styled.span`
-    color: red;
-    margin-left: ${cvw(140)};
+  color: red;
+  margin-left: ${cvw(140)};
 `;
 
 const ButtonContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    margin-top: ${cvh(50)};
-    margin-bottom: ${cvh(36)};
+  display: flex;
+  justify-content: center;
+  margin-top: ${cvh(50)};
+  margin-bottom: ${cvh(36)};
 `;
 
 const CustomAlertWrapper = styled.div`
-    position: fixed;
-    margin-left: ${cvw(340)};
-    bottom: ${cvh(190)};
-    z-index: 1000;
-    justify-content: center;
-    text-align: center;
+  position: fixed;
+  margin-left: ${cvw(340)};
+  bottom: ${cvh(190)};
+  z-index: 1000;
+  justify-content: center;
+  text-align: center;
 `;

@@ -3,25 +3,8 @@ import Header from "@widgets/Header/Header";
 import SideBar from "@widgets/SideBar/SideBar";
 import styled from "styled-components";
 import { cvw, cvh } from "../../../shared/utils/unit";
-
-import { useRecoilValue } from "recoil";
-import { loginState } from "@shared/recoil/recoil";
-
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
-
 const RootLayout = () => {
-    const isLoggedIn = useRecoilValue(loginState);
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        if (!isLoggedIn.id && !isLoggedIn.partyId) {
-            alert("그룹 입장하기를 통해 입장해주세요 !");
-            navigate("/");
-        }
-    }, [isLoggedIn]);
-
-    return isLoggedIn.id && isLoggedIn.partyId ? (
+    return (
         <>
             <Header />
             <FlexBox>
@@ -31,7 +14,7 @@ const RootLayout = () => {
                 </MainContainer>
             </FlexBox>
         </>
-    ) : null;
+    );
 };
 
 const FlexBox = styled.div`

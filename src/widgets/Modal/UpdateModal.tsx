@@ -1,16 +1,40 @@
 import Modal from "@shared/ui/Modal";
 import styled from "styled-components";
 import { cvw, cvh } from "@shared/utils/unit";
+import { useMutation } from "@tanstack/react-query";
+import { updateData } from "@shared/Apis/Apis";
+import { queryClient } from "@app/main";
+import { useRecoilValue } from "recoil";
+import { loginState } from "@shared/recoil/recoil";
+import { useState } from "react";
 interface UpdateModalProps {
-    id: string;
+    id: number;
     open: boolean;
     onClose: () => void;
     name: string;
 }
 const UpdateModal = ({ id, open, onClose, name }: UpdateModalProps) => {
-    console.log(name);
-    console.log(open);
+    const [changedName, setChangeName] = useState<string>("");
+    const loginData = useRecoilValue(loginState);
+    const partyId = loginData?.partyId;
+    const { mutate } = useMutation({
+        mutationFn: updateData,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["getData"] });
+        },
+        onError: () => {
+            console.error("에러 발생");
+        },
+    });
+    const changeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setChangeName(e.target.value);
+    };
+    console.log(changedName);
 
+    const updateButton = () => {
+        onClose();
+        mutate({ partyId: partyId, id: id, name: changedName });
+    };
     return (
         <>
             <ModalStyle id={id} open={open} onClose={onClose}>
@@ -20,11 +44,11 @@ const UpdateModal = ({ id, open, onClose, name }: UpdateModalProps) => {
                     <NickNameInput
                         type="text"
                         defaultValue={name}
-                        placeholder={name}
+                        onChange={changeName}
                     ></NickNameInput>
                 </NickName>
                 <UpdateButtonDiv>
-                    <UpdateButton onClick={onClose}>수정하기</UpdateButton>
+                    <UpdateButton onClick={updateButton}>수정하기</UpdateButton>
                 </UpdateButtonDiv>
             </ModalStyle>
         </>

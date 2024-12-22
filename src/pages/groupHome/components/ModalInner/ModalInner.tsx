@@ -4,33 +4,17 @@ import Timer from "./Timer";
 import { useState, useEffect } from "react";
 import { serverInstance } from "@shared/apiInstance";
 interface DataState {
-    targetUserId: number | undefined;
+    targetUserID: number | undefined;
     targetUserName: string;
-    missionId: number | undefined;
+    missionID: number | undefined;
     missionName: string;
-}
-
-interface PersonData {
-    character: {
-        id: number | null;
-        photo?: string;
-    } | null;
-    characterId: number | null;
-    id: number;
-    name: string;
-}
-
-interface Mission {
-    id: number; // 항상 존재
-    missionContent: string; // 문자열 값
-    missionName: string | null; // null 가능
 }
 
 interface ModalInnerProps {
     data: DataState;
     modalIdx: number;
-    personData: PersonData[];
-    missionData: Mission[];
+    personData: { id: number; name: string }[];
+    missionData: { id: number; mission: string }[];
     onClick: (data: unknown) => void;
     setModalIdx: React.Dispatch<React.SetStateAction<number>>;
 }
@@ -93,11 +77,7 @@ const ModalInner = ({
                         >
                             <Card>{data.id}</Card>
                             <FlippedCard>
-                                <img
-                                    className="icon"
-                                    src={data.character?.photo}
-                                    alt={data.id.toString()}
-                                ></img>
+                                <Bunny className="icon"></Bunny>
                                 <span>{data.name}</span>
                             </FlippedCard>
                         </div>
@@ -124,7 +104,7 @@ const ModalInner = ({
                         >
                             <Card>{data.id}</Card>
                             <FlippedCard>
-                                <span>{data.missionContent}</span>
+                                <span>{data.mission}</span>
                             </FlippedCard>
                         </div>
                     </CardWrapper>

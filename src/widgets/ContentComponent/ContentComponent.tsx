@@ -34,6 +34,7 @@ const AllContentDiv = styled.div`
     display: flex;
     width: ${cvw(215)};
     height: ${cvh(55)};
+    // gap: 30px;
 `;
 const ContentDiv = styled.div`
     display: flex;

@@ -1,14 +1,12 @@
 import styled from "styled-components";
 import { cvw, cvh } from "@shared/utils/unit";
-import { useRecoilValue } from "recoil";
-import { loginState } from "@shared/recoil/recoil";
-
+import Bunny from "@assets/image/character/bunny.svg?react";
 const CharacterCard = () => {
     const groupData = useRecoilValue(loginState);
     return (
         <Card>
-            <img src={groupData.character.photo} />
-            <Name>{groupData.name}</Name>
+            <Bunny />
+            <Name>셰이나</Name>
         </Card>
     );
 };
