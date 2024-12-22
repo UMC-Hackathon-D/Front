@@ -41,6 +41,7 @@ const CharacterModal = ({ open, onClose, inputData }: CharacterModalProps) => {
         const getCharacters = async () => {
             try {
                 const res = await serverInstance.get("/api/v1/characters");
+                console.log(res);
                 setCharacters(res.data.success);
             } catch (err) {
                 alert("오류 발생");
@@ -75,6 +76,7 @@ const CharacterModal = ({ open, onClose, inputData }: CharacterModalProps) => {
                 { characterId: selectedCharacter }
             );
             const data2 = res2.data.success;
+            console.log(data2);
             setLogin(data2);
             navigate("/groupHome");
         } catch (err) {
