@@ -3,19 +3,17 @@ import { cvw, cvh } from "@shared/utils/unit";
 import Modal2 from "@widgets/Modal/Modal2";
 import { useState } from "react";
 import MissionCertificate from "./ModalInner/MissionCertificate";
-const Assigned = () => {
+const Assigned = ({ data, refetch }) => {
     const [isOpened, setIsOpened] = useState<boolean>(false);
     const onClose = () => {
-        setIsOpened(false);
+        refetch();
     };
 
     return (
         <>
             <Container>
                 <span>오늘의 미션</span>
-                <div className="mission pixel">
-                    어릴 적 먹었던 불량식품 사먹기
-                </div>
+                <div className="mission pixel">{data.missionContent}</div>
                 <button
                     className="pixel"
                     onClick={() => setIsOpened((prev) => !prev)}

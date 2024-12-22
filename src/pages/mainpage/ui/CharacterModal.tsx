@@ -37,7 +37,6 @@ const CharacterModal = ({ open, onClose, inputData }: CharacterModalProps) => {
     const navigate = useNavigate();
     const [login, setLogin] = useRecoilState(loginState);
 
-    console.log(login);
     useEffect(() => {
         const getCharacters = async () => {
             try {
@@ -63,8 +62,6 @@ const CharacterModal = ({ open, onClose, inputData }: CharacterModalProps) => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(inputData);
-        console.log(selectedCharacter);
 
         try {
             const res1 = await serverInstance.post(

@@ -2,38 +2,31 @@ import styled from "styled-components";
 import NotAssigned from "@pages/groupHome/components/NotAssigned";
 import Assigned from "@pages/groupHome/components/Assigned";
 import CharacterCard from "@pages/groupHome/components/CharacterCard";
-import { useState, useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilValue } from "recoil";
 import { loginState } from "@shared/recoil/recoil";
-import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { serverInstance } from "@shared/apiInstance";
 
 const Home = () => {
-    const [isAssigned, setIsAssigned] = useState<boolean>(false);
-    const [isLoggedIn, setIsLoggedIn] = useRecoilState(loginState);
+    // const [isAssigned, setIsAssigned] = useState<boolean>(false);
+    const groupData = useRecoilValue(loginState);
 
-    const navigate = useNavigate();
-
-    console.log(isLoggedIn);
-
-    if (isLoggedIn.success === null && !isLoggedIn.isLoggedIn) {
-        alert("그룹 입장하기를 통해 입장해주세요 !");
-        navigate("/");
-        return null; // 화면 렌더링 차단
-    }
-
-    // useEffect(() => {
-    //     if (isLoggedIn.success === null && !isLoggedIn.isLoggedIn) {
-    //         alert("그룹 입장하기를 통해 입장해주세요 !");
-    //         navigate("/");
-    //     }
-    // }, [isLoggedIn, navigate]);
+    const { data: isAssigned, refetch } = useQuery({
+        queryKey: ["isAssigned"],
+        queryFn: async () => {
+            const res = await serverInstance.get(
+                `/api/v1/parties/${groupData.partyId}/users/${groupData.id}/mission/ongoing`
+            );
+            return res.data.success;
+        },
+    });
 
     return (
         <HomeContainer>
             {isAssigned ? (
-                <Assigned />
+                <Assigned data={isAssigned} refetch={refetch} />
             ) : (
-                <NotAssigned setIsAssigned={setIsAssigned} />
+                <NotAssigned refetch={refetch} />
             )}
             <CharacterCard />
         </HomeContainer>
