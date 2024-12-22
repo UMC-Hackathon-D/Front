@@ -2,7 +2,7 @@ import { useState } from "react";
 import Modal from "@widgets/Modal/Modal";
 import styled from "styled-components";
 import { cvh, cvw } from "@shared/utils/unit";
-import CharacterModal from "@pages/mainpage/ui/CharacterModal";
+import CharacterModalInvite from "@pages/mainpage/ui/CharacterModalInvite";
 import InviteForm from "@pages/mainpage/ui/InviteForm";
 
 interface GroupModalProps {
@@ -45,7 +45,7 @@ const InviteModal = ({ open, onClose }: GroupModalProps) => {
                 </Content>
             </Modal>
 
-            <CharacterModal
+            <CharacterModalInvite
                 open={isCharacterModalOpen}
                 inputData={data}
                 onClose={handleCloseCharacterModal}
