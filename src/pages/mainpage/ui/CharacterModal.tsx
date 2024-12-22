@@ -41,7 +41,7 @@ const CharacterModal = ({ open, onClose, inputData }: CharacterModalProps) => {
         const getCharacters = async () => {
             try {
                 const res = await serverInstance.get("/api/v1/characters");
-                console.log(res);
+                console.log("캐릭터목록 api", res.data);
                 setCharacters(res.data.success);
             } catch (err) {
                 alert("오류 발생");
@@ -69,14 +69,13 @@ const CharacterModal = ({ open, onClose, inputData }: CharacterModalProps) => {
                 inputData
             );
             const data = res1.data.success;
-            console.log(data);
+            console.log("그룹 멤버 생성 api", data);
             const res2 = await serverInstance.patch(
-                // `/api/v1/parties/${data.partyId}/users/${data.partyName}/character`,
                 `/api/v1/parties/${data.partyName}/users/${data.userId}/character`,
                 { characterId: selectedCharacter }
             );
             const data2 = res2.data.success;
-            console.log(data2);
+            console.log("캐릭터 배정 api", data2);
             setLogin(data2);
             navigate("/groupHome");
         } catch (err) {

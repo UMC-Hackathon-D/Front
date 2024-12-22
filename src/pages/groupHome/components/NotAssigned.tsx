@@ -60,6 +60,8 @@ const NotAssigned = ({
         },
     });
 
+    console.log("미션 수행 가능한지에 대한 api", personData);
+
     const { data: missionData } = useQuery({
         queryKey: ["missionData"],
         queryFn: async () => {
@@ -67,6 +69,8 @@ const NotAssigned = ({
             return res.data.success;
         },
     });
+
+    console.log("랜덤 미션 api", missionData);
 
     // 중간에 X 버튼 누를 때
     const onClose = () => {

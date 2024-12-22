@@ -16,20 +16,19 @@ const Home = () => {
             const res = await serverInstance.get(
                 `/api/v1/parties/${groupData.partyId}/users/${groupData.id}/mission/status`
             );
-            console.log(res);
             return res.data.success;
         },
     });
-    console.log(groupData);
-    console.log(isAssigned);
+    console.log("해당 그룹원들 api", groupData);
+    console.log("배정받은 미션이 있는지 없는지에 대한 api", isAssigned);
 
     return (
         <HomeContainer>
-            {isAssigned && isAssigned.status !== null ? (
+            {isAssigned && isAssigned.status !== "null" ? (
                 <Assigned
                     data={isAssigned}
                     refetch={refetch}
-                    missionId={isAssigned.missionDetails.missionId}
+                    missionId={isAssigned.missionDetails.userMissionId}
                 />
             ) : (
                 <NotAssigned refetch={refetch} />

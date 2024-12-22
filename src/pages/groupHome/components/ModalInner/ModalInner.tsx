@@ -65,6 +65,7 @@ const ModalInner = ({
                 const res = await serverInstance.get(
                     `/api/v1/missions/preview?missionId=${data.missionId}&targetUserId=${data.targetUserId}}`
                 );
+                console.log("미션 미리보기 api", res);
                 setPreviewMission(res.data.success.previewMessage[1]);
             } catch (err) {
                 console.log(err);

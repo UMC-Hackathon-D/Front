@@ -63,8 +63,6 @@ const CharacterModal = ({ open, onClose, inputData }: CharacterModalProps) => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(inputData);
-        console.log(selectedCharacter);
 
         try {
             const res1 = await serverInstance.post(
@@ -73,11 +71,15 @@ const CharacterModal = ({ open, onClose, inputData }: CharacterModalProps) => {
             );
             const data = res1.data.success;
 
+            console.log("그룹 생성 api", data);
+
             const res2 = await serverInstance.patch(
                 `/api/v1/parties/${data.partyId}/users/${data.id}/character`,
                 { characterId: selectedCharacter }
             );
             const data2 = res2.data.success;
+
+            console.log("캐릭터 선택 api", data2);
             setLogin(data2);
             navigate("/groupHome");
         } catch (err) {

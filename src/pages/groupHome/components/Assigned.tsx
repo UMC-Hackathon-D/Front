@@ -7,7 +7,8 @@ import MissionCertificate from "./ModalInner/MissionCertificate";
 const Assigned = ({ data, refetch, missionId }) => {
     const [isOpened, setIsOpened] = useState<boolean>(false);
     const onClose = () => {
-        refetch();
+        setIsOpened(false);
+        // refetch();
     };
     return (
         <>

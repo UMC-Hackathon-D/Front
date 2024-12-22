@@ -52,17 +52,15 @@ const GroupMember = () => {
     // const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const loginData = useRecoilValue(loginState);
     const partyId = loginData?.partyId;
-    console.log(partyId);
 
     const location = useLocation();
     const pagePath = location.state?.path;
-    console.log(pagePath);
 
     const { data } = useQuery({
         queryKey: ["getData"],
         queryFn: () => getData({ partyId: partyId, pathType: "users" }),
     });
-    console.log(data);
+    console.log("그룹 멤버 조회 api", data);
 
     return (
         <GroupMemeberDiv>

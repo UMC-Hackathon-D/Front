@@ -27,9 +27,13 @@ interface GroupRejoinFormProps {
 }
 
 const GroupRejoinForm = ({ onSubmit }: GroupRejoinFormProps) => {
-    const { register, handleSubmit, formState: { errors } } = useForm<FormData>({
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<FormData>({
         resolver: zodResolver(groupRejoinSchema),
-        mode: "onChange"
+        mode: "onChange",
     });
 
     const navigate = useNavigate();
@@ -41,12 +45,14 @@ const GroupRejoinForm = ({ onSubmit }: GroupRejoinFormProps) => {
             const response = await serverInstance.get(
                 `/api/v1/parties/${groupName}/users/${nickname}`
             );
-            
-            console.log("Response:", response.data);
+
+            console.log("그룹 재입장 api", response.data);
             onSubmit(data); // 부모 컴포넌트에 데이터 전달
             navigate("/groupHome");
         } catch (error: any) {
-            const errorMessage = error.response?.data?.error?.reason || "그룹 다시 입장 중 오류가 발생했습니다.";
+            const errorMessage =
+                error.response?.data?.error?.reason ||
+                "그룹 다시 입장 중 오류가 발생했습니다.";
             console.error("Error:", errorMessage);
             setAlertMessage(errorMessage);
         }
@@ -72,7 +78,9 @@ const GroupRejoinForm = ({ onSubmit }: GroupRejoinFormProps) => {
                         height={cvh(55)}
                     />
                 </CustomInput>
-                {errors.groupName && <ErrorMessage>{errors.groupName.message}</ErrorMessage>}
+                {errors.groupName && (
+                    <ErrorMessage>{errors.groupName.message}</ErrorMessage>
+                )}
 
                 <CustomInput>
                     <SpanLabel>닉네임</SpanLabel>
@@ -82,7 +90,9 @@ const GroupRejoinForm = ({ onSubmit }: GroupRejoinFormProps) => {
                         height={cvh(55)}
                     />
                 </CustomInput>
-                {errors.nickname && <ErrorMessage>{errors.nickname.message}</ErrorMessage>}
+                {errors.nickname && (
+                    <ErrorMessage>{errors.nickname.message}</ErrorMessage>
+                )}
 
                 <ButtonContainer>
                     <Button
@@ -101,7 +111,6 @@ const GroupRejoinForm = ({ onSubmit }: GroupRejoinFormProps) => {
 };
 
 export default GroupRejoinForm;
-
 
 const CustomInput = styled.div`
     display: flex;
@@ -129,7 +138,7 @@ const ErrorMessage = styled.span`
 const CustomAlertWrapper = styled.div`
     position: fixed;
     margin-left: 21%;
-    bottom: ${cvh(160)};  // 화면 상단에 배치 (하단은 bottom: 20px로 변경 가능)
+    bottom: ${cvh(160)}; // 화면 상단에 배치 (하단은 bottom: 20px로 변경 가능)
     z-index: 1000;
     justify-content: center;
     text-align: center;

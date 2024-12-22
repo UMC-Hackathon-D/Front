@@ -38,7 +38,7 @@ const Collection = () => {
             const res = await serverInstance.get(
                 `/api/v1/parties/${loginData.partyId}/collection`
             );
-            console.log(res);
+            console.log("낭만 컬렉션 api", res);
         },
     });
     console.log(data);

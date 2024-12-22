@@ -8,64 +8,64 @@ import { useState, useEffect } from "react";
 
 const TimerComponent = () => {
     const groupData = useRecoilValue(loginState);
-    const { data: startTime } = useQuery({
-        queryKey: ["startTime", groupData.partyId, groupData.id],
-        queryFn: async () => {
-            const res = await serverInstance.get(
-                `/api/v1/users/${groupData.id}/missionStartTime`
-            );
-            return res.data.success;
-        },
-    });
+    // const { data: startTime } = useQuery({
+    //     queryKey: ["startTime", groupData.partyId, groupData.id],
+    //     queryFn: async () => {
+    //         const res = await serverInstance.get(
+    //             `/api/v1/users/${groupData.id}/missionStartTime`
+    //         );
+    //         return res.data.success;
+    //     },
+    // });
 
-    console.log(startTime);
+    // console.log(startTime);
 
-    const [remainingTime, setRemainingTime] = useState("");
+    // const [remainingTime, setRemainingTime] = useState("");
 
-    // 타이머 계산
-    useEffect(() => {
-        if (!startTime) return;
+    // // 타이머 계산
+    // useEffect(() => {
+    //     if (!startTime) return;
 
-        const calculateRemainingTime = () => {
-            const now = new Date();
-            const start = new Date(startTime);
-            const nextMidnight = new Date(start);
-            nextMidnight.setUTCDate(start.getUTCDate() + 1); // 다음날 자정
-            nextMidnight.setUTCHours(0, 0, 0, 0);
+    //     const calculateRemainingTime = () => {
+    //         const now = new Date();
+    //         const start = new Date(startTime);
+    //         const nextMidnight = new Date(start);
+    //         nextMidnight.setUTCDate(start.getUTCDate() + 1); // 다음날 자정
+    //         nextMidnight.setUTCHours(0, 0, 0, 0);
 
-            const timeDifference = nextMidnight.getTime() - now.getTime();
+    //         const timeDifference = nextMidnight.getTime() - now.getTime();
 
-            if (timeDifference <= 0) {
-                // 남은 시간이 0 이하일 때 타이머 멈추기
-                setRemainingTime("00시간 00분");
-                clearInterval(timer); // 타이머 정지
-                return;
-            }
+    //         if (timeDifference <= 0) {
+    //             // 남은 시간이 0 이하일 때 타이머 멈추기
+    //             setRemainingTime("00시간 00분");
+    //             clearInterval(timer); // 타이머 정지
+    //             return;
+    //         }
 
-            const hours = Math.floor(timeDifference / (1000 * 60 * 60));
-            const minutes = Math.floor(
-                (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
-            );
+    //         const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+    //         const minutes = Math.floor(
+    //             (timeDifference % (1000 * 60 * 60)) / (1000 * 60)
+    //         );
 
-            setRemainingTime(
-                `${hours.toString().padStart(2, "0")}시간 ${minutes
-                    .toString()
-                    .padStart(2, "0")}분`
-            );
-        };
+    //         setRemainingTime(
+    //             `${hours.toString().padStart(2, "0")}시간 ${minutes
+    //                 .toString()
+    //                 .padStart(2, "0")}분`
+    //         );
+    //     };
 
-        calculateRemainingTime(); // 초기 계산
-        const timer = setInterval(calculateRemainingTime, 1000 * 60); // 1분마다 업데이트
+    //     calculateRemainingTime(); // 초기 계산
+    //     const timer = setInterval(calculateRemainingTime, 1000 * 60); // 1분마다 업데이트
 
-        return () => clearInterval(timer); // 컴포넌트 언마운트 시 타이머 정리
-    }, [startTime]);
+    //     return () => clearInterval(timer); // 컴포넌트 언마운트 시 타이머 정리
+    // }, [startTime]);
     return (
         <TimerContainer>
             <div className="time-title">
                 <span>남은 시간</span>
             </div>
             <div className="timer">
-                <span>{!remainingTime ? remainingTime : "--시간 --분"}</span>
+                <span>--시간 --분</span>
             </div>
         </TimerContainer>
     );
@@ -94,6 +94,7 @@ const TimerContainer = styled.div.attrs(() => ({ className: "pixel-timer" }))`
         display: flex;
         justify-content: flex-end;
         align-itemse: flex-end;
+        margin-top: 15px;
 
         & > span {
             font-size: ${({ theme }) => theme.headingFontSize.h3};

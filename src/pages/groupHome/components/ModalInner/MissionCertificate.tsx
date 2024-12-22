@@ -6,7 +6,7 @@ import { serverInstance } from "@shared/apiInstance";
 import { useRecoilValue } from "recoil";
 import { loginState } from "@shared/recoil/recoil";
 
-const MissionCertificate = ({ missionId, setIsOpened }) => {
+const MissionCertificate = ({ setIsOpened, missionId }) => {
     const [isDragging, setIsDragging] = useState<boolean>(false);
     const [imgFile, setImgFile] = useState<string | null>(null);
     const [sendImgFile, setSendImgFile] = useState(null);
