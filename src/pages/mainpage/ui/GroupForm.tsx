@@ -7,7 +7,6 @@ import { cvh, cvw } from "@shared/utils/unit";
 import theme from "@app/styles/theme";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { groupFormSchema } from "@shared/schemas/GroupSchema";
-import { serverInstance } from "@shared/apiInstance/index";
 import CustomAlert from "@shared/ui/CustomAlert";
 import { z } from "zod";
 
@@ -32,11 +31,6 @@ const GroupForm = ({ onSubmit, onClose }: GroupFormProps) => {
 
     const handleFormSubmit = async (data: FormData) => {
         try {
-            // const response = await serverInstance.post(
-            //     "/api/v1/parties/create",
-            //     data
-            // );
-            // console.log("API Response:", response.data);
             onSubmit(data); // 부모 컴포넌트로 전달
             reset();
         } catch (error: any) {
